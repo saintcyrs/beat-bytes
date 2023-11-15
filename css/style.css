@@ -1,0 +1,54 @@
+/* Spotify-like Stylesheet */
+
+body {
+    background-color: #121212; /* Spotify's dark background */
+    color: #fff; /* White text color for contrast */
+    font-family: 'Neuton', sans-serif; /* Using Neuton font */
+}
+
+h2 {
+    color: #1DB954; /* Spotify's brand green for headers */
+    font-weight: 700; /* Bold font for headers */
+}
+
+button {
+    background-color: #1DB954; /* Spotify's brand green for buttons */
+    color: #fff; /* White text on buttons */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #1ed760; /* Lighter green on hover */
+}
+
+#stream-vis {
+    margin-top: 20px;
+    padding: 20px;
+    <!-- background-color: gray; /* Slightly lighter than body background */ -->
+    border-radius: 10px;
+<!-- box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Soft box shadow for depth */ -->
+}
+
+.data-box {
+    color: #fff; /* White text for the data boxes */
+    background-color: #1ed760; /* Spotify's dark grey for box background */
+    border-radius: 5px; /* Rounded corners for the boxes */
+    margin: 5px; /* Spacing between boxes */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); /* Subtle shadow for depth */
+    display: flex;
+    color: white;
+    font-weight: bold;
+    font-family: 'Neuton', sans-serif;
+    postion: absolute;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    font-size: 1em;
+}
+/* Additional styling for responsiveness and alignment may be required */
