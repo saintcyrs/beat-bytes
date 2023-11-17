@@ -36,7 +36,7 @@ button:hover {
 
 .data-box {
     color: #fff; /* White text for the data boxes */
-    background-color: #1ed760; /* Spotify's dark grey for box background */
+    background-color: #1ed760;
     border-radius: 5px; /* Rounded corners for the boxes */
     margin: 5px; /* Spacing between boxes */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); /* Subtle shadow for depth */
@@ -51,4 +51,47 @@ button:hover {
     padding: 10px;
     font-size: 1em;
 }
-/* Additional styling for responsiveness and alignment may be required */
+
+#songClock {
+    text-align: left;
+    margin-left: 300px;
+    margin-right: 100px;
+}
+
+#songInfo{
+    color: #1DB954;
+    font-family: 'Neuton', sans-serif;
+    margin-left: 500px;
+    font-size: 20px;
+    width: 400px;
+}
+
+#danceabilityLabel, .danceability-label, #energy-label, .energy-label {
+    font-family: 'Neuton', sans-serif;
+    margin-left: 500px;
+    font-size: 20px;
+    fill: #1DB954;
+}
+
+
+#songDropdown {
+    background-color: white;
+    color: black;
+    width: 30%;
+    margin-bottom: 10px;
+    margin-left: 500px;
+}
+
+.row {
+    /* Ensure that row elements are centered */
+    justify-content: center;
+}
+
+.col-md-6 {
+    /* Flexbox to align items within each column */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
