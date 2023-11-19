@@ -1,168 +1,162 @@
 class clockVis {
+  constructor(id, data) {
+    this.svg = d3
+      .select(id)
+      .append("svg")
+      .style("margin-top", "150px")
+      .style("margin-bottom", "20px")
+      .style("margin-left", "0px")
+      .style("margin-right", "800px"); // Reduced margin right
+    this.data = data;
+    this.initVis();
+  }
+  initVis() {
+    let vis = this;
 
-    constructor (id, data) {
-        this.svg = d3.select(id).append("svg")
-            .style("margin-top", "150px")
-            .style("margin-bottom", "20px")
-            .style("margin-left", "0px")
-            .style("margin-right", "800px"); // Reduced margin right
-        this.dataFile = data;
-        this.initVis();
-    }
-    initVis(){
-        let vis = this;
+    // Dimensions and SVG setup
+    const width = 300;
+    const height = 300;
+    const radius = Math.min(width, height) / 2;
 
-        // Dimensions and SVG setup
-        const width = 300;
-        const height = 300;
-        const radius = Math.min(width, height) / 2;
+    vis.svg.attr("width", width).attr("height", height);
 
-        vis.svg.attr("width", width)
-            .attr("height", height);
+    vis.g = vis.svg
+      .append("g")
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-        vis.g = vis.svg.append("g")
-            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    // Draw clock face with Spotify green color
+    vis.g.append("circle").attr("r", radius).style("fill", "#1ed760"); // Spotify green
 
-        // Draw clock face with Spotify green color
-        vis.g.append("circle")
-            .attr("r", radius)
-            .style("fill", "#1ed760"); // Spotify green
-
-        // Hour markers
-        for (let i = 0; i < 12; i++) {
-            vis.g.append("line")
-                .attr("x1", 0)
-                .attr("y1", radius - 10)
-                .attr("x2", 0)
-                .attr("y2", radius)
-                .attr("transform", `rotate(${i * 30})`)
-                .style("stroke", "black") // Change the stroke to white
-                .style("stroke-width", 2);
-        }
-
-        // Clock hands with white color
-        vis.hourHand = vis.g.append("line")
-            .style("stroke", "white") // White color for hour hand
-            .style("stroke-width", 6)
-            .attr("x1", 0)
-            .attr("y1", 0)
-            .attr("x2", 0)
-            .attr("y2", -radius / 2);
-
-        vis.minuteHand = vis.g.append("line")
-            .style("stroke", "white") // White color for minute hand
-            .style("stroke-width", 4)
-            .attr("x1", 0)
-            .attr("y1", 0)
-            .attr("x2", 0)
-            .attr("y2", -radius / 1.5);
-
-        vis.secondHand = vis.g.append("line")
-            .style("stroke", "white") // White color for second hand
-            .style("stroke-width", 2)
-            .attr("x1", 0)
-            .attr("y1", 0)
-            .attr("x2", 0)
-            .attr("y2", -radius / 1.2);
-
-        vis.arc = d3.arc()
-            .innerRadius(0)
-            .outerRadius(radius - 10) // Adjusted to be inside the clock face
-            .startAngle(0);
-
-        // Add an arc path and keep a reference to it
-        vis.arcPath = vis.g.append("path")
-            .datum({endAngle: 0})
-            .style("fill", "none") // Set to 'none' or another color
-            .attr("d", vis.arc);
-
-        // Load data
-        this.loadData();
+    // Hour markers
+    for (let i = 0; i < 12; i++) {
+      vis.g
+        .append("line")
+        .attr("x1", 0)
+        .attr("y1", radius - 10)
+        .attr("x2", 0)
+        .attr("y2", radius)
+        .attr("transform", `rotate(${i * 30})`)
+        .style("stroke", "black") // Change the stroke to white
+        .style("stroke-width", 2);
     }
 
-    loadData(){
-        let vis = this;
+    // Clock hands with white color
+    vis.hourHand = vis.g
+      .append("line")
+      .style("stroke", "white") // White color for hour hand
+      .style("stroke-width", 6)
+      .attr("x1", 0)
+      .attr("y1", 0)
+      .attr("x2", 0)
+      .attr("y2", -radius / 2);
 
-        d3.csv(this.dataFile).then((data) => {
-            console.log("Data loaded:", data); // Check if data is loaded
+    vis.minuteHand = vis.g
+      .append("line")
+      .style("stroke", "white") // White color for minute hand
+      .style("stroke-width", 4)
+      .attr("x1", 0)
+      .attr("y1", 0)
+      .attr("x2", 0)
+      .attr("y2", -radius / 1.5);
 
-            vis.songData = data;
-            data.forEach(d => {
-                d.duration = +d.duration;
-            });
+    vis.secondHand = vis.g
+      .append("line")
+      .style("stroke", "white") // White color for second hand
+      .style("stroke-width", 2)
+      .attr("x1", 0)
+      .attr("y1", 0)
+      .attr("x2", 0)
+      .attr("y2", -radius / 1.2);
 
-            vis.populateDropdown();
-            vis.updateVis(data[0].duration);
-        }).catch(error => {
-            console.error("Error loading the CSV file:", error);
-        });
+    vis.arc = d3
+      .arc()
+      .innerRadius(0)
+      .outerRadius(radius - 10) // Adjusted to be inside the clock face
+      .startAngle(0);
+
+    // Add an arc path and keep a reference to it
+    vis.arcPath = vis.g
+      .append("path")
+      .datum({ endAngle: 0 })
+      .style("fill", "none") // Set to 'none' or another color
+      .attr("d", vis.arc);
+
+    // Load data
+    this.loadData();
+  }
+
+  loadData() {
+    let vis = this;
+    vis.songData = vis.data;
+    vis.populateDropdown();
+    vis.updateVis(data[0].duration);
+  }
+
+  populateDropdown() {
+    let vis = this;
+    let dropdown = d3.select("#songDropdown");
+
+    dropdown
+      .selectAll("option")
+      .data(vis.songData)
+      .enter()
+      .append("option")
+      .text((d) => d.track_name) // Assuming 'track_name' is the correct field
+      .attr("value", (d, i) => i); // Use the index as the value
+  }
+
+  updateVis(durationInMilliseconds) {
+    let vis = this;
+
+    // Validate the duration value
+    if (isNaN(durationInMilliseconds) || durationInMilliseconds === undefined) {
+      console.error("Invalid duration: ", durationInMilliseconds);
+      return; // Exit the function if duration is not valid
     }
 
-    populateDropdown() {
-        let vis = this;
-        let dropdown = d3.select("#songDropdown");
+    // Convert duration from milliseconds to total seconds
+    let totalSeconds = durationInMilliseconds / 1000;
 
-        dropdown.selectAll("option")
-            .data(vis.songData)
-            .enter()
-            .append("option")
-            .text(d => d.track_name) // Assuming 'track_name' is the correct field
-            .attr("value", (d, i) => i); // Use the index as the value
+    // Calculate hours, minutes, and seconds
+    let hours = Math.floor(totalSeconds / 3600) % 12; // Convert to 12-hour format
+    let minutes = Math.floor((totalSeconds % 3600) / 60);
+    let seconds = Math.floor(totalSeconds % 60);
+
+    // Calculate rotation angles
+    let hourAngle = (hours + minutes / 60) * 30; // 30 degrees per hour
+    let minuteAngle = minutes * 6; // 6 degrees per minute
+    let secondAngle = seconds * 6; // 6 degrees per second
+
+    // Update clock hands
+    let cx = vis.svg.attr("width") / 2;
+    let cy = vis.svg.attr("height") / 2;
+
+    vis.hourHand.attr("transform", `rotate(${hourAngle})`);
+    vis.minuteHand.attr("transform", `rotate(${minuteAngle})`);
+    vis.secondHand.attr("transform", `rotate(${secondAngle})`);
+  }
+
+  updateSongInfo(song) {
+    if (!song) {
+      console.error("Invalid song data:", song);
+      return;
     }
 
-    updateVis(durationInMilliseconds){
-        let vis = this;
+    // Convert duration from milliseconds to minutes and seconds
+    let durationMinutes = Math.floor(song.duration_ms / 60000);
+    let durationSeconds = Math.floor((song.duration_ms % 60000) / 1000);
 
-        // Validate the duration value
-        if (isNaN(durationInMilliseconds) || durationInMilliseconds === undefined) {
-            console.error("Invalid duration: ", durationInMilliseconds);
-            return; // Exit the function if duration is not valid
-        }
+    // Ensure seconds are two digits. For example, '9' becomes '09'
+    durationSeconds =
+      durationSeconds < 10 ? "0" + durationSeconds : durationSeconds;
 
-        // Convert duration from milliseconds to total seconds
-        let totalSeconds = durationInMilliseconds / 1000;
+    let durationFormatted = durationMinutes + ":" + durationSeconds;
 
-        // Calculate hours, minutes, and seconds
-        let hours = Math.floor(totalSeconds / 3600) % 12; // Convert to 12-hour format
-        let minutes = Math.floor((totalSeconds % 3600) / 60);
-        let seconds = Math.floor(totalSeconds % 60);
-
-        // Calculate rotation angles
-        let hourAngle = (hours + minutes / 60) * 30; // 30 degrees per hour
-        let minuteAngle = minutes * 6; // 6 degrees per minute
-        let secondAngle = seconds * 6; // 6 degrees per second
-
-        // Update clock hands
-        let cx = vis.svg.attr("width") / 2;
-        let cy = vis.svg.attr("height") / 2;
-
-        vis.hourHand.attr("transform", `rotate(${hourAngle})`);
-        vis.minuteHand.attr("transform", `rotate(${minuteAngle})`);
-        vis.secondHand.attr("transform", `rotate(${secondAngle})`);
-    }
-
-    updateSongInfo(song) {
-        if (!song) {
-            console.error("Invalid song data:", song);
-            return;
-        }
-
-        // Convert duration from milliseconds to minutes and seconds
-        let durationMinutes = Math.floor(song.duration_ms / 60000);
-        let durationSeconds = Math.floor((song.duration_ms % 60000) / 1000);
-
-        // Ensure seconds are two digits. For example, '9' becomes '09'
-        durationSeconds = durationSeconds < 10 ? '0' + durationSeconds : durationSeconds;
-
-        let durationFormatted = durationMinutes + ":" + durationSeconds;
-
-        // Update the song information display
-        d3.select("#songInfo").html(`
+    // Update the song information display
+    d3.select("#songInfo").html(`
         Track: ${song.track_name}<br>
         Artist: ${song.artist_names}<br>
         Duration: ${durationFormatted}<br>
     `);
-    }
-
-
+  }
 }

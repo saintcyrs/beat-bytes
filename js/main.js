@@ -1,3 +1,11 @@
+let myStickFigure; // Declare myStickFigure globally
+let myEnergyStickFigure; // Declare myEnergyStickFigure globally
+let myWordCloud; // Declare word cloud globally
+let myPiano; // Declare piano globally
+let topTrackVis; // Declare top track visualization globally
+let topTrackVis2; // Declare top track visualization globally
+let myClock; // Declare clock visualization globally
+
 // Function to convert date objects to strings or reverse
 let dateFormatter = d3.timeFormat("%Y-%m-%d");
 let dateParser = d3.timeParse("%Y-%m-%d");
@@ -37,58 +45,41 @@ function loadData() {
 }
 
 function createVis(data) {
-  let topTrackVis = new TopTrackVis("toptrackvis", data, "Nov2");
-}
+  topTrackVis = new TopTrackVis("albumPage", data, "Oct26");
+  topTrackVis2 = new TopTrackVis("albumPage2", data, "Nov2");
+  myWordCloud = new wordCloud("wordCloud", data, "Nov2");
+  myPiano = new Piano("pianoVis", data);
+  myClock = new clockVis("#songClock", data);
+  myStickFigure = new stickFigure("#dancingStickFigure", {});
+  myEnergyStickFigure = new energyStickFigure("#energyStickFigure", {}); // Make sure to provide the correct ID
+  const streamVisualization = new streamVis("#stream-vis", data, (songData) => {
+    // Update the dropdown with the selected song
+    const dropdown = document.getElementById("songDropdown");
+    if (dropdown) {
+      dropdown.value = songData.track_name; // Update dropdown value based on the clicked song data
+    }
 
-let myStickFigure; // Declare myStickFigure globally
-let myEnergyStickFigure; // Declare myEnergyStickFigure globally
-let myWordCloud; // Declare word cloud globally
-let myPiano; // Declare piano globally
+    // Adjust dance speed if danceability is available
+    if (songData.danceability) {
+      myStickFigure.adjustDanceSpeed(songData.danceability);
+      myStickFigure.updateDanceabilityLabel(songData.danceability);
+    }
+
+    // Adjust energy level if energy is available
+    if (songData.energy) {
+      myEnergyStickFigure.updateEnergyLevel(songData.energy);
+    }
+  });
+}
 
 // TODO: PARSE DATA HERE INSTEAD
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Initialize myStickFigure with empty danceability data initially
-  myStickFigure = new stickFigure("#dancingStickFigure", {});
-
-  // Initialize myEnergyStickFigure with empty energy data initially
-  myEnergyStickFigure = new energyStickFigure("#energyStickFigure", {}); // Make sure to provide the correct ID
-
-  // Initialize streamVisualization with a callback to update the song in the dropdown
-  const streamVisualization = new streamVis(
-    "#stream-vis",
-    "data/data.csv",
-    (songData) => {
-      // Update the dropdown with the selected song
-      const dropdown = document.getElementById("songDropdown");
-      if (dropdown) {
-        dropdown.value = songData.track_name; // Update dropdown value based on the clicked song data
-      }
-
-      // Adjust dance speed if danceability is available
-      if (songData.danceability) {
-        myStickFigure.adjustDanceSpeed(songData.danceability);
-        myStickFigure.updateDanceabilityLabel(songData.danceability);
-      }
-
-      // Adjust energy level if energy is available
-      if (songData.energy) {
-        myEnergyStickFigure.updateEnergyLevel(songData.energy);
-      }
-    }
-  );
-
-  const clock = new clockVis("#songClock", "data/data.csv");
-
-  document.getElementById("toggleAnimationButton").addEventListener(
-    "click",
-    () => {
+  document
+    .getElementById("toggleAnimationButton")
+    .addEventListener("click", () => {
       streamVisualization.toggleAnimation();
-    },
-
-    (myWordCloud = new wordCloud("wordCloud", "data/data.csv")),
-    (myPiano = new Piano("pianoVis", "data/data.csv"))
-  );
+    });
 
   // const myMusicSheetScatter = new musicSheetScatter("#musicSheet", "data/data.csv");
 
