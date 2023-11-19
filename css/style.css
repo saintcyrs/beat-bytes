@@ -70,3 +70,100 @@ h2 {
   transform: scale(0.9); /* Slightly scale down the cover when selected */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Add shadow to highlight */
 }
+/* Spotify-like Stylesheet */
+
+body {
+  background-color: #121212; /* Spotify's dark background */
+  color: #fff; /* White text color for contrast */
+  font-family: "Neuton", sans-serif; /* Using Neuton font */
+}
+
+h2 {
+  color: #1db954; /* Spotify's brand green for headers */
+  font-weight: 700; /* Bold font for headers */
+}
+
+button {
+  background-color: #1db954; /* Spotify's brand green for buttons */
+  color: #fff; /* White text on buttons */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #1ed760; /* Lighter green on hover */
+}
+
+#stream-vis {
+  margin-top: 20px;
+  padding: 20px;
+  /* <!-- background-color: gray; Slightly lighter than body background --> */
+  border-radius: 10px;
+  /* <!-- box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); Soft box shadow for depth --> */
+}
+
+.data-box {
+  color: #fff; /* White text for the data boxes */
+  background-color: #1ed760;
+  border-radius: 5px; /* Rounded corners for the boxes */
+  margin: 5px; /* Spacing between boxes */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); /* Subtle shadow for depth */
+  display: flex;
+  color: white;
+  font-weight: bold;
+  font-family: "Neuton", sans-serif;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  font-size: 1em;
+}
+
+#songClock {
+  text-align: left;
+  margin-left: 300px;
+  margin-right: 100px;
+}
+
+#songInfo {
+  color: #1db954;
+  font-family: "Neuton", sans-serif;
+  margin-left: 500px;
+  font-size: 20px;
+  width: 400px;
+}
+
+#danceabilityLabel,
+.danceability-label,
+#energy-label,
+.energy-label {
+  font-family: "Neuton", sans-serif;
+  margin-left: 500px;
+  font-size: 20px;
+  fill: #1db954;
+}
+
+#songDropdown {
+  background-color: white;
+  color: black;
+  width: 30%;
+  margin-bottom: 10px;
+  margin-left: 500px;
+}
+
+.row {
+  /* Ensure that row elements are centered */
+  justify-content: center;
+}
+
+.col-md-6 {
+  /* Flexbox to align items within each column */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
