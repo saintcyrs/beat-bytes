@@ -19,7 +19,9 @@
 <body>
 
 <div class="container">
-
+    <!-- Section 1, OCT 26-->
+    <h2>SECTION 1, OCT 26</h2>
+    <!-- Streaming Animation-->
     <div class="row">
         <div class="col-md-12">
             <br><br>
@@ -31,33 +33,128 @@
             <br><br>
         </div>
     </div>
-
+    <!--Piano Visualization-->
     <div class="row">
-        <!-- Song Info Column -->
+        <div class="col-md-12">
+            <div id="pianoVis">
+                <img id = "piano-svg" src="images/piano.svg" alt="piano" width="50%" height="50%"
+                    style="background-color: white;">
+            </div>
+        </div>
+    </div>
+    <!-- TODO: Album Page-->
+    <div class="row">
+        <div class="col-md-12">
+            <br><br>
+            <h2> TODO: ALBUM VISUALIZATION </h2>
+            <br>
+            <div id="albumPage"></div>
+            <br><br>
+        </div>
+    <!--Section 2 OCT 26-->
+    <!-- Song Dropdown Column -->
+    <div class="col-md-3">
+        <div class="col-md-12">
+            <select id="songDropdown"></select>
+            <div id="songInfo" class="mt-3"></div>
+        </div>
+    </div>
+
+    <!--Section 3 OCT 26-->
+    <div class="row">
+        <!-- TODO: Scatterplot -->
+        <!-- Depending on how you filter the scatterplot, one (not all three) of the following visualizations will appear-->
         <div class="col-md-6">
+            <br><br>
+            <h2> TODO: SCATTERPLOT </h2>
+            <br>
+            <div id="scatterplot"></div>
+            <br><br>
+        </div>
+        <!-- Change from ids to classes -->
+        <!-- Song Energy -->
+        <div hidden class="col-md-6">
             <div class="col-md-12">
-                <select id="songDropdown"></select>
-                <div id="songInfo" class="mt-3"></div>
+                <div id="energyStickFigure"> </div>
+                <div id="energy-label" class="energy-label"></div>
+            </div>
+        </div>
+        <!-- Song Danceability-->
+        <div class = "col-md-6">
+            <div class = "col-md-12"
+                <div id="danceabilityVis"></div>
+                <div id="dancingStickFigure"> </div>
+                <div id="danceabilityLabel" class="danceability-label"></div>
+                <br>
             </div>
         </div>
         <!-- Song Clock Column -->
-        <div class="col-md-6">
+        <div hidden class="col-md-6">
             <div class="col-md-12">
                 <div id="songClock" class="mt-3"></div>
                 <br> <br>
             </div>
         </div>
-        <div id="dancingStickFigure"> </div>
-        <div id="danceabilityLabel" class="danceability-label"></div>
-        <div id="energyStickFigure"> </div>
-        <div id="energy-label" class="energy-label"> </div>
         <div id="musicSheet"> </div>
     </div>
+    <!--SECTION 1 NOV 2-->
+    <h2> SECTION 2 NOV 2</h2>
+    <h4> Now let's look at what happens the week Taylor Swift released her album: </h4>
+    <!-- Word Cloud Column -->
     <div class="row">
-        <!-- Word Cloud Column -->
-        <div class="col-md-6">
-            <div id="wordCloud"> </div>
+        
+        <h4> Taylor Swift currently leads Spotify streams by....</h4>
+        <div class="col-md-12">
+            <div id="wordCloud"></div>
         </div>
+    </div>
+    <!-- Album Visualization #2-->
+    <div class="row">
+        <div class="col-md-12">
+            <br><br>
+            <h2> TODO: ALBUM VISUALIZATION #2 </h2>
+            <br>
+            <div id="albumPage"></div>
+            <br><br>
+        </div>
+    <div class="row">
+        <!-- TODO: Scatterplot -->
+        <!-- Depending on how you filter the scatterplot, one (not all three) of the following visualizations will appear-->
+        <div class="col-md-6">
+            <br><br>
+            <h2> TODO: SCATTERPLOT # 2</h2>
+            <br>
+            <div id="scatterplot"></div>
+            <br><br>
+        </div>
+        <!-- Song Energy -->
+        <div class="col-md-6">
+            <div class="col-md-12">
+                <h2>Danceability/Clock/Energy #2</h2>
+                <div id="energyStickFigure"> </div>
+                <div id="energy-label" class="energy-label"></div>
+            </div>
+        </div>
+        <!-- Song Danceability-->
+        <div hidden class = "col-md-6">
+            <div class = "col-md-12"></div>
+                <div id="danceabilityVis"></div>
+                <div id="dancingStickFigure"> </div>
+                <div id="danceabilityLabel" class="danceability-label"></div>
+                <br>
+            </div>
+        </div>
+        <!-- Song Clock Column -->
+        <div hidden class="col-md-6">
+            <div class="col-md-12">
+                <div id="songClock" class="mt-3"></div>
+                <br> <br>
+            </div>
+        </div>
+        <div id="musicSheet"> </div>
+    </div>
+    <!--SECTION 2 NOV 2-->
+    <!--SECTION 3 NOV 2-->
 
     <!-- Load JS libraries -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -73,6 +170,7 @@
     <script src="js/stickFigure.js"></script>
     <script src="js/energyStickFigure.js"></script>
     <script src="js/musicSheetScatter.js"></script>
+    <script src = "js/pianoVis.js"></script>
     <!-- Word Cloud -->
     <script src="js/wordCloud/d3.layout.cloud.js"></script>
     <script src="js/wordCloud/wordCloud.js"></script>

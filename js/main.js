@@ -4,6 +4,7 @@ let dateParser = d3.timeParse("%Y-%m-%d");
 let myStickFigure; // Declare myStickFigure globally
 let myEnergyStickFigure; // Declare myEnergyStickFigure globally
 let myWordCloud; // Declare word cloud globally
+let myPiano; // Declare piano globally
 
 // TODO: PARSE DATA HERE INSTEAD
 
@@ -40,7 +41,8 @@ document.addEventListener("DOMContentLoaded", function() {
         streamVisualization.toggleAnimation();
     },
 
-    myWordCloud = new wordCloud("wordCloud", "data/data.csv")
+    myWordCloud = new wordCloud("wordCloud", "data/data.csv"),
+    myPiano = new Piano("pianoVis", "data/data.csv")
 
     );
 
