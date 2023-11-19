@@ -115,7 +115,6 @@ class streamVis {
     }
 
     /*
-
         stopAnimation() {
             if (this.animationInterval) {
                 clearInterval(this.animationInterval);

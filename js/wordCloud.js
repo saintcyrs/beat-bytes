@@ -5,11 +5,11 @@ class wordCloud {
     constructor(parentElement, data) {
         // The DOM element of the parent
         this.parentElement = parentElement;
-        this.data = data;
-
+        this.dataFile = data;
         // Step to alternate between rotations for fun
-        // this.step = 0;
-        this.minMax = [parseInt(this.displayData[this.displayData.length - 1].value), parseInt(this.displayData[0].value)];
+        this.step = 0;
+        // Initialize minimum and maximum to be updated later
+        this.minMax = [0,100];
         this.initVis();
     }
 
@@ -19,28 +19,61 @@ class wordCloud {
         vis.fill = d3.scaleOrdinal(d3.schemeTableau10);
 
         // define margins
-        vis.margin = {top: 20, right: 0, bottom: 10, left: 0};
-        vis.width =  vis.parentElement.getBoundingClientRect().width - vis.margin.left - vis.margin.right;
-        vis.height = vis.parentElement.getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
+        vis.margin = {top: 20, right: 20, bottom: 20, left: 20};
+        // console.log(document.getElementById(vis.parentElement));
+		vis.width = 300 //document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
+		vis.height = 300 //- vis.margin.top - vis.margin.bottom;        
+        // console.log(vis.width, vis.height)
 
         // init drawing area
-        vis.svg = d3.select(vis.parentElement).append("svg")
+        vis.svg = d3.select("#" + vis.parentElement).append("svg")
             .attr("width", vis.width + vis.margin.left + vis.margin.right)
             .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
             .append('g')
             .attr('transform', `translate (${vis.margin.left+vis.width/2}, ${vis.margin.top+ vis.height/2})`)
+        
+        vis.wrangleData();
+    }
 
-        // How to scale the words which vary greatly in size
-        vis.wordScale = d3.scaleLog()
-            .domain(vis.minMax)
-            .range([7,80]);
+    wrangleData() {
+        let vis = this;
 
-        // Create a new instance of the word cloud visualisation.
-        let myWordCloud = vis.wordCloud();
-
-        myWordCloud.update(vis.getWords(250))
-
-        vis.showNewWords(myWordCloud);
+        d3.csv(vis.dataFile).then((data) => {
+            vis.data = data;
+            //console.log("Data loaded:", data); // Check if data is loaded
+            const counts = {}
+            data.forEach(d => {
+                d.duration = +d.duration;
+                const artist = d.artist_names;
+                if (counts[artist]) {
+                    counts[artist] += 1;
+                } else {
+                    counts[artist] = 1;
+                }
+            });
+            // Calculate the min and max counts
+            let min = Infinity, max = -Infinity;
+            Object.values(counts).forEach(count => {
+                if (count < min) min = count;
+                if (count > max) max = count;
+            });
+            // Possibly redefine this to include the artist name ?? 
+            // BUT there are many artists who only have one song on the charts
+            // Store the processed data for use in getWords
+            vis.processedData = Object.entries(counts).map(([artist, count]) => ({
+                artist_names: artist,
+                count: count
+            }));
+            //console.log(vis.processedData);
+            vis.minMax = [min, max];
+            vis.wordScale = d3.scaleLinear()
+                .domain(vis.minMax)
+                .range([7,80]);
+            vis.wordCloud();
+            vis.showNewWords(vis.wordCloud());
+        }).catch(error => {
+            console.error("Error loading the CSV file:", error);
+        });
     }
 
     // Encapsulate the word cloud functionality
@@ -50,7 +83,8 @@ class wordCloud {
         // Draw the word cloud
         function draw(names) {
             const cloud = vis.svg.selectAll("g text")
-                .data(names, function(d) { return d.artist_names; })
+                .data(names, function(d) { 
+                    return d.text; })
 
             // Entering words
             cloud.join(
@@ -59,9 +93,12 @@ class wordCloud {
                         .style("fill", function(d, i) { return vis.fill(i); })
                         .attr("class", "wordcloud-word")
                         .attr("text-anchor", "middle")
-                        .attr('font-size', 1)
-                        .text(function(d) { return d.artist_names; })
-                        // .on('mouseover', function(event, d) {
+                        .attr('font-size', d => d.size)
+                        .text(function(d) { 
+                            return d.text; })
+                        .attr("transform", function(d) {
+                            return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                        })
                         //     let word = vis.data.find(item => item.key === d.text);
                         //     // TODO: See if remove tooltip
                         //     vis.tooltip
@@ -149,7 +186,9 @@ class wordCloud {
     // creating an array of words and computing a random size attribute.
     getWords() {
         let vis = this;
-        return data.map(function(d) { return {text: d.key, size: vis.wordScale(d.value)}});
+        return vis.processedData.map(d => {
+            return {text: d.artist_names, size: vis.wordScale(d.count)};
+        });
     }
 
     // This method tells the word cloud to redraw

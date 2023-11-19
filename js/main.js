@@ -3,6 +3,9 @@ let dateParser = d3.timeParse("%Y-%m-%d");
 
 let myStickFigure; // Declare myStickFigure globally
 let myEnergyStickFigure; // Declare myEnergyStickFigure globally
+let myWordCloud; // Declare word cloud globally
+
+// TODO: PARSE DATA HERE INSTEAD
 
 document.addEventListener("DOMContentLoaded", function() {
     // Initialize myStickFigure with empty danceability data initially
@@ -35,7 +38,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById('toggleAnimationButton').addEventListener('click', () => {
         streamVisualization.toggleAnimation();
-    });
+    },
+
+    myWordCloud = new wordCloud("wordCloud", "data/data.csv")
+
+    );
 
    // const myMusicSheetScatter = new musicSheetScatter("#musicSheet", "data/data.csv");
 
