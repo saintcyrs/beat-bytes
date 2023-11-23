@@ -1,17 +1,38 @@
-let myStickFigure; // Declare myStickFigure globally
-let myEnergyStickFigure; // Declare myEnergyStickFigure globally
-let myWordCloud; // Declare word cloud globally
-let myPiano; // Declare piano globally
-let topTrackVis; // Declare top track visualization globally
-let topTrackVis2; // Declare top track visualization globally
-let myClock; // Declare clock visualization globally
+// Declare global variables for visualizations
+let myStickFigure;
+let myEnergyStickFigure;
+let myWordCloud;
+let myPiano;
+let topTrackVis;
+let topTrackVis2;
+let myClock;
+let streamVisualization; // Declare streamVisualization globally
 
 // Function to convert date objects to strings or reverse
 let dateFormatter = d3.timeFormat("%Y-%m-%d");
 let dateParser = d3.timeParse("%Y-%m-%d");
 
+// Define switchView function globally
+function switchView() {
+  const switchButton = document.getElementById('switchViewButton');
+  const stateCarousel = new bootstrap.Carousel(document.getElementById('stateCarousel'));
+
+  if (switchButton.innerHTML === 'Danceability') {
+    stateCarousel.next(); // Go to the next carousel item
+  } else if (switchButton.innerHTML === 'Time') {
+    stateCarousel.next(); // Go to the next carousel item
+  } else {
+    stateCarousel.prev(); // Go to the previous carousel item
+  }
+}
+
 // (1) Load data with promises
 loadData();
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Your JavaScript code here
+  let carousel = new bootstrap.Carousel(document.getElementById('stateCarousel'), { interval: false });
+});
 
 function loadData() {
   d3.csv("data/song-data.csv", (row) => {
@@ -45,6 +66,7 @@ function loadData() {
 }
 
 function createVis(data) {
+  console.log("Creating visualizations...");
   topTrackVis = new TopTrackVis("albumPage", data, "Oct26");
   topTrackVis2 = new TopTrackVis("albumPage2", data, "Nov2");
   myWordCloud = new wordCloud("wordCloud", data, "Nov2");
@@ -52,7 +74,7 @@ function createVis(data) {
   myClock = new clockVis("#songClock", data);
   myStickFigure = new stickFigure("#dancingStickFigure", {});
   myEnergyStickFigure = new energyStickFigure("#energyStickFigure", {}); // Make sure to provide the correct ID
-  const streamVisualization = new streamVis("#stream-vis", data, (songData) => {
+  streamVisualization = new streamVis("#stream-vis", data, (songData) => {
     // Update the dropdown with the selected song
     const dropdown = document.getElementById("songDropdown");
     if (dropdown) {
@@ -70,26 +92,30 @@ function createVis(data) {
       myEnergyStickFigure.updateEnergyLevel(songData.energy);
     }
   });
+  console.log("Visualizations created.");
 }
-
-// TODO: PARSE DATA HERE INSTEAD
 
 document.addEventListener("DOMContentLoaded", function () {
   document
-    .getElementById("toggleAnimationButton")
-    .addEventListener("click", () => {
-      streamVisualization.toggleAnimation();
-    });
+      .getElementById("toggleAnimationButton")
+      .addEventListener("click", () => {
+        // Check if streamVisualization is defined before toggling animation
+        if (streamVisualization) {
+          streamVisualization.toggleAnimation();
+        }
+      });
 
   // const myMusicSheetScatter = new musicSheetScatter("#musicSheet", "data/data.csv");
 
   d3.select("#songDropdown").on("change", function () {
     let selectedIndex = d3.select(this).property("value");
-    let selectedSong = clock.songData[selectedIndex];
+    // Make sure to access the songData from the myClock instance
+    let selectedSong = myClock.songData[selectedIndex];
 
     if (selectedSong && selectedSong.duration_ms) {
-      clock.updateVis(selectedSong.duration_ms);
-      clock.updateSongInfo(selectedSong); // Update song info label when a song is selected
+      myClock.updateVis(selectedSong.duration_ms);
+      myClock.updateSongInfo(selectedSong); // Update song info label when a song is selected
+
 
       // Adjust dance speed if danceability is available
       if (selectedSong.danceability) {
@@ -98,9 +124,10 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       // Adjust energy level if energy is available
-      if (selectedSong.energy) {
+      if (selectedSong && selectedSong.energy) {
         myEnergyStickFigure.updateEnergyLevel(selectedSong.energy);
       }
+
     } else {
       console.error("Invalid song data or missing duration:", selectedSong);
     }

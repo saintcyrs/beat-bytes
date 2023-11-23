@@ -1,12 +1,16 @@
 class stickFigure {
     constructor(id, data) {
         this.id = id.replace("#", ""); // Store the ID without the hash
+        this.margin = { top: 0, right: 25, bottom: 30, left: 20 }; // Define margins
+        this.width = 400 - this.margin.left - this.margin.right;
+        this.height = 500 - this.margin.top - this.margin.bottom;
+
         this.svg = d3.select(id)
             .append('svg')
-            .attr('width', 500)
-            .attr('height', 300)
-            .style('position', 'relative')
-            .style('top', '0px'); // Adjust this value as needed
+            .attr('width', this.width + this.margin.left + this.margin.right)
+            .attr('height', this.height + this.margin.top + this.margin.bottom)
+            .append('g')
+            .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
 
         this.danceability = (data && data.danceability) || 0.3; // Default to 0.3 if not provided
         this.adjustDanceSpeed(this.danceability);
@@ -29,15 +33,16 @@ class stickFigure {
     }
 
     drawStickFigure(svg) {
-        // Adjust these values to move the stick figure higher up
-        const yOffset = -40; // Increase the offset to move up by 100 units
+        // Adjust these values to move the stick figure within the SVG
+        const yOffset = 0; // Increase the offset to move down by 40 units
 
         // Head
         svg.append("circle")
             .attr("cx", 200)
             .attr("cy", 60 + yOffset) // Adjust vertical position
             .attr("r", 20)
-            .style("fill", "white");
+            .style("fill", "#314149")
+            .style("z-index", "1000");
 
         // Body
         svg.append("line")
@@ -45,7 +50,7 @@ class stickFigure {
             .attr("y1", 80 + yOffset) // Adjust vertical position
             .attr("x2", 200)
             .attr("y2", 160 + yOffset) // Adjust vertical position
-            .style("stroke", "white");
+            .style("stroke", "#314149");
 
         // Left Arm
         svg.append("line")
@@ -53,7 +58,7 @@ class stickFigure {
             .attr("y1", 100 + yOffset) // Adjust vertical position
             .attr("x2", 160)
             .attr("y2", 120 + yOffset) // Adjust vertical position
-            .style("stroke", "white");
+            .style("stroke", "#314149");
 
         // Right Arm
         svg.append("line")
@@ -61,7 +66,7 @@ class stickFigure {
             .attr("y1", 100 + yOffset) // Adjust vertical position
             .attr("x2", 240)
             .attr("y2", 120 + yOffset) // Adjust vertical position
-            .style("stroke", "white");
+            .style("stroke", "#314149");
 
         // Left Leg
         svg.append("line")
@@ -69,7 +74,7 @@ class stickFigure {
             .attr("y1", 160 + yOffset) // Adjust vertical position
             .attr("x2", 180)
             .attr("y2", 200 + yOffset) // Adjust vertical position
-            .style("stroke", "white");
+            .style("stroke", "#314149");
 
         // Right Leg
         svg.append("line")
@@ -77,7 +82,7 @@ class stickFigure {
             .attr("y1", 160 + yOffset) // Adjust vertical position
             .attr("x2", 220)
             .attr("y2", 200 + yOffset) // Adjust vertical position
-            .style("stroke", "white");
+            .style("stroke", "#314149");
     }
 
     animateArms(svg) {
@@ -153,26 +158,17 @@ class stickFigure {
             .attr("y", y)
             .text("♪") // Unicode character for a music note
             .attr("font-family", "Arial")
-            .attr("font-size", "24px")
-            .style("fill", "white");
+            .attr("font-size", "30px")
+            .style("fill", "#314149");
     }
 
     updateDanceabilityLabel(danceability) {
         const danceabilityValue = parseFloat(danceability);
-
-        // Select or append the label
-        let label = this.svg.select(".danceability-label");
-        if (label.empty()) {
-            label = this.svg.append("text")
-                .attr("class", "danceability-label")
-                .style("text-anchor", "left")
-                .style("fill", "#1DB954"); // Center the text
-        }
+        const label = document.getElementById("danceabilityLabel");
 
         if (!isNaN(danceabilityValue)) {
-            label.attr("x", 135) // X-position of the label
-                .attr("y", 200) // Adjust Y-position to move the label up
-                .text("Danceability: " + danceabilityValue.toFixed(3)); // Display danceability
+            // Update the text content of the label
+            label.textContent = "Danceability: " + danceabilityValue.toFixed(3);
         } else {
             console.error("Invalid danceability value:", danceability);
         }

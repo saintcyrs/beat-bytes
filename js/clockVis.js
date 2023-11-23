@@ -3,10 +3,10 @@ class clockVis {
     this.svg = d3
       .select(id)
       .append("svg")
-      .style("margin-top", "150px")
-      .style("margin-bottom", "20px")
-      .style("margin-left", "0px")
-      .style("margin-right", "800px"); // Reduced margin right
+      .style("margin-top", "20px")
+      .style("margin-bottom", "40px")
+      .style("margin-left", "35px")
+      .style("margin-right", "215px"); // Reduced margin right
     this.data = data;
     this.initVis();
   }
@@ -14,8 +14,8 @@ class clockVis {
     let vis = this;
 
     // Dimensions and SVG setup
-    const width = 300;
-    const height = 300;
+    const width = 200;
+    const height = 200;
     const radius = Math.min(width, height) / 2;
 
     vis.svg.attr("width", width).attr("height", height);
@@ -25,7 +25,7 @@ class clockVis {
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
     // Draw clock face with Spotify green color
-    vis.g.append("circle").attr("r", radius).style("fill", "#1ed760"); // Spotify green
+    vis.g.append("circle").attr("r", radius).style("fill", "#314149");
 
     // Hour markers
     for (let i = 0; i < 12; i++) {
@@ -36,7 +36,7 @@ class clockVis {
         .attr("x2", 0)
         .attr("y2", radius)
         .attr("transform", `rotate(${i * 30})`)
-        .style("stroke", "black") // Change the stroke to white
+        .style("stroke", "#83a5a6") // Change the stroke to white
         .style("stroke-width", 2);
     }
 
@@ -87,7 +87,8 @@ class clockVis {
 
   loadData() {
     let vis = this;
-    vis.songData = vis.data;
+    // Assuming 'data' is the array of songs
+    vis.songData = data; // Make sure to set this properly
     vis.populateDropdown();
     vis.updateVis(data[0].duration);
   }
@@ -96,13 +97,24 @@ class clockVis {
     let vis = this;
     let dropdown = d3.select("#songDropdown");
 
-    dropdown
-      .selectAll("option")
-      .data(vis.songData)
-      .enter()
-      .append("option")
-      .text((d) => d.track_name) // Assuming 'track_name' is the correct field
-      .attr("value", (d, i) => i); // Use the index as the value
+    // Clear existing options
+    dropdown.selectAll("option").remove();
+
+    // Add default option
+    dropdown.append("option")
+        .text("Pick a song here!")
+        .attr("value", "")
+        .attr("disabled", true)
+        .attr("selected", true);
+
+    // Add song options
+    dropdown.selectAll("option.song")
+        .data(vis.songData)
+        .enter()
+        .append("option")
+        .classed("song", true)
+        .text((d) => d.track_name) // Assuming 'track_name' is the correct field
+        .attr("value", (d, i) => i); // Use the index as the value
   }
 
   updateVis(durationInMilliseconds) {
@@ -136,6 +148,28 @@ class clockVis {
     vis.secondHand.attr("transform", `rotate(${secondAngle})`);
   }
 
+  updateDanceabilityLabel(song) {
+    if (!song) {
+      console.error("Invalid song data:", song);
+      return;
+    }
+
+    // Convert duration from milliseconds to minutes and seconds
+    let durationMinutes = Math.floor(song.duration_ms / 60000);
+    let durationSeconds = Math.floor((song.duration_ms % 60000) / 1000);
+
+    // Ensure seconds are two digits. For example, '9' becomes '09'
+    durationSeconds =
+        durationSeconds < 10 ? "0" + durationSeconds : durationSeconds;
+
+    let durationFormatted = durationMinutes + ":" + durationSeconds;
+
+    // Update the song information display
+    d3.select("#songClockLabel").html(`
+        Duration: ${durationFormatted}<br>
+    `);
+  }
+
   updateSongInfo(song) {
     if (!song) {
       console.error("Invalid song data:", song);
@@ -156,7 +190,7 @@ class clockVis {
     d3.select("#songInfo").html(`
         Track: ${song.track_name}<br>
         Artist: ${song.artist_names}<br>
-        Duration: ${durationFormatted}<br>
     `);
+    this.updateDanceabilityLabel(song);
   }
 }
