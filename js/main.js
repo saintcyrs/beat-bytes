@@ -5,6 +5,8 @@ let myWordCloud;
 let myPiano;
 let topTrackVis;
 let topTrackVis2;
+let barChart;
+let barChart2;
 let myClock;
 let streamVisualization; // Declare streamVisualization globally
 
@@ -14,12 +16,14 @@ let dateParser = d3.timeParse("%Y-%m-%d");
 
 // Define switchView function globally
 function switchView() {
-  const switchButton = document.getElementById('switchViewButton');
-  const stateCarousel = new bootstrap.Carousel(document.getElementById('stateCarousel'));
+  const switchButton = document.getElementById("switchViewButton");
+  const stateCarousel = new bootstrap.Carousel(
+    document.getElementById("stateCarousel")
+  );
 
-  if (switchButton.innerHTML === 'Danceability') {
+  if (switchButton.innerHTML === "Danceability") {
     stateCarousel.next(); // Go to the next carousel item
-  } else if (switchButton.innerHTML === 'Time') {
+  } else if (switchButton.innerHTML === "Time") {
     stateCarousel.next(); // Go to the next carousel item
   } else {
     stateCarousel.prev(); // Go to the previous carousel item
@@ -29,9 +33,12 @@ function switchView() {
 // (1) Load data with promises
 loadData();
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
   // Your JavaScript code here
-  let carousel = new bootstrap.Carousel(document.getElementById('stateCarousel'), { interval: false });
+  let carousel = new bootstrap.Carousel(
+    document.getElementById("stateCarousel"),
+    { interval: false }
+  );
 });
 
 function loadData() {
@@ -69,6 +76,9 @@ function createVis(data) {
   console.log("Creating visualizations...");
   topTrackVis = new TopTrackVis("albumPage", data, "Oct26");
   topTrackVis2 = new TopTrackVis("albumPage2", data, "Nov2");
+  barChart = new BarChartVis("barChart", data, "Oct26");
+  barChart2 = new BarChartVis("barChart2", data, "Nov2");
+
   myWordCloud = new wordCloud("wordCloud", data, "Nov2");
   myPiano = new Piano("pianoVis", data);
   myClock = new clockVis("#songClock", data);
@@ -97,13 +107,13 @@ function createVis(data) {
 
 document.addEventListener("DOMContentLoaded", function () {
   document
-      .getElementById("toggleAnimationButton")
-      .addEventListener("click", () => {
-        // Check if streamVisualization is defined before toggling animation
-        if (streamVisualization) {
-          streamVisualization.toggleAnimation();
-        }
-      });
+    .getElementById("toggleAnimationButton")
+    .addEventListener("click", () => {
+      // Check if streamVisualization is defined before toggling animation
+      if (streamVisualization) {
+        streamVisualization.toggleAnimation();
+      }
+    });
 
   // const myMusicSheetScatter = new musicSheetScatter("#musicSheet", "data/data.csv");
 
@@ -116,7 +126,6 @@ document.addEventListener("DOMContentLoaded", function () {
       myClock.updateVis(selectedSong.duration_ms);
       myClock.updateSongInfo(selectedSong); // Update song info label when a song is selected
 
-
       // Adjust dance speed if danceability is available
       if (selectedSong.danceability) {
         myStickFigure.adjustDanceSpeed(selectedSong.danceability);
@@ -127,7 +136,6 @@ document.addEventListener("DOMContentLoaded", function () {
       if (selectedSong && selectedSong.energy) {
         myEnergyStickFigure.updateEnergyLevel(selectedSong.energy);
       }
-
     } else {
       console.error("Invalid song data or missing duration:", selectedSong);
     }

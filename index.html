@@ -1,158 +1,219 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Beats Bytes Final Project</title>
-    <link href="https://fonts.googleapis.com/css?family=Neuton:300,400,400i,700,800" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css?family=Neuton:300,400,400i,700,800"
+      rel="stylesheet"
+    />
     <!-- CSS libraries -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
     <!-- Full page -->
     <link rel="stylesheet" type="text/css" href="css/fullpage.css" />
     <!-- This following line is optional. Only necessary if you use the option css3:false and you want to use other easing effects rather than "easeInOutCubic". -->
     <script src="vendors/easings.min.js"></script>
     <script type="text/javascript" src="js/fullpage.js"></script>
     <!-- Custom CSS code -->
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-<div class="container" id="fullpage">
-    <!-- Section 1, OCT 26-->
-    <!-- Streaming Animation-->
-    <div class="row section first">
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container" id="fullpage">
+      <!-- Section 1, OCT 26-->
+      <!-- Streaming Animation-->
+      <div class="row section first">
         <h1>Spotify Streaming Data</h1>
         <div class="col-md-12">
-            <br>
-            <h2>Most Popular Songs, date-date</h2>
-            <button id="toggleAnimationButton">Start / Stop Animation</button>
+          <br />
+          <h2>Most Popular Songs, date-date</h2>
+          <button id="toggleAnimationButton">Start / Stop Animation</button>
 
-            <div id="stream-vis"></div>
-            <br><br>
+          <div id="stream-vis"></div>
+          <br /><br />
         </div>
-    </div>
-    <!-- TODO: Album Page-->
-    <div class="section fp-noscroll">
+      </div>
+      <!-- TODO: Album Page-->
+
+      <div class="section fp-noscroll">
         <div class="row">
-            <div class="col-md-12">
-                <br><br>
-                <h2>TODO: ALBUM VISUALIZATION</h2>
-                <br>
-                <div id="albumPage"></div>
-                <br><br>
-            </div>
+          <div class="col-md-12">
+            <br /><br />
+            <h2>TOP TRACKS</h2>
+            <br />
+            <div id="albumPage"></div>
+          </div>
         </div>
-    </div>
-    <!--Piano Visualization-->
-    <div class="row section fp-noscroll">
-        <div class="col-md-12">
-            <div id="pianoVis">
-                <img id="piano-svg" src="images/piano.svg" alt="piano" width="50%" height="50%"
-                     style="background-color: white;">
-            </div>
-        </div>
-    </div>
+      </div>
 
-    <div class="section fp-noscroll">
+      <div class="section fp-noscroll">
+        <div class="row">
+          <div class="col-md-12">
+            <br /><br />
+            <h2>TOP SONGS BY DANCEABILITY</h2>
+            <br />
+            <div id="barChart"></div>
+          </div>
+        </div>
+      </div>
+
+      <!--Piano Visualization-->
+      <div class="row section fp-noscroll">
+        <div class="col-md-12">
+          <div id="pianoVis">
+            <img
+              id="piano-svg"
+              src="images/piano.svg"
+              alt="piano"
+              width="50%"
+              height="50%"
+              style="background-color: white"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="section fp-noscroll">
         <!--Section 2 OCT 26-->
-        <h2 class="switchLabel"> </h2>
+        <h2 class="switchLabel"></h2>
         <div id="stateCarousel" class="carousel slide" data-ride="carousel">
-            <div class="graph-row carousel-inner">
-                <!-- Song Dropdown Column -->
-                <br> <br> <br>
-                <div>
-                    <div class="d-flex flex-column align-items-center justify-content-center">
-                        <select id="songDropdown"> Pick a Song! </select>
-                        <br>
-                        <button id="switchViewButton" type="button" onclick="switchView()">Switch Data</button>
-                    </div>
-                    <br>
-                    <div id="songInfo"></div>
-                <div class="carousel-item active">
-                    <!-- Song Energy -->
-                    <div class="d-flex flex-column align-items-center justify-content-center">
-                        <div id="energy-label" class="energy-label"></div>
-                        <div id="energyStickFigure" class="d-flex flex-column align-items-center"> </div>
-                    </div>
+          <div class="graph-row carousel-inner">
+            <!-- Song Dropdown Column -->
+            <br />
+            <br />
+            <br />
+            <div>
+              <div
+                class="d-flex flex-column align-items-center justify-content-center"
+              >
+                <select id="songDropdown">
+                  Pick a Song!
+                </select>
+                <br />
+                <button
+                  id="switchViewButton"
+                  type="button"
+                  onclick="switchView()"
+                >
+                  Switch Data
+                </button>
+              </div>
+              <br />
+              <div id="songInfo"></div>
+              <div class="carousel-item active">
+                <!-- Song Energy -->
+                <div
+                  class="d-flex flex-column align-items-center justify-content-center"
+                >
+                  <div id="energy-label" class="energy-label"></div>
+                  <div
+                    id="energyStickFigure"
+                    class="d-flex flex-column align-items-center"
+                  ></div>
                 </div>
-                <!-- Song Danceability-->
-                <div class="carousel-item">
-                    <div class="d-flex flex-column align-items-center justify-content-center">
-                        <div id="danceabilityLabel" class="danceability-label"></div> <br>
-                        <div id="danceabilityVis"></div>
-                        <div id="dancingStickFigure" class="d-flex flex-column align-items-center"> </div>
-                    </div>
+              </div>
+              <!-- Song Danceability-->
+              <div class="carousel-item">
+                <div
+                  class="d-flex flex-column align-items-center justify-content-center"
+                >
+                  <div id="danceabilityLabel" class="danceability-label"></div>
+                  <br />
+                  <div id="danceabilityVis"></div>
+                  <div
+                    id="dancingStickFigure"
+                    class="d-flex flex-column align-items-center"
+                  ></div>
                 </div>
-                <!-- Song Clock Column -->
-                <div class="carousel-item">
-                    <div class="d-flex flex-column align-items-center justify-content-center">
-                        <div id="songClockLabel" class="songClockLabel"></div>
-                        <div id="songClock" class="d-flex flex-column align-items-center"></div>
-                    </div>
-                    <br> <br>
+              </div>
+              <!-- Song Clock Column -->
+              <div class="carousel-item">
+                <div
+                  class="d-flex flex-column align-items-center justify-content-center"
+                >
+                  <div id="songClockLabel" class="songClockLabel"></div>
+                  <div
+                    id="songClock"
+                    class="d-flex flex-column align-items-center"
+                  ></div>
                 </div>
+                <br />
+                <br />
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-        </div>
-    <!--SECTION 1 NOV 2-->
-    <div class="section fp-noscroll">
+      </div>
+      <!--SECTION 1 NOV 2-->
+      <div class="section fp-noscroll">
         <h2>SECTION 2 NOV 2</h2>
-        <h4>Now let's look at what happens the week Taylor Swift released her album:</h4>
-    </div>
-    <div class="section fp-noscroll">
+        <h4>
+          Now let's look at what happens the week Taylor Swift released her
+          album:
+        </h4>
+      </div>
+      <div class="section fp-noscroll">
         <!-- Word Cloud Column -->
         <h4>Taylor Swift currently leads Spotify streams by....</h4>
         <div class="col-md-12">
-            <div id="wordCloud"></div>
+          <div id="wordCloud"></div>
         </div>
-    </div>
-    <!-- Album Visualization #2-->
-    <div class="section fp-noscroll">
+      </div>
+      <!-- Album Visualization #2-->
+      <div class="section fp-noscroll">
         <div class="col-md-12">
-            <br><br>
-            <h2>TODO: ALBUM VISUALIZATION #2</h2>
-            <br>
-            <div id="albumPage2"></div>
-            <br><br>
+          <br /><br />
+          <h2>TOP TRACKS NOV 2ND</h2>
+          <br />
+          <div id="albumPage2"></div>
+          <br /><br />
         </div>
-    </div>
-    <div class="row section fp-noscroll">
-        <!-- TODO: Scatterplot -->
-        <!-- Depending on how you filter the scatterplot, one (not all three) of the following visualizations will appear-->
-        <div class="col-md-6">
-            <br><br>
-            <h2>TODO: SCATTERPLOT #2</h2>
-            <br>
-            <div id="scatterplot"></div>
-            <br><br>
+      </div>
+      <div class="section fp-noscroll">
+        <div class="row">
+          <div class="col-md-12">
+            <br /><br />
+            <h2>TOP SONGS BY DANCEABILITY</h2>
+            <br />
+            <div id="barChart2"></div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-<!-- Load JS libraries -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-<!-- d3 -->
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<!-- Visualization objects -->
-<script src="js/streamVis.js"></script>
-<script src="js/clockVis.js"></script>
-<script src="js/stickFigure.js"></script>
-<script src="js/energyStickFigure.js"></script>
-<script src="js/musicSheetScatter.js"></script>
-<script src="js/pianoVis.js"></script>
-<script src="js/topTrackVis.js"></script>
-<!-- Word Cloud -->
-<script src="js/wordCloud/d3.layout.cloud.js"></script>
-<script src="js/wordCloud/wordCloud.js"></script>
-<!-- Load data, create visualizations -->
-<script src="js/main.js"></script>
-<script type="text/javascript">
-    var myFullpage = new fullpage('#fullpage', {
-        sectionsColor: ['transparent']
-    });
-</script>
-</body>
+    <div id="tooltip"></div>
+
+    <!-- Load JS libraries -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <!-- d3 -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- Visualization objects -->
+    <script src="js/streamVis.js"></script>
+    <script src="js/clockVis.js"></script>
+    <script src="js/stickFigure.js"></script>
+    <script src="js/energyStickFigure.js"></script>
+    <script src="js/musicSheetScatter.js"></script>
+    <script src="js/pianoVis.js"></script>
+    <script src="js/topTrackVis.js"></script>
+    <script src="js/barChartVis.js"></script>
+    <!-- Word Cloud -->
+    <script src="js/wordCloud/d3.layout.cloud.js"></script>
+    <script src="js/wordCloud/wordCloud.js"></script>
+    <!-- Load data, create visualizations -->
+    <script src="js/main.js"></script>
+    <script type="text/javascript">
+      var myFullpage = new fullpage("#fullpage", {
+        sectionsColor: ["transparent"],
+      });
+    </script>
+  </body>
 </html>

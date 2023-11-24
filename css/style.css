@@ -90,7 +90,9 @@ h2 {
   color: #1db954; /* Spotify's brand green for headers
   font-weight: 700; /* Bold font for headers
 } */
-#dancingStickFigure, #energyStickFigure, #songClock {
+#dancingStickFigure,
+#energyStickFigure,
+#songClock {
   align-items: center;
 }
 
@@ -146,7 +148,9 @@ button:hover {
   color: #314149;
 }
 
-.danceability-label, .songClockLabel, .energy-label {
+.danceability-label,
+.songClockLabel,
+.energy-label {
   font-size: 30px;
   text-align: center;
   color: #314149;
@@ -187,4 +191,14 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#tooltip {
+  position: absolute;
+  display: none;
+  border: 1px solid #333;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 5px;
+  pointer-events: none;
 }
