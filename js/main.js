@@ -78,7 +78,6 @@ function createVis(data) {
   topTrackVis2 = new TopTrackVis("albumPage2", data, "Nov2");
   barChart = new BarChartVis("barChart", data, "Oct26");
   barChart2 = new BarChartVis("barChart2", data, "Nov2");
-
   myWordCloud = new wordCloud("wordCloud", data, "Nov2");
   myPiano = new Piano("pianoVis", data);
   myClock = new clockVis("#songClock", data);

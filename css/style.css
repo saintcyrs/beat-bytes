@@ -92,7 +92,9 @@ h2 {
 } */
 #dancingStickFigure,
 #energyStickFigure,
-#songClock {
+#songClock,
+#pianoVis 
+#wordCloud {
   align-items: center;
 }
 

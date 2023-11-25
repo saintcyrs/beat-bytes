@@ -5,11 +5,12 @@ class Piano {
     this.data = data;
     this.initVis();
   }
-  // Initialize
+  // Initialize 
   initVis() {
     let vis = this;
 
-    vis.svg = d3.select(vis.parentElement).select("#piano-svg");
+    vis.svg = d3.select("#" + vis.parentElement); //.select('#piano-svg');
+
     vis.wrangleData();
   }
 
@@ -34,39 +35,44 @@ class Piano {
         count: counts[numericKey],
       });
     });
+
+    vis.updateVis();
   }
 
   // Update vis
   updateVis() {
     let vis = this;
-    // Bind the data to the piano keys and append text overlays for the counts
-    // Assume each key in the SVG has an id corresponding to its note name (e.g., id="C", id="C#", etc.)
-    vis.svg
-      .selectAll(".piano-key")
-      .data(vis.convertedCounts, (d) => d.key)
-      .join(
-        (enter) => {
-          // For new data elements, append text to each key for the count
-          enter
-            .append("text")
-            .attr("x", (d, i) => 5 + i)
-            .attr("y", 10 /* logic to determine y position based on key id */)
-            .text((d) => d.count)
-            .attr("color", "black")
-            .attr("class", "key-count")
-            .attr("text-anchor", "middle")
-            .attr("alignment-baseline", "middle")
-            .attr("pointer-events", "none"); // Ensure that the text doesn't interfere with key events
-        },
-        (update) => {
-          // For existing elements, update the text
-          update.select(".key-count").text((d) => d.count);
-        },
-        (exit) => {
-          // Remove text for keys that are no longer present
-          exit.select(".key-count").remove();
-        }
-      );
+    const keyPositions = {
+      'C': { x: 50, y: 120 },
+      'C#': { x: 100, y: 80 },
+      'D': { x: 150, y: 120 },
+      'D#': { x: 200, y: 80 },
+      'E': { x: 250, y: 120 },
+      'F': { x: 300, y: 120 },
+      'F#': { x: 350, y: 80 },
+      'G': { x: 400, y: 120 },
+      'G#': { x: 450, y: 80 },
+      'A': { x: 500, y: 120 },
+      'A#': { x: 550, y: 80 },
+      'B': { x: 600, y: 120 },
+    };
+    
+    // Append the key names to the SVG
+    // Loop over the convertedCounts and position the text elements
+    vis.convertedCounts.forEach((keyCount) => {
+      const position = keyPositions[keyCount.key];
+      vis.svg
+        .append("text")
+        .attr('x', position.x)
+        .attr('y', position.y)
+        .text(keyCount.count)
+        .attr('class', 'piano-key-text')
+        .attr('text-anchor', 'middle')  // Centers the text horizontally
+        .attr('dominant-baseline', 'middle') // Centers the text vertically, may work better in some browsers
+        .attr('pointer-events', 'none')
+        .style('font-size', '30px') // Adjust the font size as necessary
+        .attr('fill', 'black'); // Ensure text is black
+    });
   }
 
   fromPitchClass(pitchClass) {
