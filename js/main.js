@@ -79,7 +79,7 @@ function createVis(data) {
   barChart = new BarChartVis("barChart", data, "Oct26");
   barChart2 = new BarChartVis("barChart2", data, "Nov2");
   myWordCloud = new wordCloud("wordCloud", data, "Nov2");
-  myPiano = new Piano("pianoVis", data);
+  //myPiano = new Piano("pianoVis", data);
   myClock = new clockVis("#songClock", data);
   myStickFigure = new stickFigure("#dancingStickFigure", {});
   myEnergyStickFigure = new energyStickFigure("#energyStickFigure", {}); // Make sure to provide the correct ID
@@ -140,3 +140,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+// Define piano visualization
+// main.js
+// document.addEventListener('DOMContentLoaded', () => {
+//   const songCountsByKey = {
+//       'C': 10,
+//       'C#': 5,
+//       'D': 15,
+//       // ... other keys
+//   };
+
+//   myPiano = new Piano(songCountsByKey);
+// });
+
