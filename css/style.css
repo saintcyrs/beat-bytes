@@ -92,9 +92,7 @@ h2 {
 } */
 #dancingStickFigure,
 #energyStickFigure,
-#songClock,
-#pianoVis 
-#wordCloud {
+#songClock {
   align-items: center;
 }
 
@@ -203,4 +201,12 @@ button:hover {
   border-radius: 5px;
   padding: 5px;
   pointer-events: none;
+}
+
+#wordCloud {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Optional: Set the height to full viewport height */
+  text-align: center; /* Center the text inside the wordCloud */
 }

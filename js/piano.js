@@ -1,88 +1,80 @@
 // SOURCE: https://codepen.io/gabrielcarol/pen/rGeEbY
 
-// // Piano.js
-// class Piano {
-//   constructor(data) {
-//       this.songCountsByKey = data;
-//       this.keys = document.querySelectorAll(".key");
-//       this.note = document.querySelector(".nowplaying");
-//       this.hints = document.querySelectorAll(".hints");
+class Piano {
+  // Constructor
+  constructor(data) {
 
-//       this.initVis();
-//   }
+    this.data = data;
+    this.playNote = this.playNote.bind(this);    this.hintsOn = this.hintsOn.bind(this);
 
-//   initVis() {
-//       this.keys.forEach(key => {
-//           key.addEventListener("transitionend", this.removeTransition);
-//       });
+    this.initVis();
+  }
 
-//       this.hints.forEach((hint, index) => {
-//           hint.setAttribute("style", "transition-delay:" + index * 50 + "ms");
-//       });
+  initVis() {
+    let vis = this;
 
-//       this.wrangleData()
+    vis.keys = document.querySelectorAll(".key");
+    vis.note = document.querySelector(".nowplaying");
+    vis.hints = document.querySelectorAll(".hints");
 
-//       window.addEventListener("keydown", (e) => this.playNote(e));
-//   }
+    vis.wrangleData();
+  }
+  // Set up key counts 
+  wrangleData() {
+    let vis = this;
+      // Set up counts for each key
+      const counts = {};
+      vis.data.forEach((d) => {
+        let key = d.key;
+        if (counts[key]) {
+          counts[key] += 1;
+        } else {
+          counts[key] = 1;
+        }
+      });
+      vis.convertedCounts = [];
+      Object.keys(counts).forEach((numericKey) => {
+        vis.convertedCounts.push({
+          key: vis.fromPitchClass(numericKey),
+          count: counts[numericKey],
+        });
+      });
 
-//   wrangleData() {
-//     let vis = this;
+      console.log(vis.convertedCounts);
+      vis.updateVis();
+    }
 
-//     // Set up counts for each key
-//     const counts = {};
-//     vis.data.forEach((d) => {
-//       const key = d.key;
-//       if (counts[key]) {
-//         counts[key] += 1;
-//       } else {
-//         counts[key] = 1;
-//       }
-//     });
-//     vis.songCountsByKey = [];
-//     Object.keys(counts).forEach((numericKey) => {
-//       vis.songCountsByKey.push({
-//         key: vis.fromPitchClass(numericKey),
-//         count: counts[numericKey],
-//       });
-//     });
-//     console.log(vis.songCountsByKey);
-//   }
-//   playNote(e) {
-//       const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`),
-//             key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+  updateVis() {
+    let vis = this;
 
-//       if (!key) return;
+    vis.hints.forEach((hint, index) => vis.hintsOn(hint, index));
 
-//       const keyNote = key.getAttribute("data-note");
+    vis.keys.forEach(key => key.addEventListener("transitionend", vis.removeTransition));
+    window.addEventListener("keydown", vis.playNote);
 
-//       key.classList.add("playing");
-//       this.note.innerHTML = keyNote;
-//       audio.currentTime = 0;
-//       audio.play();
+  }
 
-//       this.displaySongCount(keyNote);
-//   }
+fromPitchClass(pitchClass) {
+  const pitchClasses = {
+    0: "C",
+    1: "C#",
+    2: "D",
+    3: "D#",
+    4: "E",
+    5: "F",
+    6: "F#",
+    7: "G",
+    8: "G#",
+    9: "A",
+    10: "A#",
+    11: "B",
+  };
+  return pitchClasses[pitchClass];
+}
 
-//   displaySongCount(keyNote) {
-//     let vis = this;
-//       const count = vis.songCountsByKey[keyNote];
-//       if (count !== undefined) {
-//           this.note.innerHTML += ` (${count} songs)`;
-//       }
-//   }
+playNote(e) {
+  let vis = this;
 
-//   removeTransition(e) {
-//       if (e.propertyName !== "transform") return;
-//       e.target.classList.remove("playing");
-//   }
-// }
-
-
-const keys = document.querySelectorAll(".key"),
-  note = document.querySelector(".nowplaying"),
-  hints = document.querySelectorAll(".hints");
-
-function playNote(e) {
   const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`),
     key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
 
@@ -91,22 +83,24 @@ function playNote(e) {
   const keyNote = key.getAttribute("data-note");
 
   key.classList.add("playing");
-  note.innerHTML = keyNote;
+  // Find the count for this key
+  const keyData = vis.convertedCounts.find(d => d.key === keyNote);
+  const keyCount = keyData ? keyData.count : 0;
+
+  // Update the display with key note and count
+  // TODO: Possibly change how this header works.
+  vis.note.innerHTML = `${keyNote} : ${keyCount} songs`;
   audio.currentTime = 0;
   audio.play();
 }
 
-function removeTransition(e) {
+removeTransition(e) {
   if (e.propertyName !== "transform") return;
   this.classList.remove("playing");
 }
 
-function hintsOn(e, index) {
+hintsOn(e, index) {
   e.setAttribute("style", "transition-delay:" + index * 50 + "ms");
 }
 
-hints.forEach(hintsOn);
-
-keys.forEach(key => key.addEventListener("transitionend", removeTransition));
-
-window.addEventListener("keydown", playNote);
+}

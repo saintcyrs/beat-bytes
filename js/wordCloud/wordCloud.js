@@ -22,10 +22,8 @@ class wordCloud {
 
     // define margins
     vis.margin = { top: 20, right: 20, bottom: 20, left: 20 };
-    // console.log(document.getElementById(vis.parentElement));
-    vis.width = 600; //document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
-    vis.height = 600; //- vis.margin.top - vis.margin.bottom;
-    // console.log(vis.width, vis.height)
+    vis.width = 600;
+    vis.height = 600;
 
     // init drawing area
     vis.svg = d3
