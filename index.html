@@ -17,7 +17,7 @@
       crossorigin="anonymous"
     />
     <!-- Piano Stylesheet -->
-    <link rel="stylesheet" href = "css/piano.css"/>
+    <link rel="stylesheet" href="css/piano.css" />
     <!-- Full page -->
     <link rel="stylesheet" type="text/css" href="css/fullpage.css" />
     <!-- This following line is optional. Only necessary if you use the option css3:false and you want to use other easing effects rather than "easeInOutCubic". -->
@@ -56,11 +56,47 @@
 
       <div class="section fp-noscroll">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-9">
             <br /><br />
-            <h2>TOP SONGS BY DANCEABILITY</h2>
+            <h2>TOP SONGS BY CATEGORY</h2>
             <br />
             <div id="barChart"></div>
+          </div>
+          <div class="col-md-3">
+            <!-- Song Dropdown Column -->
+            <select class="form-control" id="category" onchange="onChange()">
+              <option value="danceability">Danceability</option>
+              <option value="duration_ms">Duration</option>
+              <option value="energy">Energy</option>
+            </select>
+            <div id="songInfo"></div>
+
+            <!-- Song Danceability-->
+            <div id="danceabilitySection">
+              <div id="danceabilityLabel" class="danceability-label"></div>
+              <br />
+              <div id="danceabilityVis"></div>
+              <div
+                id="dancingStickFigure"
+                class="d-flex flex-column align-items-center"
+              ></div>
+            </div>
+            <!-- Song Energy -->
+            <div id="energySection">
+              <div id="energy-label" class="energy-label"></div>
+              <div
+                id="energyStickFigure"
+                class="d-flex flex-column align-items-center"
+              ></div>
+            </div>
+            <!-- Song Clock Column -->
+            <div id="clockSection">
+              <div id="songClockLabel" class="songClockLabel"></div>
+              <div
+                id="songClock"
+                class="d-flex flex-column align-items-center"
+              ></div>
+            </div>
           </div>
         </div>
       </div>
@@ -71,161 +107,152 @@
         <div class="col-md-12">
           <div id="pianoVis">
             <section id="wrap">
-                <!-- TODO: Possibly add in tooltip to display more information upon hover-->
-                <h2>NUMBER OF SONGS IN EACH KEY</h2>
-                <section id="main">
-                  <div class="nowplaying"></div>
-                  <div class="keys">
-                    <div data-key="65" class="key" data-note="C">
-                        <span class="hints">A</span>
-                    </div>
-                    <div data-key="87" class="key sharp" data-note="C#">
-                        <span class="hints">W</span>
-                    </div>
-                    <div data-key="83" class="key" data-note="D">
-                        <span class="hints">S</span>
-                    </div>
-                    <div data-key="69" class="key sharp" data-note="D#">
-                        <span class="hints">E</span>
-                    </div>
-                    <div data-key="68" class="key" data-note="E">
-                        <span class="hints">D</span>
-                    </div>
-                    <div data-key="70" class="key" data-note="F">
-                        <span class="hints">F</span>
-                    </div>
-                    <div data-key="84" class="key sharp" data-note="F#">
-                        <span class="hints">T</span>
-                    </div>
-                    <div data-key="71" class="key" data-note="G">
-                        <span class="hints">G</span>
-                    </div>
-                    <div data-key="89" class="key sharp" data-note="G#">
-                        <span class="hints">Y</span>
-                    </div>
-                    <div data-key="72" class="key" data-note="A">
-                        <span class="hints">H</span>
-                    </div>
-                    <div data-key="85" class="key sharp" data-note="A#">
-                        <span class="hints">U</span>
-                    </div>
-                    <div data-key="74" class="key" data-note="B">
-                        <span class="hints">J</span>
-                    </div>
-                    <div data-key="75" class="key" data-note="C">
-                        <span class="hints">K</span>
-                    </div>
-                    <div data-key="79" class="key sharp" data-note="C#">
-                        <span class="hints">O</span>
-                    </div>
-                    <div data-key="76" class="key" data-note="D">
-                        <span class="hints">L</span>
-                    </div>
-                    <div data-key="80" class="key sharp" data-note="D#">
-                        <span class="hints">P</span>
-                    </div>
-                    <div data-key="186" class="key" data-note="E">
-                        <span class="hints">;</span>
-                    </div>
+              <!-- TODO: Possibly add in tooltip to display more information upon hover-->
+              <h2>NUMBER OF SONGS IN EACH KEY</h2>
+              <section id="main">
+                <div class="nowplaying"></div>
+                <div class="keys">
+                  <div data-key="65" class="key" data-note="C">
+                    <span class="hints">A</span>
                   </div>
-                  <audio data-key="65" src="http://carolinegabriel.com/demo/js-keyboard/sounds/040.wav"></audio>
-                  <audio data-key="87" src="http://carolinegabriel.com/demo/js-keyboard/sounds/041.wav"></audio>
-                  <audio data-key="83" src="http://carolinegabriel.com/demo/js-keyboard/sounds/042.wav"></audio>
-                  <audio data-key="69" src="http://carolinegabriel.com/demo/js-keyboard/sounds/043.wav"></audio>
-                  <audio data-key="68" src="http://carolinegabriel.com/demo/js-keyboard/sounds/044.wav"></audio>
-                  <audio data-key="70" src="http://carolinegabriel.com/demo/js-keyboard/sounds/045.wav"></audio>
-                  <audio data-key="84" src="http://carolinegabriel.com/demo/js-keyboard/sounds/046.wav"></audio>
-                  <audio data-key="71" src="http://carolinegabriel.com/demo/js-keyboard/sounds/047.wav"></audio>
-                  <audio data-key="89" src="http://carolinegabriel.com/demo/js-keyboard/sounds/048.wav"></audio>
-                  <audio data-key="72" src="http://carolinegabriel.com/demo/js-keyboard/sounds/049.wav"></audio>
-                  <audio data-key="85" src="http://carolinegabriel.com/demo/js-keyboard/sounds/050.wav"></audio>
-                  <audio data-key="74" src="http://carolinegabriel.com/demo/js-keyboard/sounds/051.wav"></audio>
-                  <audio data-key="75" src="http://carolinegabriel.com/demo/js-keyboard/sounds/052.wav"></audio>
-                  <audio data-key="79" src="http://carolinegabriel.com/demo/js-keyboard/sounds/053.wav"></audio>
-                  <audio data-key="76" src="http://carolinegabriel.com/demo/js-keyboard/sounds/054.wav"></audio>
-                  <audio data-key="80" src="http://carolinegabriel.com/demo/js-keyboard/sounds/055.wav"></audio>
-                  <audio data-key="186" src="http://carolinegabriel.com/demo/js-keyboard/sounds/056.wav"></audio>
-                  </section>
+                  <div data-key="87" class="key sharp" data-note="C#">
+                    <span class="hints">W</span>
+                  </div>
+                  <div data-key="83" class="key" data-note="D">
+                    <span class="hints">S</span>
+                  </div>
+                  <div data-key="69" class="key sharp" data-note="D#">
+                    <span class="hints">E</span>
+                  </div>
+                  <div data-key="68" class="key" data-note="E">
+                    <span class="hints">D</span>
+                  </div>
+                  <div data-key="70" class="key" data-note="F">
+                    <span class="hints">F</span>
+                  </div>
+                  <div data-key="84" class="key sharp" data-note="F#">
+                    <span class="hints">T</span>
+                  </div>
+                  <div data-key="71" class="key" data-note="G">
+                    <span class="hints">G</span>
+                  </div>
+                  <div data-key="89" class="key sharp" data-note="G#">
+                    <span class="hints">Y</span>
+                  </div>
+                  <div data-key="72" class="key" data-note="A">
+                    <span class="hints">H</span>
+                  </div>
+                  <div data-key="85" class="key sharp" data-note="A#">
+                    <span class="hints">U</span>
+                  </div>
+                  <div data-key="74" class="key" data-note="B">
+                    <span class="hints">J</span>
+                  </div>
+                  <div data-key="75" class="key" data-note="C">
+                    <span class="hints">K</span>
+                  </div>
+                  <div data-key="79" class="key sharp" data-note="C#">
+                    <span class="hints">O</span>
+                  </div>
+                  <div data-key="76" class="key" data-note="D">
+                    <span class="hints">L</span>
+                  </div>
+                  <div data-key="80" class="key sharp" data-note="D#">
+                    <span class="hints">P</span>
+                  </div>
+                  <div data-key="186" class="key" data-note="E">
+                    <span class="hints">;</span>
+                  </div>
+                </div>
+                <audio
+                  data-key="65"
+                  src="http://carolinegabriel.com/demo/js-keyboard/sounds/040.wav"
+                ></audio>
+                <audio
+                  data-key="87"
+                  src="http://carolinegabriel.com/demo/js-keyboard/sounds/041.wav"
+                ></audio>
+                <audio
+                  data-key="83"
+                  src="http://carolinegabriel.com/demo/js-keyboard/sounds/042.wav"
+                ></audio>
+                <audio
+                  data-key="69"
+                  src="http://carolinegabriel.com/demo/js-keyboard/sounds/043.wav"
+                ></audio>
+                <audio
+                  data-key="68"
+                  src="http://carolinegabriel.com/demo/js-keyboard/sounds/044.wav"
+                ></audio>
+                <audio
+                  data-key="70"
+                  src="http://carolinegabriel.com/demo/js-keyboard/sounds/045.wav"
+                ></audio>
+                <audio
+                  data-key="84"
+                  src="http://carolinegabriel.com/demo/js-keyboard/sounds/046.wav"
+                ></audio>
+                <audio
+                  data-key="71"
+                  src="http://carolinegabriel.com/demo/js-keyboard/sounds/047.wav"
+                ></audio>
+                <audio
+                  data-key="89"
+                  src="http://carolinegabriel.com/demo/js-keyboard/sounds/048.wav"
+                ></audio>
+                <audio
+                  data-key="72"
+                  src="http://carolinegabriel.com/demo/js-keyboard/sounds/049.wav"
+                ></audio>
+                <audio
+                  data-key="85"
+                  src="http://carolinegabriel.com/demo/js-keyboard/sounds/050.wav"
+                ></audio>
+                <audio
+                  data-key="74"
+                  src="http://carolinegabriel.com/demo/js-keyboard/sounds/051.wav"
+                ></audio>
+                <audio
+                  data-key="75"
+                  src="http://carolinegabriel.com/demo/js-keyboard/sounds/052.wav"
+                ></audio>
+                <audio
+                  data-key="79"
+                  src="http://carolinegabriel.com/demo/js-keyboard/sounds/053.wav"
+                ></audio>
+                <audio
+                  data-key="76"
+                  src="http://carolinegabriel.com/demo/js-keyboard/sounds/054.wav"
+                ></audio>
+                <audio
+                  data-key="80"
+                  src="http://carolinegabriel.com/demo/js-keyboard/sounds/055.wav"
+                ></audio>
+                <audio
+                  data-key="186"
+                  src="http://carolinegabriel.com/demo/js-keyboard/sounds/056.wav"
+                ></audio>
               </section>
-              <!--TODO: Figure out what to do with this video -->
-              <video hidden playsinline autoplay muted loop id="bgvid" poster="http://carolinegabriel.com/demo/js-keyboard/video/bg.jpg">
-                  <source src="http://carolinegabriel.com/demo/js-keyboard/video/bg.mp4" type="video/mp4">
-              </video>
+            </section>
+            <!--TODO: Figure out what to do with this video -->
+            <video
+              hidden
+              playsinline
+              autoplay
+              muted
+              loop
+              id="bgvid"
+              poster="http://carolinegabriel.com/demo/js-keyboard/video/bg.jpg"
+            >
+              <source
+                src="http://carolinegabriel.com/demo/js-keyboard/video/bg.mp4"
+                type="video/mp4"
+              />
+            </video>
           </div>
         </div>
       </div>
 
-      <div class="section fp-noscroll">
-        <!--Section 2 OCT 26-->
-        <h2 class="switchLabel"></h2>
-        <div id="stateCarousel" class="carousel slide" data-ride="carousel">
-          <div class="graph-row carousel-inner">
-            <!-- Song Dropdown Column -->
-            <br />
-            <br />
-            <br />
-            <div>
-              <div
-                class="d-flex flex-column align-items-center justify-content-center"
-              >
-                <select id="songDropdown">
-                  Pick a Song!
-                </select>
-                <br />
-                <button
-                  id="switchViewButton"
-                  type="button"
-                  onclick="switchView()"
-                >
-                  Switch Data
-                </button>
-              </div>
-              <br />
-              <div id="songInfo"></div>
-              <div class="carousel-item active">
-                <!-- Song Energy -->
-                <div
-                  class="d-flex flex-column align-items-center justify-content-center"
-                >
-                  <div id="energy-label" class="energy-label"></div>
-                  <div
-                    id="energyStickFigure"
-                    class="d-flex flex-column align-items-center"
-                  ></div>
-                </div>
-              </div>
-              <!-- Song Danceability-->
-              <div class="carousel-item">
-                <div
-                  class="d-flex flex-column align-items-center justify-content-center"
-                >
-                  <div id="danceabilityLabel" class="danceability-label"></div>
-                  <br />
-                  <div id="danceabilityVis"></div>
-                  <div
-                    id="dancingStickFigure"
-                    class="d-flex flex-column align-items-center"
-                  ></div>
-                </div>
-              </div>
-              <!-- Song Clock Column -->
-              <div class="carousel-item">
-                <div
-                  class="d-flex flex-column align-items-center justify-content-center"
-                >
-                  <div id="songClockLabel" class="songClockLabel"></div>
-                  <div
-                    id="songClock"
-                    class="d-flex flex-column align-items-center"
-                  ></div>
-                </div>
-                <br />
-                <br />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <!--SECTION 1 NOV 2-->
       <div class="section fp-noscroll">
         <h2>SECTION 2 NOV 2</h2>
@@ -237,7 +264,7 @@
       <div class="section fp-noscroll">
         <!-- Word Cloud Column -->
         <h4>Taylor Swift's song popularity in the top 200:</h4>
-          <div id="wordCloud"></div>
+        <div id="wordCloud"></div>
       </div>
       <!-- Album Visualization #2-->
       <div class="section fp-noscroll">
@@ -251,15 +278,15 @@
       </div>
       <div class="section fp-noscroll">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-9">
             <br /><br />
-            <h2>TOP SONGS BY DANCEABILITY</h2>
+            <h2>TOP SONGS BY CATEGORY</h2>
             <br />
             <div id="barChart2"></div>
           </div>
+          
         </div>
       </div>
-    </div>
     <div id="tooltip"></div>
 
     <!-- Load JS libraries -->

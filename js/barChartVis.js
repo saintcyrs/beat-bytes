@@ -11,8 +11,8 @@ class BarChartVis {
     let vis = this;
 
     // Margins and dimensions
-    vis.margin = { top: 20, right: 20, bottom: 200, left: 40 };
-    vis.width = 960 - vis.margin.left - vis.margin.right;
+    vis.margin = { top: 20, right: 20, bottom: 200, left: 60 };
+    vis.width = 800 - vis.margin.left - vis.margin.right;
     vis.height = 500 - vis.margin.top - vis.margin.bottom;
 
     // SVG drawing area
@@ -51,8 +51,8 @@ class BarChartVis {
 
     // Filter data based on the specified date and slice the first 25 records
     vis.displayData = vis.data.filter((d) => d.week === vis.date).slice(0, 25);
+    // vis.displayData.sort((a, b) => b[selectedCategory] - a[selectedCategory]);
 
-    console.log(vis.displayData);
     // Update the visualization
     vis.updateVis();
   }
@@ -62,7 +62,7 @@ class BarChartVis {
 
     // Update scales
     vis.x.domain(vis.displayData.map((d) => truncate(d.track_name, 20)));
-    vis.y.domain([0, d3.max(vis.displayData, (d) => d.danceability)]);
+    vis.y.domain([0, d3.max(vis.displayData, (d) => d[selectedCategory])]);
 
     // Update the x-axis
     vis.svg
@@ -85,15 +85,40 @@ class BarChartVis {
       .append("rect")
       .attr("class", "bar")
       .merge(bars)
+      .on("click", function (event, d) {
+        // Reset all bars to original color
+        vis.svg.selectAll(".bar").style("fill", "#93bebf");
+
+        d3.select(this).style("fill", "red");
+
+        selectedSong = d;
+        updateDropdown();
+      })
       .transition()
       .duration(1000)
       .attr("x", (d) => vis.x(truncate(d.track_name, 20)))
       .attr("width", vis.x.bandwidth())
-      .attr("y", (d) => vis.y(d.danceability))
-      .attr("height", (d) => vis.height - vis.y(d.danceability));
+      .attr("y", (d) => vis.y(d[selectedCategory]))
+      .attr("height", (d) => vis.height - vis.y(d[selectedCategory]))
+      .style("cursor", "pointer");
 
     // Remove old bars
     bars.exit().remove();
+
+    if (!selectedSong) {
+      vis.svg.selectAll(".bar").style("fill", "#93bebf");
+      vis.svg
+        .selectAll(".bar")
+        .filter((d, i) => i === 0)
+        .style("fill", "red");
+    } else {
+      vis.svg.selectAll(".bar").style("fill", "#93bebf");
+      vis.svg
+        .selectAll(".bar")
+        .filter((d, i) => i === selectedSong.rank - 1)
+        .style("fill", "red");
+      updateDropdown();
+    }
   }
 }
 

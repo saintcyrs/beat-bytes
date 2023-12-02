@@ -9,26 +9,28 @@ let barChart;
 let barChart2;
 let myClock;
 let streamVisualization; // Declare streamVisualization globally
+let selectedSong = null; // Declare selectedSong globally
+let selectedCategory = "danceability";
 
 // Function to convert date objects to strings or reverse
 let dateFormatter = d3.timeFormat("%Y-%m-%d");
 let dateParser = d3.timeParse("%Y-%m-%d");
 
-// Define switchView function globally
-function switchView() {
-  const switchButton = document.getElementById("switchViewButton");
-  const stateCarousel = new bootstrap.Carousel(
-    document.getElementById("stateCarousel")
-  );
+// // Define switchView function globally
+// function switchView() {
+//   const switchButton = document.getElementById("switchViewButton");
+//   const stateCarousel = new bootstrap.Carousel(
+//     document.getElementById("stateCarousel")
+//   );
 
-  if (switchButton.innerHTML === "Danceability") {
-    stateCarousel.next(); // Go to the next carousel item
-  } else if (switchButton.innerHTML === "Time") {
-    stateCarousel.next(); // Go to the next carousel item
-  } else {
-    stateCarousel.prev(); // Go to the previous carousel item
-  }
-}
+//   if (switchButton.innerHTML === "Danceability") {
+//     stateCarousel.next(); // Go to the next carousel item
+//   } else if (switchButton.innerHTML === "Time") {
+//     stateCarousel.next(); // Go to the next carousel item
+//   } else {
+//     stateCarousel.prev(); // Go to the previous carousel item
+//   }
+// }
 
 // (1) Load data with promises
 loadData();
@@ -102,7 +104,30 @@ function createVis(data) {
     }
   });
   console.log("Visualizations created.");
+  selectedSong = data[0]; // Set the selected song to the first song in the data
+  updateDropdown();
+  updateSectionsVisibility(selectedCategory);
 }
+
+updateDropdown = () => {
+  if (selectedSong && selectedSong.duration_ms) {
+    myClock.updateVis(selectedSong.duration_ms);
+    myClock.updateSongInfo(selectedSong); // Update song info label when a song is selected
+
+    // Adjust dance speed if danceability is available
+    if (selectedSong.danceability) {
+      myStickFigure.adjustDanceSpeed(selectedSong.danceability);
+      myStickFigure.updateDanceabilityLabel(selectedSong.danceability);
+    }
+
+    // Adjust energy level if energy is available
+    if (selectedSong && selectedSong.energy) {
+      myEnergyStickFigure.updateEnergyLevel(selectedSong.energy);
+    }
+  } else {
+    console.error("Invalid song data or missing duration:", selectedSong);
+  }
+};
 
 document.addEventListener("DOMContentLoaded", function () {
   document
@@ -113,44 +138,32 @@ document.addEventListener("DOMContentLoaded", function () {
         streamVisualization.toggleAnimation();
       }
     });
-
-  // const myMusicSheetScatter = new musicSheetScatter("#musicSheet", "data/data.csv");
-
-  d3.select("#songDropdown").on("change", function () {
-    let selectedIndex = d3.select(this).property("value");
-    // Make sure to access the songData from the myClock instance
-    let selectedSong = myClock.songData[selectedIndex];
-
-    if (selectedSong && selectedSong.duration_ms) {
-      myClock.updateVis(selectedSong.duration_ms);
-      myClock.updateSongInfo(selectedSong); // Update song info label when a song is selected
-
-      // Adjust dance speed if danceability is available
-      if (selectedSong.danceability) {
-        myStickFigure.adjustDanceSpeed(selectedSong.danceability);
-        myStickFigure.updateDanceabilityLabel(selectedSong.danceability);
-      }
-
-      // Adjust energy level if energy is available
-      if (selectedSong && selectedSong.energy) {
-        myEnergyStickFigure.updateEnergyLevel(selectedSong.energy);
-      }
-    } else {
-      console.error("Invalid song data or missing duration:", selectedSong);
-    }
-  });
 });
 
-// Define piano visualization
-// main.js
-// document.addEventListener('DOMContentLoaded', () => {
-//   const songCountsByKey = {
-//       'C': 10,
-//       'C#': 5,
-//       'D': 15,
-//       // ... other keys
-//   };
+function onChange() {
+  value = d3.select("#category").property("value");
+  selectedCategory = value;
+  updateSectionsVisibility(selectedCategory);
+  barChart.updateVis();
+}
 
-//   myPiano = new Piano(songCountsByKey);
-// });
+function updateSectionsVisibility(selectedCategory) {
+  console.log("Updating sections visibility...");
+  // Hide all sections first
+  document.getElementById("danceabilitySection").style.display = "none";
+  document.getElementById("energySection").style.display = "none";
+  document.getElementById("clockSection").style.display = "none";
 
+  console.log(
+    "energy display: " + document.getElementById("energySection").style.display
+  );
+  // Show the relevant section based on selectedCategory
+  if (selectedCategory === "danceability") {
+    document.getElementById("danceabilitySection").style.display = "block";
+  } else if (selectedCategory === "energy") {
+    document.getElementById("energySection").style.display = "block";
+  } else if (selectedCategory === "duration_ms") {
+    // Assuming 'time' is a category
+    document.getElementById("clockSection").style.display = "block";
+  }
+}

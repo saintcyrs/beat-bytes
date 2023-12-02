@@ -48,6 +48,12 @@ class TopTrackVis {
   updateVis() {
     let vis = this;
 
+    var tooltip = d3
+      .select("body")
+      .append("div")
+      .attr("id", "tooltip")
+      .style("opacity", 0);
+
     // Bind data to the album covers
     var covers = vis.svg
       .selectAll(".album-cover")
@@ -59,34 +65,37 @@ class TopTrackVis {
       .attr("x", (d, i) => (i % 5) * (vis.width / 5))
       .attr("y", (d, i) => Math.floor(i / 5) * 120)
       .attr("width", 100)
-      .attr("height", 100);
-    // .on("mouseover", (event, d) => {
-    //   // Show tooltip on hover
-    //   console.log(d.artist_names);
-    //   d3.select("#tooltip")
-    //     .style("left", event.pageX + "px")
-    //     .style("top", event.pageY - 28 + "px")
-    //     .style("display", "inline-block")
-    //     .html(`<p>${d.artist_names}: ${d.track_name}<p>`);
-    // })
-    // .on("mouseout", () => {
-    //   // Hide tooltip
-    //   d3.select("#tooltip").style("display", "none");
-    // });
+      .attr("height", 100)
+      .on("mouseover", (event, d) => {
+        var coverPosition = event.currentTarget.getBoundingClientRect();
+        var tooltipX = coverPosition.right;
+        var tooltipY = coverPosition.top;
 
-    // Bind data to the song titles
-    vis.svg
-      .selectAll(".track-label")
-      .data(vis.displayData)
-      .enter()
-      .append("text")
-      .attr("class", "track-label")
-      .attr("x", (d, i) => (i % 5) * (vis.width / 5) + 50)
-      .attr("y", (d, i) => Math.floor(i / 5) * 120 + 115)
-      .attr("text-anchor", "middle")
-      .text((d) => truncate(d.track_name, 20)) // Truncate long track names
-      .append("title") // Tooltip showing full track name and artist
-      .text((d) => `${d.track_name} by ${d.artist}`);
+        // Check if the cover is in the last column
+        var columnIndex = vis.displayData.indexOf(d) % 5;
+        if (columnIndex === 5 - 1) {
+          // Position tooltip to the left for the last column
+          tooltipX = coverPosition.left - tooltip.node().offsetWidth - 10; // 10px for some spacing
+        }
+
+        tooltip.transition().duration(0).style("opacity", 0.9);
+        tooltip
+          .html(
+            `<strong>Rank:</strong> ${d.rank}<br><strong>Artist:</strong> ${d.artist_names}<br><strong>Song:</strong> ${d.track_name}`
+          )
+          .style("left", tooltipX + "px")
+          .style("top", tooltipY + "px");
+      })
+      .on("mouseout", () => {
+        // Hide tooltip
+        tooltip.transition().duration(500).style("opacity", 0);
+      })
+      .on("click", (event, d) => {
+        console.log("topTrack select: " + d.track_name);
+        selectedSong = d;
+        barChart.updateVis();
+        fullpage_api.moveSectionDown();
+      });
   }
 }
 
