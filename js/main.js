@@ -9,11 +9,6 @@ let barChart;
 let quoteVisInstance;
 let barChart2;
 let myClock;
-<<<<<<< HEAD
-let streamVisualization; // Declare streamVisualization globally
-let selectedSong = null; // Declare selectedSong globally
-let selectedCategory = "danceability";
-=======
 let streamVisualization;
 let selectedSong = null;
 let myClock2;
@@ -21,31 +16,11 @@ let myStickFigure2;
 let myEnergyStickFigure2;
 let selectedCategory = "danceability";
 let selectedCategory2 = "danceability";
->>>>>>> 82c44c0 (sofia's work 12/4)
 
 // Function to convert date objects to strings or reverse
 let dateFormatter = d3.timeFormat("%Y-%m-%d");
 let dateParser = d3.timeParse("%Y-%m-%d");
 
-<<<<<<< HEAD
-// // Define switchView function globally
-// function switchView() {
-//   const switchButton = document.getElementById("switchViewButton");
-//   const stateCarousel = new bootstrap.Carousel(
-//     document.getElementById("stateCarousel")
-//   );
-
-//   if (switchButton.innerHTML === "Danceability") {
-//     stateCarousel.next(); // Go to the next carousel item
-//   } else if (switchButton.innerHTML === "Time") {
-//     stateCarousel.next(); // Go to the next carousel item
-//   } else {
-//     stateCarousel.prev(); // Go to the previous carousel item
-//   }
-// }
-
-=======
->>>>>>> 82c44c0 (sofia's work 12/4)
 // (1) Load data with promises
 loadData();
 
@@ -159,15 +134,6 @@ updateDropdown = () => {
 
 document.addEventListener("DOMContentLoaded", function () {
   document
-<<<<<<< HEAD
-    .getElementById("toggleAnimationButton")
-    .addEventListener("click", () => {
-      // Check if streamVisualization is defined before toggling animation
-      if (streamVisualization) {
-        streamVisualization.toggleAnimation();
-      }
-    });
-=======
       .getElementById("toggleAnimationButton")
       .addEventListener("click", () => {
         // Check if streamVisualization is defined before toggling animation
@@ -175,7 +141,6 @@ document.addEventListener("DOMContentLoaded", function () {
           streamVisualization.toggleAnimation();
         }
       });
->>>>>>> 82c44c0 (sofia's work 12/4)
 });
 
 function onChange() {
@@ -191,8 +156,6 @@ function updateSectionsVisibility(selectedCategory) {
   document.getElementById("danceabilitySection").style.display = "none";
   document.getElementById("energySection").style.display = "none";
   document.getElementById("clockSection").style.display = "none";
-<<<<<<< HEAD
-=======
 
   console.log(
       "energy display: " + document.getElementById("energySection").style.display
@@ -291,7 +254,6 @@ function updateSongInfo2(song) {
       Artist: ${song.artist_names}<br>
   `);
 }
->>>>>>> 82c44c0 (sofia's work 12/4)
 
   console.log(
     "energy display: " + document.getElementById("energySection").style.display
@@ -305,4 +267,3 @@ function updateSongInfo2(song) {
     // Assuming 'time' is a category
     document.getElementById("clockSection").style.display = "block";
   }
-}

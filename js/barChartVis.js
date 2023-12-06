@@ -11,11 +11,7 @@ class BarChartVis {
     let vis = this;
 
     // Margins and dimensions
-<<<<<<< HEAD
-    vis.margin = { top: 20, right: 20, bottom: 200, left: 60 };
-=======
     vis.margin = { top: 20, right: 0, bottom: 200, left: 60 };
->>>>>>> 82c44c0 (sofia's work 12/4)
     vis.width = 800 - vis.margin.left - vis.margin.right;
     vis.height = 500 - vis.margin.top - vis.margin.bottom;
 
@@ -84,45 +80,6 @@ class BarChartVis {
     // Bind data and create bars
     let bars = vis.svg.selectAll(".bar").data(vis.displayData);
 
-<<<<<<< HEAD
-    bars
-      .enter()
-      .append("rect")
-      .attr("class", "bar")
-      .merge(bars)
-      .on("click", function (event, d) {
-        // Reset all bars to original color
-        vis.svg.selectAll(".bar").style("fill", "#93bebf");
-
-        d3.select(this).style("fill", "red");
-
-        selectedSong = d;
-        updateDropdown();
-      })
-      .transition()
-      .duration(1000)
-      .attr("x", (d) => vis.x(truncate(d.track_name, 20)))
-      .attr("width", vis.x.bandwidth())
-      .attr("y", (d) => vis.y(d[selectedCategory]))
-      .attr("height", (d) => vis.height - vis.y(d[selectedCategory]))
-      .style("cursor", "pointer");
-
-    // Remove old bars
-    bars.exit().remove();
-
-    if (!selectedSong) {
-      vis.svg.selectAll(".bar").style("fill", "#93bebf");
-      vis.svg
-        .selectAll(".bar")
-        .filter((d, i) => i === 0)
-        .style("fill", "red");
-    } else {
-      vis.svg.selectAll(".bar").style("fill", "#93bebf");
-      vis.svg
-        .selectAll(".bar")
-        .filter((d, i) => i === selectedSong.rank - 1)
-        .style("fill", "red");
-=======
     bars.enter()
         .append("rect")
         .attr("class", "bar")
@@ -163,7 +120,6 @@ class BarChartVis {
         .selectAll(".bar")
         .filter((d, i) => i === selectedSong.rank - 1)
         .style("fill", "#314149");
->>>>>>> 82c44c0 (sofia's work 12/4)
       updateDropdown();
     }
   }
