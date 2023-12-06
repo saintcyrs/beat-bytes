@@ -1,11 +1,20 @@
 class stickFigure {
+<<<<<<< HEAD
   constructor(id, data) {
     this.id = id.replace("#", ""); // Store the ID without the hash
     this.margin = { top: 0, right: 25, bottom: 30, left: 20 }; // Define margins
+=======
+  constructor(id, data, date) {
+    this.data = data;
+    this.date = date;
+    this.id = id.replace("#", ""); // Store the ID without the hash
+    this.margin = { top: 0, right: 10, bottom: 30, left: 10 }; // Define margins
+>>>>>>> 82c44c0 (sofia's work 12/4)
     this.width = 400 - this.margin.left - this.margin.right;
     this.height = 500 - this.margin.top - this.margin.bottom;
 
     this.svg = d3
+<<<<<<< HEAD
       .select(id)
       .append("svg")
       .attr("width", this.width + this.margin.left + this.margin.right)
@@ -14,6 +23,17 @@ class stickFigure {
       .attr("transform", `translate(${this.margin.left},${this.margin.top})`);
 
     this.danceability = (data && data.danceability) || 0.3; // Default to 0.3 if not provided
+=======
+        .select(id)
+        .append("svg")
+        .attr("width", this.width + this.margin.left + this.margin.right)
+        .attr("height", this.height + this.margin.top + this.margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${this.margin.left},${this.margin.top})`);
+
+    //this.wrangleData();
+    this.danceability = (this.data && this.data.danceability) || 0.3; // Default to 0.3 if not provided
+>>>>>>> 82c44c0 (sofia's work 12/4)
     this.adjustDanceSpeed(this.danceability);
 
     this.drawStickFigure(this.svg);
@@ -21,11 +41,19 @@ class stickFigure {
     this.animateArms(this.svg);
     this.animateBody(this.svg);
 
+<<<<<<< HEAD
     this.streamVisualization = new streamVis(
       "#streamVisElement",
       "data.csv",
       this.updateSongDropdown.bind(this)
     );
+=======
+    /*this.streamVisualization = new streamVis(
+      "#streamVisElement",
+      "data.csv",
+      this.updateSongDropdown.bind(this)
+    ); */
+>>>>>>> 82c44c0 (sofia's work 12/4)
   }
 
   updateSongDropdown(songData) {
@@ -37,12 +65,25 @@ class stickFigure {
     }
   }
 
+<<<<<<< HEAD
+=======
+  wrangleData() {
+    let vis = this;
+
+    // Filter data based on the specified date and slice the first 25 records
+    vis.displayData = vis.data.filter((d) => d.week === vis.date).slice(0, 25);
+    // vis.displayData.sort((a, b) => b[selectedCategory] - a[selectedCategory]);
+
+  }
+
+>>>>>>> 82c44c0 (sofia's work 12/4)
   drawStickFigure(svg) {
     // Adjust these values to move the stick figure within the SVG
     const yOffset = 0; // Increase the offset to move down by 40 units
 
     // Head
     svg
+<<<<<<< HEAD
       .append("circle")
       .attr("cx", 200)
       .attr("cy", 60 + yOffset) // Adjust vertical position
@@ -94,6 +135,59 @@ class stickFigure {
       .attr("x2", 220)
       .attr("y2", 200 + yOffset) // Adjust vertical position
       .style("stroke", "#314149");
+=======
+        .append("circle")
+        .attr("cx", 200)
+        .attr("cy", 60 + yOffset) // Adjust vertical position
+        .attr("r", 20)
+        .style("fill", "#314149")
+        .style("z-index", "1000");
+
+    // Body
+    svg
+        .append("line")
+        .attr("x1", 200)
+        .attr("y1", 80 + yOffset) // Adjust vertical position
+        .attr("x2", 200)
+        .attr("y2", 160 + yOffset) // Adjust vertical position
+        .style("stroke", "#314149");
+
+    // Left Arm
+    svg
+        .append("line")
+        .attr("x1", 200)
+        .attr("y1", 100 + yOffset) // Adjust vertical position
+        .attr("x2", 160)
+        .attr("y2", 120 + yOffset) // Adjust vertical position
+        .style("stroke", "#314149");
+
+    // Right Arm
+    svg
+        .append("line")
+        .attr("x1", 200)
+        .attr("y1", 100 + yOffset) // Adjust vertical position
+        .attr("x2", 240)
+        .attr("y2", 120 + yOffset) // Adjust vertical position
+        .style("stroke", "#314149");
+
+    // Left Leg
+    svg
+        .append("line")
+        .attr("x1", 200)
+        .attr("y1", 160 + yOffset) // Adjust vertical position
+        .attr("x2", 180)
+        .attr("y2", 200 + yOffset) // Adjust vertical position
+        .style("stroke", "#314149");
+
+    // Right Leg
+    svg
+        .append("line")
+        .attr("x1", 200)
+        .attr("y1", 160 + yOffset) // Adjust vertical position
+        .attr("x2", 220)
+        .attr("y2", 200 + yOffset) // Adjust vertical position
+        .style("stroke", "#314149");
+>>>>>>> 82c44c0 (sofia's work 12/4)
   }
 
   animateArms(svg) {
@@ -101,6 +195,7 @@ class stickFigure {
 
     const animateArms = () => {
       this.svg
+<<<<<<< HEAD
         .selectAll("line[x1='200'][y1='100']")
         .transition()
         .duration(duration / 2)
@@ -109,6 +204,16 @@ class stickFigure {
         .duration(duration / 2)
         .attr("y2", 120) // Move arms back down
         .on("end", animateArms);
+=======
+          .selectAll("line[x1='200'][y1='100']")
+          .transition()
+          .duration(duration / 2)
+          .attr("y2", 100) // Move arms up
+          .transition()
+          .duration(duration / 2)
+          .attr("y2", 120) // Move arms back down
+          .on("end", animateArms);
+>>>>>>> 82c44c0 (sofia's work 12/4)
     };
 
     animateArms();
@@ -119,6 +224,7 @@ class stickFigure {
 
     const animateBody = () => {
       const partsToAnimate = this.svg.selectAll(
+<<<<<<< HEAD
         "line[x1='200'], circle[cx='200']"
       );
 
@@ -130,6 +236,19 @@ class stickFigure {
         .duration(duration / 2)
         .attr("transform", "rotate(-10,200,120)")
         .on("end", animateBody);
+=======
+          "line[x1='200'], circle[cx='200']"
+      );
+
+      partsToAnimate
+          .transition()
+          .duration(duration / 2)
+          .attr("transform", "rotate(10,200,120)")
+          .transition()
+          .duration(duration / 2)
+          .attr("transform", "rotate(-10,200,120)")
+          .on("end", animateBody);
+>>>>>>> 82c44c0 (sofia's work 12/4)
     };
 
     animateBody();
@@ -147,7 +266,11 @@ class stickFigure {
     const minDuration = 300; // Fastest speed
     const maxDuration = 2000; // Slowest speed
     return (
+<<<<<<< HEAD
       maxDuration - ((danceability - 0.3) * (maxDuration - minDuration)) / 0.7
+=======
+        maxDuration - ((danceability - 0.3) * (maxDuration - minDuration)) / 0.7
+>>>>>>> 82c44c0 (sofia's work 12/4)
     );
   }
 
@@ -169,6 +292,7 @@ class stickFigure {
   drawMusicNote(svg, x, y) {
     // Simple representation of a music note
     svg
+<<<<<<< HEAD
       .append("text")
       .attr("x", x)
       .attr("y", y)
@@ -176,17 +300,36 @@ class stickFigure {
       .attr("font-family", "Arial")
       .attr("font-size", "30px")
       .style("fill", "#314149");
+=======
+        .append("text")
+        .attr("x", x)
+        .attr("y", y)
+        .text("♪")
+        .attr("font-family", "Arial")
+        .attr("font-size", "30px")
+        .style("fill", "#314149");
+>>>>>>> 82c44c0 (sofia's work 12/4)
   }
 
   updateDanceabilityLabel(danceability) {
     const danceabilityValue = parseFloat(danceability);
+<<<<<<< HEAD
     const label = document.getElementById("danceabilityLabel");
 
     if (!isNaN(danceabilityValue)) {
       // Update the text content of the label
+=======
+    const label = document.getElementById(this.id === "dancingStickFigure2" ? "danceabilityLabel2" : "danceabilityLabel");
+
+    if (!isNaN(danceabilityValue)) {
+>>>>>>> 82c44c0 (sofia's work 12/4)
       label.textContent = "Danceability: " + danceabilityValue.toFixed(3);
     } else {
       console.error("Invalid danceability value:", danceability);
     }
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 82c44c0 (sofia's work 12/4)
 }

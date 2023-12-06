@@ -3,10 +3,10 @@ class clockVis {
     this.svg = d3
       .select(id)
       .append("svg")
-      .style("margin-top", "20px")
+      .style("margin-top", "30px")
       .style("margin-bottom", "40px")
-      .style("margin-left", "35px")
-      .style("margin-right", "215px"); // Reduced margin right
+      .style("margin-left", "30px")
+      .style("margin-right", "320px");
     this.data = data;
     this.initVis();
   }
@@ -154,21 +154,15 @@ class clockVis {
       return;
     }
 
-    // Convert duration from milliseconds to minutes and seconds
     let durationMinutes = Math.floor(song.duration_ms / 60000);
     let durationSeconds = Math.floor((song.duration_ms % 60000) / 1000);
-
-    // Ensure seconds are two digits. For example, '9' becomes '09'
-    durationSeconds =
-        durationSeconds < 10 ? "0" + durationSeconds : durationSeconds;
-
+    durationSeconds = durationSeconds < 10 ? "0" + durationSeconds : durationSeconds;
     let durationFormatted = durationMinutes + ":" + durationSeconds;
 
-    // Update the song information display
-    d3.select("#songClockLabel").html(`
-        Duration: ${durationFormatted}<br>
-    `);
+    let labelId = this.svg.node().parentNode.id === "songClock2" ? "songClockLabel2" : "songClockLabel";
+    d3.select(`#${labelId}`).html(`Duration: ${durationFormatted}<br>`);
   }
+
 
   updateSongInfo(song) {
     if (!song) {
@@ -193,4 +187,5 @@ class clockVis {
     `);
     this.updateDanceabilityLabel(song);
   }
+
 }

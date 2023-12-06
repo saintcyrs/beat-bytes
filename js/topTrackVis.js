@@ -12,7 +12,7 @@ class TopTrackVis {
   initVis() {
     let vis = this;
 
-    vis.margin = { top: 0, right: 0, bottom: 60, left: 0 };
+    vis.margin = { top: 0, right: 0, bottom: 10, left: 0 };
     vis.width =
       document.getElementById(vis.parentElement).getBoundingClientRect().width -
       vis.margin.left -

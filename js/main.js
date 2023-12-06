@@ -6,16 +6,28 @@ let myPiano;
 let topTrackVis;
 let topTrackVis2;
 let barChart;
+let quoteVisInstance;
 let barChart2;
 let myClock;
+<<<<<<< HEAD
 let streamVisualization; // Declare streamVisualization globally
 let selectedSong = null; // Declare selectedSong globally
 let selectedCategory = "danceability";
+=======
+let streamVisualization;
+let selectedSong = null;
+let myClock2;
+let myStickFigure2;
+let myEnergyStickFigure2;
+let selectedCategory = "danceability";
+let selectedCategory2 = "danceability";
+>>>>>>> 82c44c0 (sofia's work 12/4)
 
 // Function to convert date objects to strings or reverse
 let dateFormatter = d3.timeFormat("%Y-%m-%d");
 let dateParser = d3.timeParse("%Y-%m-%d");
 
+<<<<<<< HEAD
 // // Define switchView function globally
 // function switchView() {
 //   const switchButton = document.getElementById("switchViewButton");
@@ -32,15 +44,23 @@ let dateParser = d3.timeParse("%Y-%m-%d");
 //   }
 // }
 
+=======
+>>>>>>> 82c44c0 (sofia's work 12/4)
 // (1) Load data with promises
 loadData();
 
 document.addEventListener("DOMContentLoaded", function () {
   // Your JavaScript code here
   let carousel = new bootstrap.Carousel(
-    document.getElementById("stateCarousel"),
-    { interval: false }
+      document.getElementById("stateCarousel"),
+      { interval: false }
   );
+
+  // Update this variable inside your dropdown change event handler
+  document.getElementById("category2").addEventListener("change", function () {
+    selectedCategory2 = this.value;
+    updateVisualization2(selectedCategory2);
+  });
 });
 
 function loadData() {
@@ -82,9 +102,15 @@ function createVis(data) {
   barChart2 = new BarChartVis("barChart2", data, "Nov2");
   myWordCloud = new wordCloud("wordCloud", data, "Nov2");
   myPiano = new Piano(data);
+  // old method of creating quotes
+  /*quoteVisInstance = new QuoteVis();
+  quoteVisInstance.generateQuotes();*/
   myClock = new clockVis("#songClock", data);
-  myStickFigure = new stickFigure("#dancingStickFigure", {});
-  myEnergyStickFigure = new energyStickFigure("#energyStickFigure", {}); // Make sure to provide the correct ID
+  myClock2 = new clockVis("#songClock2", data);
+  myStickFigure = new stickFigure("#dancingStickFigure", {}, "Oct26");
+  myStickFigure2 = new stickFigure("#dancingStickFigure2", {}, "Nov2");
+  myEnergyStickFigure = new energyStickFigure("#energyStickFigure", {});
+  myEnergyStickFigure2 = new energyStickFigure("#energyStickFigure2", {});
   streamVisualization = new streamVis("#stream-vis", data, (songData) => {
     // Update the dropdown with the selected song
     const dropdown = document.getElementById("songDropdown");
@@ -103,6 +129,8 @@ function createVis(data) {
       myEnergyStickFigure.updateEnergyLevel(songData.energy);
     }
   });
+  let defaultCategory2 = "danceability";
+  updateVisualization2(defaultCategory2);
   console.log("Visualizations created.");
   selectedSong = data[0]; // Set the selected song to the first song in the data
   updateDropdown();
@@ -131,6 +159,7 @@ updateDropdown = () => {
 
 document.addEventListener("DOMContentLoaded", function () {
   document
+<<<<<<< HEAD
     .getElementById("toggleAnimationButton")
     .addEventListener("click", () => {
       // Check if streamVisualization is defined before toggling animation
@@ -138,6 +167,15 @@ document.addEventListener("DOMContentLoaded", function () {
         streamVisualization.toggleAnimation();
       }
     });
+=======
+      .getElementById("toggleAnimationButton")
+      .addEventListener("click", () => {
+        // Check if streamVisualization is defined before toggling animation
+        if (streamVisualization) {
+          streamVisualization.toggleAnimation();
+        }
+      });
+>>>>>>> 82c44c0 (sofia's work 12/4)
 });
 
 function onChange() {
@@ -153,6 +191,107 @@ function updateSectionsVisibility(selectedCategory) {
   document.getElementById("danceabilitySection").style.display = "none";
   document.getElementById("energySection").style.display = "none";
   document.getElementById("clockSection").style.display = "none";
+<<<<<<< HEAD
+=======
+
+  console.log(
+      "energy display: " + document.getElementById("energySection").style.display
+  );
+  // Show the relevant section based on selectedCategory
+  if (selectedCategory === "danceability") {
+    document.getElementById("danceabilitySection").style.display = "block";
+  } else if (selectedCategory === "energy") {
+    document.getElementById("energySection").style.display = "block";
+  } else if (selectedCategory === "duration_ms") {
+    // Assuming 'time' is a category
+    document.getElementById("clockSection").style.display = "block";
+  }
+}
+
+function updateSectionsVisibility2(selectedCategory) {
+  console.log("Updating sections visibility in taylor section...");
+  // Hide all sections first
+  document.getElementById("danceabilitySection2").style.display = "none";
+  document.getElementById("energySection2").style.display = "none";
+  document.getElementById("clockSection2").style.display = "none";
+
+  console.log(
+      "energy display: " + document.getElementById("energySection").style.display
+  );
+  // Show the relevant section based on selectedCategory
+  if (selectedCategory === "danceability") {
+    document.getElementById("danceabilitySection2").style.display = "block";
+  } else if (selectedCategory === "energy") {
+    document.getElementById("energySection").style.display = "block";
+  } else if (selectedCategory === "duration_ms") {
+    // Assuming 'time' is a category
+    document.getElementById("clockSection2").style.display = "block";
+  }
+}
+function updateVisualization2(selectedCategory) {
+  // Hide all visualizations first
+  d3.select("#danceabilitySection2").style("display", "none");
+  d3.select("#energySection2").style("display", "none");
+  d3.select("#clockSection2").style("display", "none");
+
+  // Update the visualizations based on the selected category
+  if (selectedCategory === "danceability") {
+    d3.select("#danceabilitySection2").style("display", "block");
+    if (selectedSong && selectedSong.danceability) {
+      myStickFigure2.adjustDanceSpeed(selectedSong.danceability);
+      myStickFigure2.updateDanceabilityLabel(selectedSong.danceability);
+    }
+  } else if (selectedCategory === "energy") {
+    d3.select("#energySection2").style("display", "block");
+    if (selectedSong && selectedSong.energy) {
+      myEnergyStickFigure2.updateEnergyLevel(selectedSong.energy);
+    }
+  } else if (selectedCategory === "duration_ms") {
+    d3.select("#clockSection2").style("display", "block");
+    if (selectedSong && selectedSong.duration_ms) {
+      myClock2.updateVis(selectedSong.duration_ms);
+      myClock2.updateSongInfo(selectedSong);
+    } else {
+      // Reset the clock to the default state if no song is selected
+      myClock2.updateVis(0); // Or any default value you prefer
+    }
+  }
+}
+
+
+function updateSecondAnimation(songData) {
+  if (selectedCategory2 === "danceability" && myStickFigure2) {
+    myStickFigure2.adjustDanceSpeed(songData.danceability);
+    myStickFigure2.updateDanceabilityLabel(songData.danceability);
+  }
+  else if (selectedCategory2 === "duration_ms" && myClock2) {
+    myClock2.updateVis(songData.duration_ms);
+    myClock2.updateSongInfo(songData);
+  }
+  else if (selectedCategory2 === "energy" && myEnergyStickFigure2) {
+    myEnergyStickFigure2.updateEnergyLevel(songData.energy);
+  }
+}
+
+function updateSongInfo2(song) {
+  if (!song) {
+    console.error("Invalid song data:", song);
+    return;
+  }
+
+  // Convert duration from milliseconds to minutes and seconds
+  let durationMinutes = Math.floor(song.duration_ms / 60000);
+  let durationSeconds = Math.floor((song.duration_ms % 60000) / 1000);
+  durationSeconds = durationSeconds < 10 ? "0" + durationSeconds : durationSeconds;
+  let durationFormatted = durationMinutes + ":" + durationSeconds;
+
+  // Update the song information display for the second set of visualizations
+  d3.select("#songInfo2").html(`
+      Track: ${song.track_name}<br>
+      Artist: ${song.artist_names}<br>
+  `);
+}
+>>>>>>> 82c44c0 (sofia's work 12/4)
 
   console.log(
     "energy display: " + document.getElementById("energySection").style.display

@@ -16,6 +16,7 @@ class streamVis {
   }
   updateVis() {
     const boxWidth = 200; // Width of each box plus margin
+    const maxTextLength = 20; // Maximum length of text before truncating
 
     const visibleData = this.data.slice(
         this.currentIndex,
@@ -39,7 +40,7 @@ class streamVis {
         .style("left", "0px")
         .text(
             (d) =>
-                `Track: ${d.track_name}, Streams: ${Number(
+                `Track: ${truncate(d.track_name, maxTextLength)}, Streams: ${Number(
                     d.streams
                 ).toLocaleString()}`
         )
@@ -58,9 +59,8 @@ class streamVis {
         });
 
     // Update text of existing boxes without moving them
-    boxes.text(
-        (d) =>
-            `Track: ${d.track_name}, Streams: ${Number(d.streams).toLocaleString()}`
+    boxes.html((d) =>
+        `Track: ${truncate(d.track_name, maxTextLength)}, <br>Streams: ${Number(d.streams).toLocaleString()}`
     );
   }
 
@@ -163,5 +163,9 @@ class streamVis {
       this.startAnimation();
     }
   }
+}
+
+function truncate(str, n) {
+  return str.length > n ? str.substr(0, n - 1) + ". . ." : str;
 }
 

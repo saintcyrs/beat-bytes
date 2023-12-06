@@ -38,29 +38,33 @@ SOURCE: https://codepen.io/gabrielcarol/pen/rGeEbY
     }
 
     #pianoVis h1 {
-      color: #fff;
-      font-size: 50px;
-      font-weight: 400;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      margin: 0;
+        font-size: 36px;
+        color: #314149;
     }
 
-    #pianoVis h2 {
-      color: #fff;
-      font-size: 24px;
-      font-style: italic;
-      font-weight: 400;
-      margin: 0 0 30px;
-    }
+#pianoVis h2 {
+    color: #314149;
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: -35px;
+}
+
+#pianoVis h3 {
+    color: #314149;
+    font-size: 16px;
+    margin-top: 40px;
+    margin-bottom: -45px;
+}
 
     #pianoVis .nowplaying {
-      font-size: 120px;
+      font-size: 80px;
       line-height: 1;
+        font-family: "Neuton", sans-serif;
       color: #eee;
-      text-shadow: 0 0 5rem #028ae9;
+    margin-top: 40px;
+      text-shadow: 0 0 5rem #314149;
       transition: all .07s ease;
-      min-height: 120px;
+      min-height: 80px;
     }
 
     #pianoVis .keys {

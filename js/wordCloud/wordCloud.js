@@ -21,7 +21,7 @@ class wordCloud {
     vis.fill = d3.scaleOrdinal(d3.schemeTableau10);
 
     // define margins
-    vis.margin = { top: 20, right: 20, bottom: 20, left: 20 };
+    vis.margin = { top: 0, right: 20, bottom: 20, left: 20 };
     vis.width = 600;
     vis.height = 600;
 
