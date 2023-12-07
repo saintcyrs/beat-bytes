@@ -200,4 +200,5 @@ class stickFigure {
       console.error("Invalid danceability value:", danceability);
     }
   }
+
 }

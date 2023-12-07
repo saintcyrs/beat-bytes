@@ -167,6 +167,7 @@ button:hover {
   align-items: center;
   justify-content: center;
 }
+
 #tooltip {
   position: absolute;
   background-color: #f8f8f8; /* Light background */

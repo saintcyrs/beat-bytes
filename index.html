@@ -31,10 +31,10 @@
       <!-- Section 1, OCT 26-->
       <!-- Streaming Animation-->
       <div class="row section first">
-        <h1>Spotify Streaming Data</h1>
+        <h1 style="font-size: 48px">Spotify Streaming Data</h1>
         <div class="col-md-12">
           <br />
-          <h2>Most Popular Songs, date-date</h2>
+          <h2>Most Popular Songs, Oct 26th - Nov 2nd 2023</h2>
           <button id="toggleAnimationButton">Start / Stop Animation</button>
 
           <div id="stream-vis"></div>
@@ -46,10 +46,10 @@
       <div class="section fp-noscroll">
         <div class="row">
           <div class="col-md-12">
-            <br /><br />
-            <h2>TOP TRACKS</h2>
-            <br />
-            <div id="albumPage"></div>
+            <h1>Top Tracks</h1>
+            <h2>Click on album cover to uncover data about your favorite song!</h2>
+            <br>
+            <div class="big-title" id="albumPage" style="margin-right: -60px; transform: translateY(-50px); margin-bottom: -40px; width: 90%; height: 90%;"></div>
           </div>
         </div>
       </div>
@@ -58,46 +58,50 @@
         <div class="row">
           <div class="col-md-9">
             <br /><br />
-            <h2>TOP SONGS BY CATEGORY</h2>
+            <h1>Top Songs by Category</h1>
+            <div class="subtitle"> Click on your song of choice below ↓ </div>
             <br />
             <div id="barChart"></div>
           </div>
           <div class="col-md-3">
             <!-- Song Dropdown Column -->
+            <br> <br><br>
             <select class="form-control" id="category" onchange="onChange()">
               <option value="danceability">Danceability</option>
               <option value="duration_ms">Duration</option>
               <option value="energy">Energy</option>
             </select>
-            <div id="songInfo"></div>
+            <div class="subtitle" id="dropdown-label">... and dataset of choice here! ↑</div>
+            <div id="songInfo" style="margin-left:-50px;"></div>
 
-            <!-- Song Danceability-->
-            <div id="danceabilitySection">
-              <div id="danceabilityLabel" class="danceability-label"></div>
-              <br />
-              <div id="danceabilityVis"></div>
-              <div
-                id="dancingStickFigure"
-                class="d-flex flex-column align-items-center"
-              ></div>
-            </div>
-            <!-- Song Energy -->
-            <div id="energySection">
-              <div id="energy-label" class="energy-label"></div>
-              <div
-                id="energyStickFigure"
-                class="d-flex flex-column align-items-center"
-              ></div>
-            </div>
-            <!-- Song Clock Column -->
-            <div id="clockSection">
-              <div id="songClockLabel" class="songClockLabel"></div>
-              <div
-                id="songClock"
-                class="d-flex flex-column align-items-center"
-              ></div>
-            </div>
+            <div id="imagesection" class="big-title" style="margin-right:200px; margin-left:-50px; margin-bottom: -80px; height: 70%; text-align: center;">
+              <!-- Song Danceability-->
+              <div id="danceabilitySection">
+                <div id="danceabilityLabel" class="danceability-label"></div>
+                <div id="danceabilityVis"></div>
+                <div
+                  id="dancingStickFigure"
+                  class="d-flex flex-column align-items-center"
+                ></div>
+              </div>
+              <!-- Song Energy -->
+              <div id="energySection" style="margin-top:-30px;">
+                <div id="energy-label" class="energy-label"></div>
+                <div
+                  id="energyStickFigure"
+                  class="d-flex flex-column align-items-center"
+                ></div>
+              </div>
+              <!-- Song Clock Column -->
+              <div id="clockSection">
+                <div id="songClockLabel" class="songClockLabel"></div>
+                <div
+                  id="songClock"
+                  class="d-flex flex-column align-items-center"
+                ></div>
+              </div>
           </div>
+        </div>
         </div>
       </div>
 
@@ -108,7 +112,8 @@
           <div id="pianoVis">
             <section id="wrap">
               <!-- TODO: Possibly add in tooltip to display more information upon hover-->
-              <h2>NUMBER OF SONGS IN EACH KEY</h2>
+              <h1>Number of Songs in Each Key</h1>
+              <h2> Hover mouse over piano, then use your keyboard to discover top songs in each key!</h2>
               <section id="main">
                 <div class="nowplaying"></div>
                 <div class="keys">
@@ -255,39 +260,143 @@
 
       <!--SECTION 1 NOV 2-->
       <div class="section fp-noscroll">
-        <h2>SECTION 2 NOV 2</h2>
-        <h4>
-          Now let's look at what happens the week Taylor Swift released her
-          album:
-        </h4>
-      </div>
-      <div class="section fp-noscroll">
-        <!-- Word Cloud Column -->
-        <h4>Taylor Swift's song popularity in the top 200:</h4>
-        <div id="wordCloud"></div>
-      </div>
-      <!-- Album Visualization #2-->
-      <div class="section fp-noscroll">
-        <div class="col-md-12">
-          <br /><br />
-          <h2>TOP TRACKS NOV 2ND</h2>
-          <br />
-          <div id="albumPage2"></div>
-          <br /><br />
+        <div class="big-title">
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <br>
+          <h5> Those were the top songs from Oct 26th - Nov 2nd, 2023 </h5>
+          <h2 style="color: white;">
+            But how quickly can music data change? Let's take a look at the top songs the following week, Nov 2nd - Nov 9th, 2023:
+          </h2>
+          <br>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
+          <span class="music-note">♪</span>
         </div>
       </div>
+
+      <div class="section fp-noscroll">
+        <!-- Word Cloud Column -->
+        <br> <br>
+        <h1 style="margin-top: 20px;"> On Oct 27, Taylor Swift released a re-recording of her hit album, <i>1989</i> </h1>
+        <h2 style="margin-bottom: -60px;"> She then quickly began to dominate the charts (even more than usual) in comparison to other artists: </h2>
+        <div id="wordCloud"></div>
+      </div>
+
+
+      <!-- Album Visualization #2-->
+      <div class="section fp-noscroll">
+        <div class="col-md-12" id="">
+          <br/><br/>
+          <div>
+            <h1 style="font-size: 30px; margin-top: 10px"> Between Nov 2nd and Nov 9th, 2023 twenty out of twenty-five of the top songs were by Taylor Swift: </h1>
+            <h2 style="font-size: 22px; margin-bottom: 10px"> Nineteen of these songs were from Taylor's re-released  <i>1989</i> </h2>
+          </div>
+          <br> <br>
+          <div id="albumPage2" class="big-title" style="margin-right: -60px; transform: translateY(-50px); margin-bottom: -40px; width: 90%; height: 90%;"></div>
+        </div>
+      </div>
+
+      <!-- Top songs by category #2-->
       <div class="section fp-noscroll">
         <div class="row">
           <div class="col-md-9">
             <br /><br />
-            <h2>TOP SONGS BY CATEGORY</h2>
+            <h2 style="font-size: 34px">Top Songs by Category (Taylor's Version)</h2>
+            <h2 style="color: #6e7f80; font-size: 24px">(could we change color of taylor's bars in the chart to make this more taylor-centered?)</h2>
+            <div class="subtitle"> Click on your song of choice below ↓ </div>
             <br />
             <div id="barChart2"></div>
           </div>
-          
+          <div class="col-md-3">
+            <!-- Song Dropdown Column #2 -->
+            <br> <br><br>
+            <select  style="margin-left:-30px;" class="form-control" id="category2" onchange="onChange()">
+              <option value="danceability">Danceability</option>
+              <option value="duration_ms">Duration</option>
+              <option value="energy">Energy</option>
+            </select>
+            <div class="subtitle" id="dropdown-label2">... and dataset of choice here! ↑</div>
+            <div id="songInfo2" style="margin-left:-50px;"></div>
+
+            <!-- animations #2 -->
+            <div id="imagesection2" class="big-title" style="margin-left:-50px;">
+              <!-- Song Danceability-->
+              <div id="danceabilitySection2">
+                <div id="danceabilityLabel2" class="danceability-label"></div>
+                <div id="danceabilityVis2"></div>
+                <div
+                        style="margin-left:-60px;"
+                        id="dancingStickFigure2"
+                        class="d-flex flex-column align-items-center"
+                ></div>
+              </div>
+              <!-- Song Energy -->
+              <div id="energySection2">
+                <div id="energy-label2" class="energy-label"></div>
+                <div
+                        style="margin-left:-50px;"
+                        id="energyStickFigure2"
+
+                ></div>
+              </div>
+              <!-- Song Clock Column -->
+              <div id="clockSection2">
+                <div id="songClockLabel2" class="songClockLabel"></div>
+                <div
+                        style="margin-left:20px;"
+                        id="songClock2"
+                ></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+
+      <!--Final screen-->
+      <div class="section fp-noscroll">
+        <h6 style="transform: translateY(-5px);">  ♪ Karma is my boyfriend ♪ </h6>
+        <h6 style="transform: translateX(35px) translateY(75px);"> ♪ Cause if I was a man, then I’d be the man ♪ </h6>
+        <h6 style="transform: translateX(335px) translateY(-20px);">  ♪ Shake it off ♪ </h6>
+        <h6 style="transform: translateX(535px);"> ♪ I knew you were trouble when you walked in ♪ </h6>
+        <h6 style="transform: translateX(635px) translateY(-150px);"> ♪ Darling, I'm a nightmare dressed like a daydream ♪ </h6>
+        <div class="big-title" id="title">
+            <h5 style="font-size: 40px;"> Music changes fast! Especially when an artist like Taylor Swift is at the wheel </h5>
+            <h2 style="color: white;">
+             Luckily, she's not going anywhere anytime soon.
+            </h2>
+        </div>
+        <h6 style="transform: translateY(5px) translateX(40px);">  ♪ I don't know about you, but I'm feeling 22 ♪ </h6>
+        <h6 style="transform: translateX(235px) translateY(40px);">  ♪ It's me, hi, I'm the problem, it's me ♪ </h6>
+        <h6 style="transform: translateY(80px) translateX(535px);"> ♪ We were both young when I first saw you ♪ </h6>
+        <h6 style="transform: translateY(-105px) translateX(735px);">  ♪ You belong with me ♪ </h6>
+        <h6 style="transform: translateY(-90px) translateX(900px);"> ♪ We never go out of style ♪ </h6>
+        <h6 style="transform: translateY(5px) translateX(40px);">  ♪ She’s never gonna love you like I want to ♪ </h6>
+
+      </div>
+    </div>
     <div id="tooltip"></div>
+
 
     <!-- Load JS libraries -->
     <script
@@ -303,10 +412,11 @@
     <script src="js/stickFigure.js"></script>
     <script src="js/energyStickFigure.js"></script>
     <script src="js/musicSheetScatter.js"></script>
-    <script src="js/pianoVis.js"></script>
+    <!--<script src="js/pianoVis.js"></script>-->
     <script src="js/topTrackVis.js"></script>
     <script src="js/barChartVis.js"></script>
     <script src="js/piano.js"></script>
+    <!--<script src="js/quoteVis.js"></script>-->
     <!-- Word Cloud -->
     <script src="js/wordCloud/d3.layout.cloud.js"></script>
     <script src="js/wordCloud/wordCloud.js"></script>

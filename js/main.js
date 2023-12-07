@@ -255,15 +255,3 @@ function updateSongInfo2(song) {
   `);
 }
 
-  console.log(
-    "energy display: " + document.getElementById("energySection").style.display
-  );
-  // Show the relevant section based on selectedCategory
-  if (selectedCategory === "danceability") {
-    document.getElementById("danceabilitySection").style.display = "block";
-  } else if (selectedCategory === "energy") {
-    document.getElementById("energySection").style.display = "block";
-  } else if (selectedCategory === "duration_ms") {
-    // Assuming 'time' is a category
-    document.getElementById("clockSection").style.display = "block";
-  }
