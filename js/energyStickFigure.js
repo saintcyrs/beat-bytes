@@ -49,8 +49,18 @@ class energyStickFigure extends stickFigure {
     updateEnergyLevel(energy) {
         this.energy = energy;
 
-        // Update the energy label text
-        this.energyLabel.text(`Energy: ${energy.toFixed(3)}`); // Display energy with 2 decimal places
+        // Clear previous content
+        this.energyLabel.text('');
+
+        // Add "Energy:" part with white color
+        this.energyLabel.append('tspan')
+            .style('fill', 'white')
+            .text('Energy:');
+
+        // Add the energy value part with default color
+        this.energyLabel.append('tspan')
+            .style('fill', '#314149') // You can adjust this color to match your default text color
+            .text(` ${energy.toFixed(3)}`);
 
         // Update animation based on new energy level
         this.animateBody(this.svg);

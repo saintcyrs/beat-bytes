@@ -31,14 +31,21 @@
       <!-- Section 1, OCT 26-->
       <!-- Streaming Animation-->
       <div class="row section first">
-        <h1 style="font-size: 48px">Spotify Streaming Data</h1>
+        <h1 style="font-size: 48px">Spotify Streaming Data ♪</h1>
         <div class="col-md-12">
-          <br />
-          <h2>Most Popular Songs, Oct 26th - Nov 2nd 2023</h2>
-          <button id="toggleAnimationButton">Start / Stop Animation</button>
+          <h2> Using Spotify data, we were able to delve into the characteristics that make up
+            today's chart-topping hits. Questions like, "How danceable are the most streamed
+            songs?" and "What key do they predominantly use?" were at the forefront of our analysis.
+            But in this rapidly evolving music landscape, we've observed how <i> swiftly </i> trends can shift,
+            especially if a certain blonde superstar has anything to say about it.
+            <h2> So, if you're wondering, <i> "How quickly can musical trends really change?" </i>
+              let's just say that musical <i>eras</i> just keep coming - even from week to week.
+              Let's take a look. </h2>
+            <h2> Here are the top streamed songs from Oct 26th - Nov 2nd 2023</h2>
+            <!-- <button id="toggleAnimationButton" style="margin-bottom: -40px;"><b>I I</b></button> -->
 
-          <div id="stream-vis"></div>
-          <br /><br />
+            <div id="stream-vis"></div>
+            <br> <br>
         </div>
       </div>
       <!-- TODO: Album Page-->
@@ -46,8 +53,15 @@
       <div class="section fp-noscroll">
         <div class="row">
           <div class="col-md-12">
-            <h1>Top Tracks</h1>
-            <h2>Click on album cover to uncover data about your favorite song!</h2>
+            <h1>Top 25 Tracks, Oct 26th - Nov 2nd 2023 </h1>
+            <h2>
+             The visualization below captures how the top 25 songs from Oct 26th - Nov 2nd
+              includes a wide variety of artists and albums. Among these, Bad Bunny
+              emerges as a standout with three of his tracks securing spots in the rankings,
+              while Taylor Swift has two tracks in the top 25. Beyond these general
+              highlights, however, the chart is a mosaic of individuality.
+            </h2>
+            <h2 style="font-size: 20px">Click on album cover to uncover data about your favorite song!</h2>
             <br>
             <div class="big-title" id="albumPage" style="margin-right: -60px; transform: translateY(-50px); margin-bottom: -40px; width: 90%; height: 90%;"></div>
           </div>
@@ -58,46 +72,46 @@
         <div class="row">
           <div class="col-md-9">
             <br /><br />
-            <h1>Top Songs by Category</h1>
+            <h1>Top Songs by Category, Oct 26th - Nov 2nd 2023</h1>
+            <h2> On the barchart below, we've included the top 25 songs filterable by three categories - danceability, duration, and energy (via dropdown bar to the right).
+            These songs in general have around a 2 to 4 minute duration, and consistetly have a ranking of over 0.5 for both energy and danceability.</h2>
             <div class="subtitle"> Click on your song of choice below ↓ </div>
             <br />
             <div id="barChart"></div>
           </div>
           <div class="col-md-3">
             <!-- Song Dropdown Column -->
-            <br> <br><br>
-            <select class="form-control" id="category" onchange="onChange()">
-              <option value="danceability">Danceability</option>
-              <option value="duration_ms">Duration</option>
-              <option value="energy">Energy</option>
-            </select>
-            <div class="subtitle" id="dropdown-label">... and dataset of choice here! ↑</div>
-            <div id="songInfo" style="margin-left:-50px;"></div>
-
-            <div id="imagesection" class="big-title" style="margin-right:200px; margin-left:-50px; margin-bottom: -80px; height: 70%; text-align: center;">
+            <div id="imagesection" class="right-title" >
+              <!-- label -->
+              <select class="form-control" id="category" onchange="onChange()" style="margin-top:110px;">
+                <option value="danceability">Danceability</option>
+                <option value="duration_ms">Duration</option>
+                <option value="energy">Energy</option>
+              </select>
+              <div class="subtitle" id="dropdown-label" style="margin-top:20px;">... and dataset of choice here! ↑</div>
+              <div id="songInfo"></div>
               <!-- Song Danceability-->
               <div id="danceabilitySection">
                 <div id="danceabilityLabel" class="danceability-label"></div>
                 <div id="danceabilityVis"></div>
                 <div
                   id="dancingStickFigure"
+                  style="margin-left:-20px; margin-bottom: -23px;"
                   class="d-flex flex-column align-items-center"
                 ></div>
               </div>
               <!-- Song Energy -->
-              <div id="energySection" style="margin-top:-30px;">
-                <div id="energy-label" class="energy-label"></div>
+              <div id="energySection">
+                <div id="energy-label" class="energy-label" style="align-items: flex-start;"></div>
                 <div
                   id="energyStickFigure"
-                  class="d-flex flex-column align-items-center"
                 ></div>
               </div>
               <!-- Song Clock Column -->
-              <div id="clockSection">
+              <div id="clockSection"  style="margin-bottom:200px;">
                 <div id="songClockLabel" class="songClockLabel"></div>
                 <div
-                  id="songClock"
-                  class="d-flex flex-column align-items-center"
+                  id="songClock" style="margin-left:-10px"
                 ></div>
               </div>
           </div>
@@ -107,14 +121,13 @@
 
       <!--Piano Visualization-->
       <!--SOURCE: https://codepen.io/gabrielcarol/pen/rGeEbY -->
-      <div class="section fp-noscroll">
-      <div class="row">
-        <div class="col-md-9">
+      <div class="row section fp-noscroll">
+        <div class="col-md-12">
           <div id="pianoVis">
             <section id="wrap">
               <!-- TODO: Possibly add in tooltip to display more information upon hover-->
-              <h1>Number of Songs in Each Key</h1>
-              <h2> Hover mouse over the piano, then use your keyboard to play and discover top songs in each key!</h2>
+              <h1>Number of Top Songs in Each Key, Oct 26th - Nov 2nd 2023</h1>
+              <h2> Hover mouse over piano, then use your keyboard to discover top songs in each key!</h2>
               <section id="main">
                 <div class="nowplaying"></div>
                 <div class="keys">
@@ -257,10 +270,6 @@
             </video>
           </div>
         </div>
-        <div class="col-md-3">
-          INSERT TOOLTIP UPON HOVER
-        </div>
-      </div>
       </div>
 
       <!--SECTION 1 NOV 2-->
@@ -281,7 +290,7 @@
           <br>
           <h5> Those were the top songs from Oct 26th - Nov 2nd, 2023 </h5>
           <h2 style="color: white;">
-            But how quickly can music data change? Let's take a look at the top songs the following week, Nov 2nd - Nov 9th, 2023:
+            But things move quickly in the music industry. Let's take a look at the top songs the following week, Nov 2nd - Nov 9th, 2023:
           </h2>
           <br>
           <span class="music-note">♪</span>
@@ -303,7 +312,9 @@
         <!-- Word Cloud Column -->
         <br> <br>
         <h1 style="margin-top: 20px;"> On Oct 27, Taylor Swift released a re-recording of her hit album, <i>1989</i> </h1>
-        <h2 style="margin-bottom: -60px;"> She then quickly began to dominate the charts (even more than usual) in comparison to other artists: </h2>
+        <h2 style="margin-bottom: -60px;"> She then quickly began to dominate the charts - even more than usual.
+          Below, we've included a look into how Taylor Swift's music charted in comparison to other artists
+        from Oct 26th - Nov 2nd. As you can see, Taylor's a big name in the music scene - literally and figuratively.</h2>
         <div id="wordCloud"></div>
       </div>
 
@@ -313,8 +324,12 @@
         <div class="col-md-12" id="">
           <br/><br/>
           <div>
-            <h1 style="font-size: 30px; margin-top: 10px"> Between Nov 2nd and Nov 9th, 2023 twenty out of twenty-five of the top songs were by Taylor Swift: </h1>
-            <h2 style="font-size: 22px; margin-bottom: 10px"> Nineteen of these songs were from Taylor's re-released  <i>1989</i> </h2>
+            <h1 style="font-size: 30px; margin-top: 10px"> Top 25 Tracks, Nov 2nd-Nov 9th </h1>
+            <h2 style="font-size: 22px; margin-bottom: 10px"> Let's check out the same album cover visualization as before, this time after Swift's album drop.
+              Between Nov 2nd and Nov 9th, 2023 twenty out of twenty-five of the top songs were by Taylor Swift.
+              Nineteen of these songs were from Taylor's re-released  <i>1989</i>, though <i>Cruel Summer</i> (a previously-released Swift song)
+              is also chart-topping. While the previous album cover visualization had 11 artists occupying the top 12 spots on the chart, now there's only one: <br>
+            (you guessed it) Taylor Swift. </h2>
           </div>
           <br> <br>
           <div id="albumPage2" class="big-title" style="margin-right: -60px; transform: translateY(-50px); margin-bottom: -40px; width: 90%; height: 90%;"></div>
@@ -327,30 +342,32 @@
           <div class="col-md-9">
             <br /><br />
             <h2 style="font-size: 34px">Top Songs by Category (Taylor's Version)</h2>
+            <h2 style="margin-right: 40px"> We've included the same barchart, only now with data from a week later. We see the same kind of trends here, with a little more variety.
+              Taylor's songs are generally longer (many are over 4 minutes), though some fall well under 3 minutes. Her songs' energy, on the other hand, are on average lower,
+              while the danceabilities are normally over 0.5 (like last week's data).</h2>
             <h2 style="color: #6e7f80; font-size: 24px">(could we change color of taylor's bars in the chart to make this more taylor-centered?)</h2>
             <div class="subtitle"> Click on your song of choice below ↓ </div>
             <br />
             <div id="barChart2"></div>
           </div>
           <div class="col-md-3">
-            <!-- Song Dropdown Column #2 -->
-            <br> <br><br>
-            <select  style="margin-left:-30px;" class="form-control" id="category2" onchange="onChange()">
-              <option value="danceability">Danceability</option>
-              <option value="duration_ms">Duration</option>
-              <option value="energy">Energy</option>
-            </select>
-            <div class="subtitle" id="dropdown-label2">... and dataset of choice here! ↑</div>
-            <div id="songInfo2" style="margin-left:-50px;"></div>
 
             <!-- animations #2 -->
-            <div id="imagesection2" class="big-title" style="margin-left:-50px;">
+            <div id="imagesection2" class="right-title" style="margin-left:-50px;">
+              <!-- Song Dropdown Column #2 -->
+              <select class="form-control" id="category2" onchange="onChange()" style="margin-top:10px;">
+                <option value="danceability">Danceability</option>
+                <option value="duration_ms">Duration</option>
+                <option value="energy">Energy</option>
+              </select>
+              <div class="subtitle" id="dropdown-label2">... and dataset of choice here! ↑</div>
+              <div id="songInfo2" style="margin-right:20px"></div>
               <!-- Song Danceability-->
-              <div id="danceabilitySection2">
+              <div id="danceabilitySection2" style="margin-bottom:-20px;">
                 <div id="danceabilityLabel2" class="danceability-label"></div>
                 <div id="danceabilityVis2"></div>
                 <div
-                        style="margin-left:-60px;"
+                        style="margin-left:-60px; margin-bottom: 10px; margin-top: 30px"
                         id="dancingStickFigure2"
                         class="d-flex flex-column align-items-center"
                 ></div>
@@ -359,16 +376,16 @@
               <div id="energySection2">
                 <div id="energy-label2" class="energy-label"></div>
                 <div
-                        style="margin-left:-50px;"
+                        style="margin-left:-90px;"
                         id="energyStickFigure2"
 
                 ></div>
               </div>
               <!-- Song Clock Column -->
-              <div id="clockSection2">
+              <div id="clockSection2" style="margin-bottom:200px;">
                 <div id="songClockLabel2" class="songClockLabel"></div>
                 <div
-                        style="margin-left:20px;"
+                        style="margin-left:-15px;"
                         id="songClock2"
                 ></div>
               </div>
@@ -390,6 +407,10 @@
             <h2 style="color: white;">
              Luckily, she's not going anywhere anytime soon.
             </h2>
+            <h2 style="font-size: 20px;">
+            So what have we learned? It turns out one artist can make all the difference. A single album drop can transform
+              the music scene, changing what (basically everyone) listens to. And, hats off to Taylor - she impresses us all to no end.
+          </h2>
         </div>
         <h6 style="transform: translateY(5px) translateX(40px);">  ♪ I don't know about you, but I'm feeling 22 ♪ </h6>
         <h6 style="transform: translateX(235px) translateY(40px);">  ♪ It's me, hi, I'm the problem, it's me ♪ </h6>

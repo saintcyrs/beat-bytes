@@ -195,7 +195,7 @@ class stickFigure {
     const label = document.getElementById(this.id === "dancingStickFigure2" ? "danceabilityLabel2" : "danceabilityLabel");
 
     if (!isNaN(danceabilityValue)) {
-      label.textContent = "Danceability: " + danceabilityValue.toFixed(3);
+      label.innerHTML = `<span style="color: white;">Danceability:</span> ${danceabilityValue.toFixed(3)}`;
     } else {
       console.error("Invalid danceability value:", danceability);
     }

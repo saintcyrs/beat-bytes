@@ -77,9 +77,6 @@ function createVis(data) {
   barChart2 = new BarChartVis("barChart2", data, "Nov2");
   myWordCloud = new wordCloud("wordCloud", data, "Nov2");
   myPiano = new Piano(data);
-  // old method of creating quotes
-  /*quoteVisInstance = new QuoteVis();
-  quoteVisInstance.generateQuotes();*/
   myClock = new clockVis("#songClock", data);
   myClock2 = new clockVis("#songClock2", data);
   myStickFigure = new stickFigure("#dancingStickFigure", {}, "Oct26");
@@ -92,6 +89,9 @@ function createVis(data) {
     if (dropdown) {
       dropdown.value = songData.track_name; // Update dropdown value based on the clicked song data
     }
+
+    topTrackVis = new TopTrackVis("albumPage", data, "Oct26");
+    topTrackVis2 = new TopTrackVis("albumPage2", data, "Nov2");
 
     // Adjust dance speed if danceability is available
     if (songData.danceability) {
@@ -171,7 +171,7 @@ function updateSectionsVisibility(selectedCategory) {
   }
 }
 
-function updateSectionsVisibility2(selectedCategory) {
+/* function updateSectionsVisibility2(selectedCategory) {
   console.log("Updating sections visibility in taylor section...");
   // Hide all sections first
   document.getElementById("danceabilitySection2").style.display = "none";
@@ -190,7 +190,7 @@ function updateSectionsVisibility2(selectedCategory) {
     // Assuming 'time' is a category
     document.getElementById("clockSection2").style.display = "block";
   }
-}
+}*/
 function updateVisualization2(selectedCategory) {
   // Hide all visualizations first
   d3.select("#danceabilitySection2").style("display", "none");
@@ -250,8 +250,8 @@ function updateSongInfo2(song) {
 
   // Update the song information display for the second set of visualizations
   d3.select("#songInfo2").html(`
-      Track: ${song.track_name}<br>
-      Artist: ${song.artist_names}<br>
-  `);
+    <span style="color: white;">Track:</span> ${song.track_name}<br>
+    <span style="color: white;">Artist:</span> ${song.artist_names}<br>
+`);
 }
 

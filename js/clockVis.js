@@ -160,9 +160,8 @@ class clockVis {
     let durationFormatted = durationMinutes + ":" + durationSeconds;
 
     let labelId = this.svg.node().parentNode.id === "songClock2" ? "songClockLabel2" : "songClockLabel";
-    d3.select(`#${labelId}`).html(`Duration: ${durationFormatted}<br>`);
+    d3.select(`#${labelId}`).html(`<span style="color: white;">Duration:</span> ${durationFormatted}<br>`);
   }
-
 
   updateSongInfo(song) {
     if (!song) {
@@ -182,8 +181,8 @@ class clockVis {
 
     // Update the song information display
     d3.select("#songInfo").html(`
-        Track: ${song.track_name}<br>
-        Artist: ${song.artist_names}<br>
+        <span style="color: white;">Track:</span> ${song.track_name}<br>
+        <span style="color: white;">Artist:</span> ${song.artist_names}<br>
     `);
     this.updateDanceabilityLabel(song);
   }

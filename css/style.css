@@ -16,13 +16,6 @@ body {
   padding-left: 30px;
 }
 
-/*
-.brush {
-	fill: #ccc;
-	fill-opacity: .5;
-	pointer-events: none;
-}*/
-
 .axis line,
 .axis path {
   fill: none;
@@ -72,30 +65,21 @@ body {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Add shadow to highlight */
 }
 
-#dancingStickFigure,
-#energyStickFigure,
-#songClock {
-  align-items: center;
-}
 
 button {
   background-color: #8aa4ad;
   color: #fff; /* White text on buttons */
   border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
+  padding: 5px 10px;
+  border-radius: 5px;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #314149; /* Lighter green on hover */
-}
-
 #stream-vis {
-  margin-top: 20px;
-  padding: 20px;
+  margin-top: 8px;
+  margin-bottom: 80px;
   border-radius: 10px;
 }
 
@@ -116,22 +100,14 @@ button:hover {
   font-size: 1em;
 }
 
-#songClock {
-  text-align: left;
-  margin-left: 300px;
-  margin-right: 100px;
-}
-
 #songInfo, #songInfo2 {
-  font-size: 26px;
-  text-align: center;
+  font-size: 22px;
+  text-align: left;
   font-family: "Neuton", sans-serif;
-  margin-right: 150px;
   width: 100%;
   margin-top: 20px;
   margin-left: 9px;
   color: #314149;
-  float: left;
 }
 
 #songDropdown {
@@ -196,27 +172,22 @@ button:hover {
   font-size: 16px;
 }
 
-#imagesection, #imagesection2{
-  font-size: 26px;
-  width: 100%;
-  text-align: center;
-  margin-left: 10px;
-  margin-right: 100px;
-  color: #314149;
+.danceability-label, .songClockLabel {
+  margin-left: 8px;
+}
+
+#energyStickFigure, #dancingStickFigure, #songClock {
+
+  margin-bottom: 20px;
+  align-items: flex-start;
 }
 
 #energyStickFigure {
-  margin-top: 200px;
+
 }
 
-#danceabilityVis {
-  margin-right: 90px;
-  margin-left: 10px;
-}
-
-#dancingStickFigure {
-  margin-top: 10px;
-  margin-bottom: 200px;
+#energySection {
+  margin-left: -90px;
 }
 
 #category {
@@ -234,7 +205,8 @@ button:hover {
 h1 {
   font-size: 36px;
   color: #314149;
-  margin-top: 20px;
+  margin-top: 5px;
+  margin-bottom: 15px;
 }
 
 h5 {
@@ -260,6 +232,13 @@ h5 {
   padding: 20px;
   margin: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for a "lifted" effect */
+}
+
+.right-title {
+  background-color: #8aa4ad;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for a "lifted" effect */
+  height: 100%;
 }
 
 h2 {
@@ -315,4 +294,11 @@ h6 {
 .music-note:nth-child(22) { font-size: 50px; }
 .music-note:nth-child(23) { font-size: 30px; }
 .music-note:nth-child(24) { font-size: 40px; }
+
+#imagesection, #imagesection2{
+  font-size: 22px;
+  width: 90%;
+  color: #314149;
+  height: 120%;
+}
 
