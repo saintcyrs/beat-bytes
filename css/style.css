@@ -144,7 +144,7 @@ button {
   justify-content: center;
 }
 
-#tooltip {
+.tooltip {
   position: absolute;
   background-color: #f8f8f8; /* Light background */
   border: 1px solid #ccc; /* Border for the tooltip */
