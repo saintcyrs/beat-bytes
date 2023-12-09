@@ -73,7 +73,7 @@ class wordCloud {
       if (count > max) max = count;
     });
     vis.minMax = [min, max];
-    vis.wordScale = d3.scaleLinear().domain(vis.minMax).range([7, 80]);
+    vis.wordScale = d3.scaleLinear().domain(vis.minMax).range([20, 80]);
     vis.showNewWords();
   }
 
