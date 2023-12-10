@@ -19,7 +19,6 @@ class wordCloud {
 
   initVis() {
     let vis = this;
-    // TODO: On hover, change all other colors to white (is this CSS?)
 
     // define margins
     vis.margin = { top: 0, right: 20, bottom: 20, left: 20 };
@@ -39,7 +38,6 @@ class wordCloud {
           vis.margin.top + vis.height / 2
         })`
       );
-    
     vis.cloud = d3.layout.cloud().size([vis.width, vis.height]);
     vis.generateGenreOptions(vis.displayData);
     vis.wrangleData();
@@ -166,7 +164,7 @@ class wordCloud {
   getPrimaryArtist(data) {
     return data.artist_names.split(",")[0];
   }
-  
+
   // TODO: Get select box to appear
   generateGenreOptions(data) {
     let vis = this;
@@ -187,5 +185,13 @@ class wordCloud {
         .attr('value', genre);
   });
 
+  }
+  updateWordCloud() {
+    let vis = this;
+    d3.select('#genre-select').on('change', function() {
+      let selectedGenres = Array.from(this.selectedOptions, option => option.value);
+      // TODO: Figure out how to modify the wrangleData functio to accomodate this
+      wrangleData(selectedGenres);
+    });    
   }
 }
