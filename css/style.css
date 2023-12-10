@@ -1,3 +1,12 @@
+.container {
+  width: 80%; /* Use percentage for width */
+  padding: 1rem; /* Use rem for padding */
+}
+
+.element {
+  font-size: 2vw; /* Use viewport width for font size */
+}
+
 body {
   background-color: #c0c9ce; /* Spotify's dark background */
   color: #fff; /* White text color for contrast */
