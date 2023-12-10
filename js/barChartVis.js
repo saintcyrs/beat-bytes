@@ -1,8 +1,9 @@
 class BarChartVis {
-  constructor(_parentElement, _data, _date) {
+  constructor(_parentElement, _data, _date, _category) {
     this.parentElement = _parentElement;
     this.data = _data;
     this.date = _date;
+    this.category = _category;
 
     this.initVis();
   }
@@ -51,7 +52,6 @@ class BarChartVis {
 
     // Filter data based on the specified date and slice the first 25 records
     vis.displayData = vis.data.filter((d) => d.week === vis.date).slice(0, 25);
-    // vis.displayData.sort((a, b) => b[selectedCategory] - a[selectedCategory]);
 
     // Update the visualization
     vis.updateVis();
@@ -62,17 +62,17 @@ class BarChartVis {
 
     // Update scales
     vis.x.domain(vis.displayData.map((d) => truncate(d.track_name, 20)));
-    vis.y.domain([0, d3.max(vis.displayData, (d) => d[selectedCategory])]);
+    vis.y.domain([0, d3.max(vis.displayData, (d) => d[this.category])]);
 
     // Update the x-axis
     vis.svg
-        .select(".x-axis")
-        .call(vis.xAxis)
-        .selectAll("text")
-        .style("text-anchor", "end")
-        .attr("dx", "-.8em")
-        .attr("dy", ".15em")
-        .attr("transform", "rotate(-65)");
+      .select(".x-axis")
+      .call(vis.xAxis)
+      .selectAll("text")
+      .style("text-anchor", "end")
+      .attr("dx", "-.8em")
+      .attr("dy", ".15em")
+      .attr("transform", "rotate(-65)");
 
     // Update the y-axis
     vis.svg.select(".y-axis").call(vis.yAxis);
@@ -80,48 +80,61 @@ class BarChartVis {
     // Bind data and create bars
     let bars = vis.svg.selectAll(".bar").data(vis.displayData);
 
-    bars.enter()
-        .append("rect")
-        .attr("class", "bar")
-        .merge(bars)
-        .on("click", function (event, d) {
-          // Reset all bars to a default color
-          vis.svg.selectAll(".bar").style("fill", "#8aa4ad");
+    bars
+      .enter()
+      .append("rect")
+      .attr("class", "bar")
+      .merge(bars)
+      .on("click", function (event, d) {
+        vis.svg.selectAll(".bar").style("fill", "#8aa4ad");
 
-          // Highlight the clicked bar
-          d3.select(this).style("fill", "#314149");
-
-          // Update selected song and other visualizations
+        // Update selected song and other visualizations
+        if (vis.date === "Oct26") {
           selectedSong = d;
           updateDropdown();
+        } else {
+          selectedSong2 = d;
+          updateDropdown2();
           updateSecondAnimation(d);
-          updateSongInfo2(d);
-        })
-        .transition()
-        .duration(1000)
-        .attr("x", (d) => vis.x(truncate(d.track_name, 20)))
-        .attr("width", vis.x.bandwidth())
-        .attr("y", (d) => vis.y(d[selectedCategory]))
-        .attr("height", (d) => vis.height - vis.y(d[selectedCategory]))
-        .style("fill", "#8aa4ad")  // Uniform color for all bars
-        .style("cursor", "pointer");
+        }
+        d3.select(this).style("fill", "#314149");
+      })
+      .transition()
+      .duration(1000)
+      .attr("x", (d) => vis.x(truncate(d.track_name, 20)))
+      .attr("width", vis.x.bandwidth())
+      .attr("y", (d) => vis.y(d[this.category]))
+      .attr("height", (d) => vis.height - vis.y(d[this.category]))
+      .style("cursor", "pointer");
 
     // Remove old bars
     bars.exit().remove();
-    if (!selectedSong) {
-      vis.svg.selectAll(".bar").style("fill", "#8aa4ad");
-      vis.svg
-        .selectAll(".bar")
-        .filter((d, i) => i === 0)
-        .style("fill", "#314149");
-    } else {
+    if (vis.date === "Oct26") {
       vis.svg.selectAll(".bar").style("fill", "#8aa4ad");
       vis.svg
         .selectAll(".bar")
         .filter((d, i) => i === selectedSong.rank - 1)
         .style("fill", "#314149");
       updateDropdown();
+    } else {
+      vis.svg.selectAll(".bar").style("fill", "#8aa4ad");
+      vis.svg
+        .selectAll(".bar")
+        .filter((d, i) => d.artist_names === "Taylor Swift")
+        .style("stroke", (d) => "black")
+        .style("stroke-width", (d) => 1);
+      vis.svg
+        .selectAll(".bar")
+        .filter((d, i) => i === selectedSong2.rank - 1)
+        .style("fill", "#314149");
+      updateDropdown2();
     }
+  }
+
+  setCategory(newCategory) {
+    this.category = newCategory;
+    this.wrangleData(); // to re-process data
+    this.updateVis(); // to re-draw the visualization
   }
 }
 

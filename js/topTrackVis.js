@@ -12,7 +12,7 @@ class TopTrackVis {
   initVis() {
     let vis = this;
 
-    vis.margin = { top: 0, right: 0, bottom: 10, left: 0 };
+    vis.margin = { top: 20, right: 0, bottom: 10, left: 50 };
     vis.width =
       document.getElementById(vis.parentElement).getBoundingClientRect().width -
       vis.margin.left -
@@ -64,9 +64,9 @@ class TopTrackVis {
       .attr("xlink:href", (d) => d.album_cover_url)
       .attr("x", (d, i) => (i % 5) * (vis.width / 5))
       .attr("y", (d, i) => Math.floor(i / 5) * 120)
-      .attr("width", 100)
       .attr("height", 100)
-      .on("mouseover", (event, d) => {
+      .on("mouseover", function (event, d) {
+        d3.select(this).style("opacity", 0.75);
         var coverPosition = event.currentTarget.getBoundingClientRect();
         var tooltipX = coverPosition.right;
         var tooltipY = coverPosition.top;
@@ -81,21 +81,41 @@ class TopTrackVis {
         tooltip.transition().duration(0).style("opacity", 0.9);
         tooltip
           .html(
-            `<strong>Rank:</strong> ${d.rank}<br><strong>Artist:</strong> ${d.artist_names}<br><strong>Song:</strong> ${d.track_name}`
+            `<strong>Artist:</strong> ${d.artist_names}<br><strong>Song:</strong> ${d.track_name}`
           )
           .style("left", tooltipX + "px")
           .style("top", tooltipY + "px");
       })
-      .on("mouseout", () => {
+      .on("mouseout", function (event, d) {
+        d3.select(this).style("opacity", 1);
         // Hide tooltip
         tooltip.transition().duration(500).style("opacity", 0);
       })
       .on("click", (event, d) => {
-        console.log("topTrack select: " + d.track_name);
-        selectedSong = d;
+        if (vis.date === "Oct26") {
+          selectedSong = d;
+        } else {
+          selectedSong2 = d;
+          barChart2.updateVis();
+          updateDropdown2();
+          updateSecondAnimation(d);
+          updateSongInfo2(d);
+        }
         barChart.updateVis();
         fullpage_api.moveSectionDown();
       });
+
+    vis.svg
+      .selectAll(".album-rank")
+      .data(vis.displayData)
+      .enter()
+      .append("text")
+      .attr("class", "album-rank")
+      .attr("x", (d, i) => (i % 5) * (vis.width / 5) - 30) // Position to the left of the cover
+      .attr("y", (d, i) => Math.floor(i / 5) * 120 + 50) // Vertically centered with the cover
+      .text((d) => d.rank) // Display the rank
+      .style("font-size", "16px") // Set font size
+      .style("fill", "black"); // Set text color
   }
 }
 

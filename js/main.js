@@ -11,6 +11,7 @@ let barChart2;
 let myClock;
 let streamVisualization;
 let selectedSong = null;
+let selectedSong2 = null;
 let myClock2;
 let myStickFigure2;
 let myEnergyStickFigure2;
@@ -27,8 +28,8 @@ loadData();
 document.addEventListener("DOMContentLoaded", function () {
   // Your JavaScript code here
   let carousel = new bootstrap.Carousel(
-      document.getElementById("stateCarousel"),
-      { interval: false }
+    document.getElementById("stateCarousel"),
+    { interval: false }
   );
 
   // Update this variable inside your dropdown change event handler
@@ -73,8 +74,7 @@ function createVis(data) {
   console.log("Creating visualizations...");
   topTrackVis = new TopTrackVis("albumPage", data, "Oct26");
   topTrackVis2 = new TopTrackVis("albumPage2", data, "Nov2");
-  barChart = new BarChartVis("barChart", data, "Oct26");
-  barChart2 = new BarChartVis("barChart2", data, "Nov2");
+
   myWordCloud = new wordCloud("wordCloud", data, "Nov2");
   myPiano = new Piano(data);
   myClock = new clockVis("#songClock", data);
@@ -108,8 +108,14 @@ function createVis(data) {
   updateVisualization2(defaultCategory2);
   console.log("Visualizations created.");
   selectedSong = data[0]; // Set the selected song to the first song in the data
+  selectedSong2 = data.filter((d) => d.week === "Nov2")[0];
+  console.log("Selected song: " + selectedSong);
   updateDropdown();
+  updateDropdown2();
   updateSectionsVisibility(selectedCategory);
+
+  barChart = new BarChartVis("barChart", data, "Oct26", selectedCategory);
+  barChart2 = new BarChartVis("barChart2", data, "Nov2", selectedCategory2);
 }
 
 updateDropdown = () => {
@@ -132,22 +138,50 @@ updateDropdown = () => {
   }
 };
 
+updateDropdown2 = () => {
+  updateSongInfo2(selectedSong2);
+  if (selectedSong2 && selectedSong2.duration_ms) {
+    myClock2.updateVis(selectedSong2.duration_ms);
+    myClock2.updateSongInfo(selectedSong2); // Update song info label when a song is selected
+
+    // Adjust dance speed if danceability is available
+    if (selectedSong2.danceability) {
+      myStickFigure2.adjustDanceSpeed(selectedSong2.danceability);
+      myStickFigure2.updateDanceabilityLabel(selectedSong2.danceability);
+    }
+
+    // Adjust energy level if energy is available
+    if (selectedSong2 && selectedSong2.energy) {
+      myEnergyStickFigure2.updateEnergyLevel(selectedSong2.energy);
+    }
+  } else {
+    console.error("Invalid song data or missing duration:", selectedSong);
+  }
+};
+
 document.addEventListener("DOMContentLoaded", function () {
   document
-      .getElementById("toggleAnimationButton")
-      .addEventListener("click", () => {
-        // Check if streamVisualization is defined before toggling animation
-        if (streamVisualization) {
-          streamVisualization.toggleAnimation();
-        }
-      });
+    .getElementById("toggleAnimationButton")
+    .addEventListener("click", () => {
+      // Check if streamVisualization is defined before toggling animation
+      if (streamVisualization) {
+        streamVisualization.toggleAnimation();
+      }
+    });
 });
 
 function onChange() {
   value = d3.select("#category").property("value");
   selectedCategory = value;
   updateSectionsVisibility(selectedCategory);
-  barChart.updateVis();
+  barChart.setCategory(selectedCategory);
+}
+
+function onChange2() {
+  value = d3.select("#category2").property("value");
+  selectedCategory2 = value;
+  updateVisualization2(selectedCategory2);
+  barChart2.setCategory(selectedCategory2);
 }
 
 function updateSectionsVisibility(selectedCategory) {
@@ -158,7 +192,7 @@ function updateSectionsVisibility(selectedCategory) {
   document.getElementById("clockSection").style.display = "none";
 
   console.log(
-      "energy display: " + document.getElementById("energySection").style.display
+    "energy display: " + document.getElementById("energySection").style.display
   );
   // Show the relevant section based on selectedCategory
   if (selectedCategory === "danceability") {
@@ -200,20 +234,20 @@ function updateVisualization2(selectedCategory) {
   // Update the visualizations based on the selected category
   if (selectedCategory === "danceability") {
     d3.select("#danceabilitySection2").style("display", "block");
-    if (selectedSong && selectedSong.danceability) {
-      myStickFigure2.adjustDanceSpeed(selectedSong.danceability);
-      myStickFigure2.updateDanceabilityLabel(selectedSong.danceability);
+    if (selectedSong2 && selectedSong2.danceability) {
+      myStickFigure2.adjustDanceSpeed(selectedSong2.danceability);
+      myStickFigure2.updateDanceabilityLabel(selectedSong2.danceability);
     }
   } else if (selectedCategory === "energy") {
     d3.select("#energySection2").style("display", "block");
-    if (selectedSong && selectedSong.energy) {
-      myEnergyStickFigure2.updateEnergyLevel(selectedSong.energy);
+    if (selectedSong2 && selectedSong2.energy) {
+      myEnergyStickFigure2.updateEnergyLevel(selectedSong2.energy);
     }
   } else if (selectedCategory === "duration_ms") {
     d3.select("#clockSection2").style("display", "block");
-    if (selectedSong && selectedSong.duration_ms) {
-      myClock2.updateVis(selectedSong.duration_ms);
-      myClock2.updateSongInfo(selectedSong);
+    if (selectedSong2 && selectedSong2.duration_ms) {
+      myClock2.updateVis(selectedSong2.duration_ms);
+      myClock2.updateSongInfo(selectedSong2);
     } else {
       // Reset the clock to the default state if no song is selected
       myClock2.updateVis(0); // Or any default value you prefer
@@ -221,17 +255,14 @@ function updateVisualization2(selectedCategory) {
   }
 }
 
-
 function updateSecondAnimation(songData) {
   if (selectedCategory2 === "danceability" && myStickFigure2) {
     myStickFigure2.adjustDanceSpeed(songData.danceability);
     myStickFigure2.updateDanceabilityLabel(songData.danceability);
-  }
-  else if (selectedCategory2 === "duration_ms" && myClock2) {
+  } else if (selectedCategory2 === "duration_ms" && myClock2) {
     myClock2.updateVis(songData.duration_ms);
     myClock2.updateSongInfo(songData);
-  }
-  else if (selectedCategory2 === "energy" && myEnergyStickFigure2) {
+  } else if (selectedCategory2 === "energy" && myEnergyStickFigure2) {
     myEnergyStickFigure2.updateEnergyLevel(songData.energy);
   }
 }
@@ -245,7 +276,8 @@ function updateSongInfo2(song) {
   // Convert duration from milliseconds to minutes and seconds
   let durationMinutes = Math.floor(song.duration_ms / 60000);
   let durationSeconds = Math.floor((song.duration_ms % 60000) / 1000);
-  durationSeconds = durationSeconds < 10 ? "0" + durationSeconds : durationSeconds;
+  durationSeconds =
+    durationSeconds < 10 ? "0" + durationSeconds : durationSeconds;
   let durationFormatted = durationMinutes + ":" + durationSeconds;
 
   // Update the song information display for the second set of visualizations
@@ -254,4 +286,3 @@ function updateSongInfo2(song) {
     <span style="color: white;">Artist:</span> ${song.artist_names}<br>
 `);
 }
-
