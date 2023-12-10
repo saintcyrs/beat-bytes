@@ -121,13 +121,16 @@
 
       <!--Piano Visualization-->
       <!--SOURCE: https://codepen.io/gabrielcarol/pen/rGeEbY -->
-      <div class="row section fp-noscroll">
-        <div class="col-md-12">
+      <div class="section fp-noscroll">
+        <h1 style="margin-top: 20px;">Number of Top Songs in Each Key, Oct 26th - Nov 2nd 2023</h1>
+        <h2 style="margin-bottom: -60px;"> A song's key tells us a lot about its mood and tone. 
+          During the week of October 26, the most popular key was C#. <br>
+          Click or hover your mouse over piano and use your keyboard to discover top songs in each key! 
+          <br>
+          Make sure your sound is ON if you want to hear the piano play in real time.</h2>
+        <div class = "row">
+        <div class="col-md-9">
           <div id="pianoVis">
-            <section id="wrap">
-              <!-- TODO: Possibly add in tooltip to display more information upon hover-->
-              <h1>Number of Top Songs in Each Key, Oct 26th - Nov 2nd 2023</h1>
-              <h2> Hover mouse over piano, then use your keyboard to discover top songs in each key!</h2>
               <section id="main">
                 <div class="nowplaying"></div>
                 <div class="keys">
@@ -252,22 +255,18 @@
                   src="http://carolinegabriel.com/demo/js-keyboard/sounds/056.wav"
                 ></audio>
               </section>
-            </section>
             <!--TODO: Figure out what to do with this video -->
-            <video
-              hidden
-              playsinline
-              autoplay
-              muted
-              loop
-              id="bgvid"
-              poster="http://carolinegabriel.com/demo/js-keyboard/video/bg.jpg"
-            >
               <source
                 src="http://carolinegabriel.com/demo/js-keyboard/video/bg.mp4"
                 type="video/mp4"
               />
             </video>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div id="imagesection3" class="right-title key-info">
+            Press a key to get the top songs for that key.
+          </div>
           </div>
         </div>
       </div>
@@ -310,12 +309,27 @@
 
       <div class="section fp-noscroll">
         <!-- Word Cloud Column -->
-        <br> <br>
-        <h1 style="margin-top: 20px;"> On Oct 27, Taylor Swift released a re-recording of her hit album, <i>1989</i> </h1>
-        <h2 style="margin-bottom: -60px;"> She then quickly began to dominate the charts - even more than usual.
-          Below, we've included a look into how Taylor Swift's music charted in comparison to other artists
-        from Oct 26th - Nov 2nd. As you can see, Taylor's a big name in the music scene - literally and figuratively.</h2>
-        <div id="wordCloud"></div>
+        <h1> On Oct 27, Taylor Swift released a re-recording of her hit album, <i>1989</i> </h1>
+        <div class="row">
+          <div class="col-md-9">
+            <h2> She then quickly began to dominate the charts - even more than usual.
+              Below, we've included a look into how Taylor Swift's music charted in comparison to other artists
+            from Oct 26th - Nov 2nd. As you can see, Taylor's a big name in the music scene - literally and figuratively. 
+          <br> <br>
+          According to Spotify, Taylor is a purely 'pop' artist, in contrast, to many other artists being classified under multiple genres.
+          <br>
+          When you filter the word cloud by genre, her name
+          doesn't appear until including 'pop,' which is when her total number of streams dwarf those of every other artist.
+        </h2>
+            <h2 style="margin-bottom: -80px;">Select (using shift and command) the genres on the right to filter the word cloud.</h2>
+            <div id="wordCloud"></div>
+          </div>
+          <div class="col-md-3">
+            <div class="right-title">
+              <select class="genre-select select-area" multiple></select>
+            </div>
+          </div>
+        </div>
       </div>
 
 

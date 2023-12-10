@@ -76,7 +76,7 @@ function createVis(data) {
   topTrackVis2 = new TopTrackVis("albumPage2", data, "Nov2");
 
   myWordCloud = new wordCloud("wordCloud", data, "Nov2");
-  myPiano = new Piano(data);
+  myPiano = new Piano(data, "Oct26");
   myClock = new clockVis("#songClock", data);
   myClock2 = new clockVis("#songClock2", data);
   myStickFigure = new stickFigure("#dancingStickFigure", {}, "Oct26");
