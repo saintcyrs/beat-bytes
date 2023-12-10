@@ -166,7 +166,8 @@ class wordCloud {
   getPrimaryArtist(data) {
     return data.artist_names.split(",")[0];
   }
-
+  
+  // TODO: Get select box to appear
   generateGenreOptions(data) {
     let vis = this;
     // Create set of genres from data

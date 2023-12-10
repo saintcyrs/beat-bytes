@@ -182,10 +182,6 @@ button {
   align-items: flex-start;
 }
 
-#energyStickFigure {
-
-}
-
 #energySection {
   margin-left: -90px;
 }
@@ -300,5 +296,9 @@ h6 {
   width: 90%;
   color: #314149;
   height: 120%;
+}
+
+.select-area {
+  border: 1px solid #314149;
 }
 
