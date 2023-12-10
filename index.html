@@ -254,20 +254,15 @@
               </section>
             </section>
             <!--TODO: Figure out what to do with this video -->
-            <video
-              hidden
-              playsinline
-              autoplay
-              muted
-              loop
-              id="bgvid"
-              poster="http://carolinegabriel.com/demo/js-keyboard/video/bg.jpg"
-            >
               <source
                 src="http://carolinegabriel.com/demo/js-keyboard/video/bg.mp4"
                 type="video/mp4"
               />
             </video>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div id="imagesection" class="right-title">
           </div>
         </div>
       </div>
@@ -308,14 +303,19 @@
         </div>
       </div>
 
-      <div class="section fp-noscroll">
+      <div class="row section fp-noscroll">
         <!-- Word Cloud Column -->
         <br> <br>
         <h1 style="margin-top: 20px;"> On Oct 27, Taylor Swift released a re-recording of her hit album, <i>1989</i> </h1>
         <h2 style="margin-bottom: -60px;"> She then quickly began to dominate the charts - even more than usual.
           Below, we've included a look into how Taylor Swift's music charted in comparison to other artists
         from Oct 26th - Nov 2nd. As you can see, Taylor's a big name in the music scene - literally and figuratively.</h2>
-        <div id="wordCloud"></div>
+        <div class="col-md-6">
+          <div id="wordCloud"></div>
+        </div>
+        <div class="col-md-6">
+          <select class="genre-select" multiple></select>
+        </div>
       </div>
 
 

@@ -11,7 +11,7 @@ class wordCloud {
     this.step = 0;
     // Initialize minimum and maximum to be updated later
     this.minMax = [0, 100];
-    this.displayData = data;
+    this.displayData = this.data.filter((d) => d.week === this.date);
     // TODO: Possibly find another color scheme that looks better with existing theme
     this.genreColorMap = d3.scaleOrdinal(["#1b9e77","#d95f02","#7570b3","#e7298a","#66a61e","#e6ab02","#a6761d","#666666"]);
     this.initVis();
@@ -41,15 +41,13 @@ class wordCloud {
       );
     
     vis.cloud = d3.layout.cloud().size([vis.width, vis.height]);
-
-    // TODO: Add tooltip on hover (# of streams)
+    vis.generateGenreOptions(vis.displayData);
     vis.wrangleData();
   }
 
   wrangleData() {
     let vis = this;
     // Redefine displayData to contain the filtered list of just Nov2 data
-    vis.displayData = vis.data.filter((d) => d.week === vis.date);
     console.log("DISPLAY DATA", vis.displayData);
 
     // Count the number of occurrences for each artist
@@ -167,5 +165,26 @@ class wordCloud {
 
   getPrimaryArtist(data) {
     return data.artist_names.split(",")[0];
+  }
+
+  generateGenreOptions(data) {
+    let vis = this;
+    // Create set of genres from data
+    vis.genres = new Set();
+
+    data.forEach(d=> {
+      let artist_genres = d.artist_genre.split(",");
+      artist_genres.forEach(genre => vis.genres.add(genre));
+    });
+    console.log("GENRES:", vis.genres);
+
+    // Add genres to list
+    let select = d3.select('.genre-select');
+    vis.genres.forEach(genre => {
+      select.append('option')
+        .text(genre)
+        .attr('value', genre);
+  });
+
   }
 }
