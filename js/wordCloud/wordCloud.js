@@ -40,17 +40,24 @@ class wordCloud {
       );
     vis.cloud = d3.layout.cloud().size([vis.width, vis.height]);
     vis.generateGenreOptions(vis.displayData);
+    vis.updateWordCloud();
     vis.wrangleData();
   }
 
-  wrangleData() {
+  wrangleData(selectedGenres = []) {
     let vis = this;
     // Redefine displayData to contain the filtered list of just Nov2 data
     console.log("DISPLAY DATA", vis.displayData);
 
+    vis.filteredData = vis.displayData.filter(d => {
+      // If no genres are selected, or the artist's genre is in the selected genres, include the data point
+      return selectedGenres.length === 0 || d.artist_genre.split(',').some(genre => selectedGenres.includes(genre));
+    });
+
+    console.log("FIlTERED DATA", vis.filteredData);
     // Count the number of occurrences for each artist
     const counts = {};
-    vis.displayData.forEach((d) => {
+    vis.filteredData.forEach((d) => {
       // TODO: Change artist to only be defined by the first artist in artist_names
       const artist = vis.getPrimaryArtist(d);
       counts[artist] = (counts[artist] || 0) + 1;
@@ -96,7 +103,6 @@ class wordCloud {
       .rotate(() => (~~(Math.random() * 2) * 90))
       .font("Impact")
       .fontSize(function(d) {
-        //console.log(d);
         return d.size;})
       .on("end", words => {
         vis.draw(words);
@@ -135,7 +141,6 @@ class wordCloud {
       .attr("transform", d => `translate(${d.x}, ${d.y})rotate(${d.rotate})`)
       .text(d => d.text)
       .on('mouseover', function(event, d) {
-        console.log(event);
         tooltip.transition()
           .duration(200)
           .style("opacity", .9);
@@ -188,10 +193,11 @@ class wordCloud {
   }
   updateWordCloud() {
     let vis = this;
-    d3.select('#genre-select').on('change', function() {
-      let selectedGenres = Array.from(this.selectedOptions, option => option.value);
+    d3.select('.genre-select').on('change', function() {
+      const selectedGenres = Array.from(this.selectedOptions, option => option.value);
+      console.log(selectedGenres);
       // TODO: Figure out how to modify the wrangleData functio to accomodate this
-      wrangleData(selectedGenres);
+      vis.wrangleData(selectedGenres);
     });    
   }
 }

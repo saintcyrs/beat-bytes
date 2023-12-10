@@ -298,7 +298,34 @@ h6 {
   height: 120%;
 }
 
-.select-area {
-  border: 1px solid #314149;
+/* This styles the scrollbar track */
+.genre-select::-webkit-scrollbar-track {
+  background: #c0c9ce; /* The color of the scrollbar track */
+  border-radius: 10px; /* Optional: to make the track corners rounded */
 }
+
+/* This styles the scrollbar thumb (the part that you drag) */
+.genre-select::-webkit-scrollbar-thumb {
+  background: #888; /* The color of the thumb */
+  border-radius: 10px; /* Optional: to make the thumb corners rounded */
+}
+
+/* This handles the hover effect over the scrollbar thumb */
+.genre-select::-webkit-scrollbar-thumb:hover {
+  background: #555; /* The color of the thumb when hovered */
+}
+
+/* This styles the scrollbar itself (width, color) */
+.genre-select::-webkit-scrollbar {
+  width: 10px; /* The width of the entire scrollbar */
+}
+
+.genre-select {
+  scrollbar-width: thin; /* Can be 'thin' or 'auto' */
+  scrollbar-color: #888 #f1f1f1; /* thumb and track color */
+  height: 80%;
+  background-color: #c0c9ce;
+  color:rgb(49, 65, 73);
+}
+
 
