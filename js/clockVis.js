@@ -101,20 +101,22 @@ class clockVis {
     dropdown.selectAll("option").remove();
 
     // Add default option
-    dropdown.append("option")
-        .text("Pick a song here!")
-        .attr("value", "")
-        .attr("disabled", true)
-        .attr("selected", true);
+    dropdown
+      .append("option")
+      .text("Pick a song here!")
+      .attr("value", "")
+      .attr("disabled", true)
+      .attr("selected", true);
 
     // Add song options
-    dropdown.selectAll("option.song")
-        .data(vis.songData)
-        .enter()
-        .append("option")
-        .classed("song", true)
-        .text((d) => d.track_name) // Assuming 'track_name' is the correct field
-        .attr("value", (d, i) => i); // Use the index as the value
+    dropdown
+      .selectAll("option.song")
+      .data(vis.songData)
+      .enter()
+      .append("option")
+      .classed("song", true)
+      .text((d) => d.track_name) // Assuming 'track_name' is the correct field
+      .attr("value", (d, i) => i); // Use the index as the value
   }
 
   updateVis(durationInMilliseconds) {
@@ -156,11 +158,17 @@ class clockVis {
 
     let durationMinutes = Math.floor(song.duration_ms / 60000);
     let durationSeconds = Math.floor((song.duration_ms % 60000) / 1000);
-    durationSeconds = durationSeconds < 10 ? "0" + durationSeconds : durationSeconds;
+    durationSeconds =
+      durationSeconds < 10 ? "0" + durationSeconds : durationSeconds;
     let durationFormatted = durationMinutes + ":" + durationSeconds;
 
-    let labelId = this.svg.node().parentNode.id === "songClock2" ? "songClockLabel2" : "songClockLabel";
-    d3.select(`#${labelId}`).html(`<span style="color: white;">Duration:</span> ${durationFormatted}<br>`);
+    let labelId =
+      this.svg.node().parentNode.id === "songClock2"
+        ? "songClockLabel2"
+        : "songClockLabel";
+    d3.select(`#${labelId}`).html(
+      `<span style="color: white;">Duration:</span> ${durationFormatted} min<br>`
+    );
   }
 
   updateSongInfo(song) {
@@ -177,8 +185,6 @@ class clockVis {
     durationSeconds =
       durationSeconds < 10 ? "0" + durationSeconds : durationSeconds;
 
-    let durationFormatted = durationMinutes + ":" + durationSeconds;
-
     // Update the song information display
     d3.select("#songInfo").html(`
         <span style="color: white;">Track:</span> ${song.track_name}<br>
@@ -186,5 +192,4 @@ class clockVis {
     `);
     this.updateDanceabilityLabel(song);
   }
-
 }

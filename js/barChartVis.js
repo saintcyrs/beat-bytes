@@ -52,6 +52,16 @@ class BarChartVis {
 
     // Filter data based on the specified date and slice the first 25 records
     vis.displayData = vis.data.filter((d) => d.week === vis.date).slice(0, 25);
+    if (vis.category === "duration_ms") {
+      vis.displayData.forEach((d) => {
+        if (d[vis.category] > 60000) {
+          // convert duration_ms to minutes and round to 2 decimal places
+          d.duration = Math.round((d[vis.category] / 60000) * 100) / 100;
+          console.log(d[vis.category]);
+        }
+      });
+    }
+    console.log(vis.displayData);
 
     // Update the visualization
     vis.updateVis();
@@ -60,9 +70,13 @@ class BarChartVis {
   updateVis() {
     let vis = this;
 
+    if (vis.category === "duration_ms") {
+      vis.category = "duration";
+    }
+
     // Update scales
     vis.x.domain(vis.displayData.map((d) => truncate(d.track_name, 20)));
-    vis.y.domain([0, d3.max(vis.displayData, (d) => d[this.category])]);
+    vis.y.domain([0, d3.max(vis.displayData, (d) => d[vis.category])]);
 
     // Update the x-axis
     vis.svg
