@@ -4,18 +4,17 @@ class stickFigure {
     this.date = date;
     this.id = id.replace("#", ""); // Store the ID without the hash
     this.margin = { top: 0, right: 10, bottom: 30, left: 10 }; // Define margins
-    this.width = 400 - this.margin.left - this.margin.right;
+    this.width = 350 - this.margin.left - this.margin.right;
     this.height = 300 - this.margin.top - this.margin.bottom;
 
     this.svg = d3
-        .select(id)
-        .append("svg")
-        .attr("width", this.width + this.margin.left + this.margin.right)
-        .attr("height", this.height + this.margin.top + this.margin.bottom)
-        .append("g")
-        .attr("transform", `translate(${this.margin.left},${this.margin.top})`);
+      .select(id)
+      .append("svg")
+      .attr("width", this.width + this.margin.left + this.margin.right)
+      .attr("height", this.height + this.margin.top + this.margin.bottom)
+      .append("g")
+      .attr("transform", `translate(${this.margin.left},${this.margin.top})`);
 
-    //this.wrangleData();
     this.danceability = (this.data && this.data.danceability) || 0.3; // Default to 0.3 if not provided
     this.adjustDanceSpeed(this.danceability);
 
@@ -23,12 +22,6 @@ class stickFigure {
     this.drawMusicNotes(this.svg);
     this.animateArms(this.svg);
     this.animateBody(this.svg);
-
-    /*this.streamVisualization = new streamVis(
-      "#streamVisElement",
-      "data.csv",
-      this.updateSongDropdown.bind(this)
-    ); */
   }
 
   updateSongDropdown(songData) {
@@ -46,7 +39,6 @@ class stickFigure {
     // Filter data based on the specified date and slice the first 25 records
     vis.displayData = vis.data.filter((d) => d.week === vis.date).slice(0, 25);
     // vis.displayData.sort((a, b) => b[selectedCategory] - a[selectedCategory]);
-
   }
 
   drawStickFigure(svg) {
@@ -55,57 +47,57 @@ class stickFigure {
 
     // Head
     svg
-        .append("circle")
-        .attr("cx", 200)
-        .attr("cy", 60 + yOffset) // Adjust vertical position
-        .attr("r", 20)
-        .style("fill", "#314149")
-        .style("z-index", "1000");
+      .append("circle")
+      .attr("cx", 200)
+      .attr("cy", 60 + yOffset)
+      .attr("r", 20)
+      .style("fill", "#314149")
+      .style("z-index", "1000");
 
     // Body
     svg
-        .append("line")
-        .attr("x1", 200)
-        .attr("y1", 80 + yOffset) // Adjust vertical position
-        .attr("x2", 200)
-        .attr("y2", 160 + yOffset) // Adjust vertical position
-        .style("stroke", "#314149");
+      .append("line")
+      .attr("x1", 200)
+      .attr("y1", 80 + yOffset)
+      .attr("x2", 200)
+      .attr("y2", 160 + yOffset)
+      .style("stroke", "#314149");
 
     // Left Arm
     svg
-        .append("line")
-        .attr("x1", 200)
-        .attr("y1", 100 + yOffset) // Adjust vertical position
-        .attr("x2", 160)
-        .attr("y2", 120 + yOffset) // Adjust vertical position
-        .style("stroke", "#314149");
+      .append("line")
+      .attr("x1", 200)
+      .attr("y1", 100 + yOffset)
+      .attr("x2", 160)
+      .attr("y2", 120 + yOffset)
+      .style("stroke", "#314149");
 
     // Right Arm
     svg
-        .append("line")
-        .attr("x1", 200)
-        .attr("y1", 100 + yOffset) // Adjust vertical position
-        .attr("x2", 240)
-        .attr("y2", 120 + yOffset) // Adjust vertical position
-        .style("stroke", "#314149");
+      .append("line")
+      .attr("x1", 200)
+      .attr("y1", 100 + yOffset)
+      .attr("x2", 240)
+      .attr("y2", 120 + yOffset)
+      .style("stroke", "#314149");
 
     // Left Leg
     svg
-        .append("line")
-        .attr("x1", 200)
-        .attr("y1", 160 + yOffset) // Adjust vertical position
-        .attr("x2", 180)
-        .attr("y2", 200 + yOffset) // Adjust vertical position
-        .style("stroke", "#314149");
+      .append("line")
+      .attr("x1", 200)
+      .attr("y1", 160 + yOffset)
+      .attr("x2", 180)
+      .attr("y2", 200 + yOffset)
+      .style("stroke", "#314149");
 
     // Right Leg
     svg
-        .append("line")
-        .attr("x1", 200)
-        .attr("y1", 160 + yOffset) // Adjust vertical position
-        .attr("x2", 220)
-        .attr("y2", 200 + yOffset) // Adjust vertical position
-        .style("stroke", "#314149");
+      .append("line")
+      .attr("x1", 200)
+      .attr("y1", 160 + yOffset)
+      .attr("x2", 220)
+      .attr("y2", 200 + yOffset)
+      .style("stroke", "#314149");
   }
 
   animateArms(svg) {
@@ -113,14 +105,14 @@ class stickFigure {
 
     const animateArms = () => {
       this.svg
-          .selectAll("line[x1='200'][y1='100']")
-          .transition()
-          .duration(duration / 2)
-          .attr("y2", 100) // Move arms up
-          .transition()
-          .duration(duration / 2)
-          .attr("y2", 120) // Move arms back down
-          .on("end", animateArms);
+        .selectAll("line[x1='200'][y1='100']")
+        .transition()
+        .duration(duration / 2)
+        .attr("y2", 100) // Move arms up
+        .transition()
+        .duration(duration / 2)
+        .attr("y2", 120) // Move arms back down
+        .on("end", animateArms);
     };
 
     animateArms();
@@ -131,17 +123,17 @@ class stickFigure {
 
     const animateBody = () => {
       const partsToAnimate = this.svg.selectAll(
-          "line[x1='200'], circle[cx='200']"
+        "line[x1='200'], circle[cx='200']"
       );
 
       partsToAnimate
-          .transition()
-          .duration(duration / 2)
-          .attr("transform", "rotate(10,200,120)")
-          .transition()
-          .duration(duration / 2)
-          .attr("transform", "rotate(-10,200,120)")
-          .on("end", animateBody);
+        .transition()
+        .duration(duration / 2)
+        .attr("transform", "rotate(10,200,120)")
+        .transition()
+        .duration(duration / 2)
+        .attr("transform", "rotate(-10,200,120)")
+        .on("end", animateBody);
     };
 
     animateBody();
@@ -159,7 +151,7 @@ class stickFigure {
     const minDuration = 300; // Fastest speed
     const maxDuration = 2000; // Slowest speed
     return (
-        maxDuration - ((danceability - 0.3) * (maxDuration - minDuration)) / 0.7
+      maxDuration - ((danceability - 0.3) * (maxDuration - minDuration)) / 0.7
     );
   }
 
@@ -181,24 +173,29 @@ class stickFigure {
   drawMusicNote(svg, x, y) {
     // Simple representation of a music note
     svg
-        .append("text")
-        .attr("x", x)
-        .attr("y", y)
-        .text("♪")
-        .attr("font-family", "Arial")
-        .attr("font-size", "30px")
-        .style("fill", "#314149");
+      .append("text")
+      .attr("x", x)
+      .attr("y", y)
+      .text("♪")
+      .attr("font-family", "Arial")
+      .attr("font-size", "30px")
+      .style("fill", "#314149");
   }
 
   updateDanceabilityLabel(danceability) {
     const danceabilityValue = parseFloat(danceability);
-    const label = document.getElementById(this.id === "dancingStickFigure2" ? "danceabilityLabel2" : "danceabilityLabel");
+    const label = document.getElementById(
+      this.id === "dancingStickFigure2"
+        ? "danceabilityLabel2"
+        : "danceabilityLabel"
+    );
 
     if (!isNaN(danceabilityValue)) {
-      label.innerHTML = `<span style="color: white;">Danceability:</span> ${danceabilityValue.toFixed(3)}`;
+      label.innerHTML = `<span style="color: white;">Danceability:</span> ${danceabilityValue.toFixed(
+        3
+      )}`;
     } else {
       console.error("Invalid danceability value:", danceability);
     }
   }
-
 }

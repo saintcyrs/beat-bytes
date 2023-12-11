@@ -1,5 +1,6 @@
 class clockVis {
   constructor(id, data) {
+    // initialize svg drawing area
     this.svg = d3
       .select(id)
       .append("svg")
@@ -115,8 +116,8 @@ class clockVis {
       .enter()
       .append("option")
       .classed("song", true)
-      .text((d) => d.track_name) // Assuming 'track_name' is the correct field
-      .attr("value", (d, i) => i); // Use the index as the value
+      .text((d) => d.track_name)
+      .attr("value", (d, i) => i);
   }
 
   updateVis(durationInMilliseconds) {
@@ -125,14 +126,14 @@ class clockVis {
     // Validate the duration value
     if (isNaN(durationInMilliseconds) || durationInMilliseconds === undefined) {
       console.error("Invalid duration: ", durationInMilliseconds);
-      return; // Exit the function if duration is not valid
+      return;
     }
 
     // Convert duration from milliseconds to total seconds
     let totalSeconds = durationInMilliseconds / 1000;
 
     // Calculate hours, minutes, and seconds
-    let hours = Math.floor(totalSeconds / 3600) % 12; // Convert to 12-hour format
+    let hours = Math.floor(totalSeconds / 3600) % 12;
     let minutes = Math.floor((totalSeconds % 3600) / 60);
     let seconds = Math.floor(totalSeconds % 60);
 

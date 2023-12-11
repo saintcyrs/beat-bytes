@@ -65,7 +65,6 @@ body {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Add shadow to highlight */
 }
 
-
 button {
   background-color: #8aa4ad;
   color: #fff; /* White text on buttons */
@@ -100,7 +99,8 @@ button {
   font-size: 1em;
 }
 
-#songInfo, #songInfo2 {
+#songInfo,
+#songInfo2 {
   font-size: 22px;
   text-align: left;
   font-family: "Neuton", sans-serif;
@@ -172,48 +172,53 @@ button {
   font-size: 16px;
 }
 
-.danceability-label, .songClockLabel {
+.danceability-label,
+.songClockLabel {
   margin-left: 8px;
 }
 
 #danceabilitySection2 {
-  margin-bottom:-20px;
+  margin-bottom: -20px;
 }
 
 .energy-label {
   align-items: flex-start;
 }
 
-#energyStickFigure, #dancingStickFigure, #songClock {
-
+#energyStickFigure,
+#dancingStickFigure,
+#songClock {
   margin-bottom: 20px;
   align-items: flex-start;
 }
 
-#energyStickFigure, #energyStickFigure2 {
-  margin-left:-65px;
+#energyStickFigure,
+#energyStickFigure2 {
+  margin-left: -73px;
 }
 
 #dancingStickFigure {
-  margin-left:-20px; 
-  margin-bottom: -23px;
+  margin-left: -80px;
+  margin-bottom: -20px;
 }
 
 #dancingStickFigure2 {
-  margin-left:-60px; 
-  margin-bottom: 10px; 
-  margin-top: 30px
+  margin-left: -60px;
+  margin-bottom: 10px;
+  margin-top: 30px;
 }
 
-#songClock, #songClock2 {
+#songClock,
+#songClock2 {
   margin-right: -50px;
 }
 
-#category, #category2 {
+#category,
+#category2 {
   width: 250px;
   text-align: center;
   color: #314149;
-  margin-left:13px;
+  margin-left: 13px;
 }
 
 #dropdown-label {
@@ -242,7 +247,7 @@ h5 {
   pointer-events: none;
   font-style: italic;
   font-size: 26px;
-  color:  #314149;
+  color: #314149;
 }
 
 .big-title {
@@ -296,32 +301,81 @@ h6 {
 }
 
 /* Example: Vary the sizes of individual notes */
-.music-note:nth-child(1) { font-size: 40px; }
-.music-note:nth-child(2) { font-size: 30px; }
-.music-note:nth-child(3) { font-size: 20px; }
-.music-note:nth-child(4) { font-size: 40px; }
-.music-note:nth-child(5) { font-size: 30px; }
-.music-note:nth-child(6) { font-size: 20px; }
-.music-note:nth-child(7) { font-size: 40px; }
-.music-note:nth-child(8) { font-size: 30px; }
-.music-note:nth-child(9) { font-size: 20px; }
-.music-note:nth-child(10) { font-size: 40px; }
-.music-note:nth-child(11) { font-size: 30px; }
-.music-note:nth-child(12) { font-size: 20px; }
-.music-note:nth-child(13) { font-size: 40px; }
-.music-note:nth-child(14) { font-size: 30px; }
-.music-note:nth-child(15) { font-size: 20px; }
-.music-note:nth-child(16) { font-size: 40px; }
-.music-note:nth-child(17) { font-size: 30px; }
-.music-note:nth-child(18) { font-size: 20px; }
-.music-note:nth-child(19) { font-size: 40px; }
-.music-note:nth-child(20) { font-size: 30px; }
-.music-note:nth-child(21) { font-size: 20px; }
-.music-note:nth-child(22) { font-size: 50px; }
-.music-note:nth-child(23) { font-size: 30px; }
-.music-note:nth-child(24) { font-size: 40px; }
+.music-note:nth-child(1) {
+  font-size: 40px;
+}
+.music-note:nth-child(2) {
+  font-size: 30px;
+}
+.music-note:nth-child(3) {
+  font-size: 20px;
+}
+.music-note:nth-child(4) {
+  font-size: 40px;
+}
+.music-note:nth-child(5) {
+  font-size: 30px;
+}
+.music-note:nth-child(6) {
+  font-size: 20px;
+}
+.music-note:nth-child(7) {
+  font-size: 40px;
+}
+.music-note:nth-child(8) {
+  font-size: 30px;
+}
+.music-note:nth-child(9) {
+  font-size: 20px;
+}
+.music-note:nth-child(10) {
+  font-size: 40px;
+}
+.music-note:nth-child(11) {
+  font-size: 30px;
+}
+.music-note:nth-child(12) {
+  font-size: 20px;
+}
+.music-note:nth-child(13) {
+  font-size: 40px;
+}
+.music-note:nth-child(14) {
+  font-size: 30px;
+}
+.music-note:nth-child(15) {
+  font-size: 20px;
+}
+.music-note:nth-child(16) {
+  font-size: 40px;
+}
+.music-note:nth-child(17) {
+  font-size: 30px;
+}
+.music-note:nth-child(18) {
+  font-size: 20px;
+}
+.music-note:nth-child(19) {
+  font-size: 40px;
+}
+.music-note:nth-child(20) {
+  font-size: 30px;
+}
+.music-note:nth-child(21) {
+  font-size: 20px;
+}
+.music-note:nth-child(22) {
+  font-size: 50px;
+}
+.music-note:nth-child(23) {
+  font-size: 30px;
+}
+.music-note:nth-child(24) {
+  font-size: 40px;
+}
 
-#imagesection, #imagesection2{
+#imagesection,
+#imagesection2 {
   font-size: 22px;
   width: 100%;
   color: #314149;
@@ -388,9 +442,8 @@ h6 {
   overflow-y: auto; /* Ensure scrollbar appears if content overflows */
 }
 
-
 .vertical-align {
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
@@ -403,7 +456,7 @@ h6 {
 
 .metric-note {
   font-size: 15px;
-  color:white;
+  color: white;
 }
 
 #quote1 {
@@ -449,7 +502,7 @@ h6 {
 }
 
 #main-title {
-  font-size: 48px
+  font-size: 48px;
 }
 
 #key-notes {
@@ -465,15 +518,15 @@ h6 {
 }
 
 #bar-title-tv {
-  font-size: 34px
+  font-size: 34px;
 }
 
 #bar-notes-tv {
-  margin-right: 40px
+  margin-right: 40px;
 }
 
 #final-subtitle {
-  color:white;
+  color: white;
 }
 
 #lesson {

@@ -25,20 +25,6 @@ let dateParser = d3.timeParse("%Y-%m-%d");
 // (1) Load data with promises
 loadData();
 
-document.addEventListener("DOMContentLoaded", function () {
-  // Your JavaScript code here
-  let carousel = new bootstrap.Carousel(
-    document.getElementById("stateCarousel"),
-    { interval: false }
-  );
-
-  // Update this variable inside your dropdown change event handler
-  document.getElementById("category2").addEventListener("change", function () {
-    selectedCategory2 = this.value;
-    updateVisualization2(selectedCategory2);
-  });
-});
-
 function loadData() {
   d3.csv("data/song-data.csv", (row) => {
     row.acousticness = +row.acousticness;
@@ -64,6 +50,8 @@ function loadData() {
   }).then((csv) => {
     // Store csv data in global variable
     data = csv;
+    selectedSong = data[0];
+    selectedSong2 = data.filter((d) => d.week === "Nov2")[0];
 
     // Draw the visualization for the first time
     createVis(data);
@@ -71,10 +59,8 @@ function loadData() {
 }
 
 function createVis(data) {
-  console.log("Creating visualizations...");
   topTrackVis = new TopTrackVis("albumPage", data, "Oct26");
   topTrackVis2 = new TopTrackVis("albumPage2", data, "Nov2");
-
   myWordCloud = new wordCloud("wordCloud", data, "Nov2");
   myPiano = new Piano(data, "Oct26");
   myClock = new clockVis("#songClock", data);
@@ -83,37 +69,12 @@ function createVis(data) {
   myStickFigure2 = new stickFigure("#dancingStickFigure2", {}, "Nov2");
   myEnergyStickFigure = new energyStickFigure("#energyStickFigure", {});
   myEnergyStickFigure2 = new energyStickFigure("#energyStickFigure2", {});
-  streamVisualization = new streamVis("#stream-vis", data, (songData) => {
-    // Update the dropdown with the selected song
-    const dropdown = document.getElementById("songDropdown");
-    if (dropdown) {
-      dropdown.value = songData.track_name; // Update dropdown value based on the clicked song data
-    }
+  streamVisualization = new streamVis("#stream-vis", data);
 
-    topTrackVis = new TopTrackVis("albumPage", data, "Oct26");
-    topTrackVis2 = new TopTrackVis("albumPage2", data, "Nov2");
-
-    // Adjust dance speed if danceability is available
-    if (songData.danceability) {
-      myStickFigure.adjustDanceSpeed(songData.danceability);
-      myStickFigure.updateDanceabilityLabel(songData.danceability);
-    }
-
-    // Adjust energy level if energy is available
-    if (songData.energy) {
-      myEnergyStickFigure.updateEnergyLevel(songData.energy);
-    }
-  });
-  let defaultCategory2 = "danceability";
-  updateVisualization2(defaultCategory2);
-  console.log("Visualizations created.");
-  selectedSong = data[0]; // Set the selected song to the first song in the data
-  selectedSong2 = data.filter((d) => d.week === "Nov2")[0];
-  console.log("Selected song: " + selectedSong);
   updateDropdown();
   updateDropdown2();
   updateSectionsVisibility(selectedCategory);
-
+  updateVisualization2(selectedCategory2);
   barChart = new BarChartVis("barChart", data, "Oct26", selectedCategory);
   barChart2 = new BarChartVis("barChart2", data, "Nov2", selectedCategory2);
 }
@@ -159,17 +120,6 @@ updateDropdown2 = () => {
   }
 };
 
-document.addEventListener("DOMContentLoaded", function () {
-  document
-    .getElementById("toggleAnimationButton")
-    .addEventListener("click", () => {
-      // Check if streamVisualization is defined before toggling animation
-      if (streamVisualization) {
-        streamVisualization.toggleAnimation();
-      }
-    });
-});
-
 function onChange() {
   value = d3.select("#category").property("value");
   selectedCategory = value;
@@ -205,26 +155,6 @@ function updateSectionsVisibility(selectedCategory) {
   }
 }
 
-/* function updateSectionsVisibility2(selectedCategory) {
-  console.log("Updating sections visibility in taylor section...");
-  // Hide all sections first
-  document.getElementById("danceabilitySection2").style.display = "none";
-  document.getElementById("energySection2").style.display = "none";
-  document.getElementById("clockSection2").style.display = "none";
-
-  console.log(
-      "energy display: " + document.getElementById("energySection").style.display
-  );
-  // Show the relevant section based on selectedCategory
-  if (selectedCategory === "danceability") {
-    document.getElementById("danceabilitySection2").style.display = "block";
-  } else if (selectedCategory === "energy") {
-    document.getElementById("energySection").style.display = "block";
-  } else if (selectedCategory === "duration_ms") {
-    // Assuming 'time' is a category
-    document.getElementById("clockSection2").style.display = "block";
-  }
-}*/
 function updateVisualization2(selectedCategory) {
   // Hide all visualizations first
   d3.select("#danceabilitySection2").style("display", "none");
@@ -286,3 +216,14 @@ function updateSongInfo2(song) {
     <span style="color: white;">Artist:</span> ${song.artist_names}<br>
 `);
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("toggleAnimationButton")
+    .addEventListener("click", () => {
+      // Check if streamVisualization is defined before toggling animation
+      if (streamVisualization) {
+        streamVisualization.toggleAnimation();
+      }
+    });
+});

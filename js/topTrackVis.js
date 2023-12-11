@@ -3,7 +3,6 @@ class TopTrackVis {
     this.parentElement = _parentElement;
     this.data = _data;
     this.date = _date;
-
     this.displayData = data;
 
     this.initVis();
@@ -38,8 +37,8 @@ class TopTrackVis {
   wrangleData() {
     let vis = this;
 
-    vis.displayData = vis.data.filter((d) => d.week === vis.date);
-    vis.displayData = vis.displayData.slice(0, 25);
+    // Filter data based on the specified date and slice the first 25 records
+    vis.displayData = vis.data.filter((d) => d.week === vis.date).slice(0, 25);
 
     // Update the visualization
     vis.updateVis();
@@ -92,33 +91,35 @@ class TopTrackVis {
         tooltip.transition().duration(500).style("opacity", 0);
       })
       .on("click", (event, d) => {
+        // click on the album cover linked to bar chart
         if (vis.date === "Oct26") {
           selectedSong = d;
+          barChart.updateVis();
         } else {
           selectedSong2 = d;
           barChart2.updateVis();
           updateDropdown2();
           updateSecondAnimation(d);
-          updateSongInfo2(d);
         }
-        barChart.updateVis();
         fullpage_api.moveSectionDown();
       });
 
+    // Add album rank
     vis.svg
       .selectAll(".album-rank")
       .data(vis.displayData)
       .enter()
       .append("text")
       .attr("class", "album-rank")
-      .attr("x", (d, i) => (i % 5) * (vis.width / 5) - 30) // Position to the left of the cover
-      .attr("y", (d, i) => Math.floor(i / 5) * 120 + 50) // Vertically centered with the cover
-      .text((d) => d.rank) // Display the rank
-      .style("font-size", "16px") // Set font size
-      .style("fill", "black"); // Set text color
+      .attr("x", (d, i) => (i % 5) * (vis.width / 5) - 30)
+      .attr("y", (d, i) => Math.floor(i / 5) * 120 + 50)
+      .text((d) => d.rank)
+      .style("font-size", "16px")
+      .style("fill", "black");
   }
 }
 
+// Helper function to truncate long song names
 function truncate(str, n) {
   return str.length > n ? str.substr(0, n - 1) + "..." : str;
 }

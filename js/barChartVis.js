@@ -60,11 +60,9 @@ class BarChartVis {
         if (d[vis.category] > 60000) {
           // convert duration_ms to minutes and round to 2 decimal places
           d.duration = Math.round((d[vis.category] / 60000) * 100) / 100;
-          console.log(d[vis.category]);
         }
       });
     }
-    console.log(vis.displayData);
 
     // Update the visualization
     vis.updateVis();
@@ -73,6 +71,7 @@ class BarChartVis {
   updateVis() {
     let vis = this;
 
+    // use updated prop
     if (vis.category === "duration_ms") {
       vis.category = "duration";
     }
@@ -126,6 +125,7 @@ class BarChartVis {
 
     // Remove old bars
     bars.exit().remove();
+    // week 1 bar
     if (vis.date === "Oct26") {
       vis.svg.selectAll(".bar").style("fill", "#8aa4ad");
       vis.svg
@@ -134,6 +134,7 @@ class BarChartVis {
         .style("fill", "#314149");
       updateDropdown();
     } else {
+      // week 2 bar
       vis.svg.selectAll(".bar").style("fill", "#8aa4ad");
       vis.svg
         .selectAll(".bar")
@@ -157,12 +158,12 @@ class BarChartVis {
 
 function truncate(str, n) {
   // Check if the string contains '('
-  const parenthesisIndex = str.indexOf('(');
+  const parenthesisIndex = str.indexOf("(");
 
   // If '(' is found and before the truncation length
   if (parenthesisIndex > -1 && parenthesisIndex < n) {
     // Find the last space before '('
-    const lastSpaceIndex = str.lastIndexOf(' ', parenthesisIndex);
+    const lastSpaceIndex = str.lastIndexOf(" ", parenthesisIndex);
     // If a space is found, truncate up to the space
     if (lastSpaceIndex > -1) {
       return str.substr(0, lastSpaceIndex);
