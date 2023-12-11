@@ -27,22 +27,29 @@
   </head>
   <body>
     <div class="container" id="fullpage">
-      <!-- Section 1, OCT 26-->
+      <!-- Section 1, OCT 19-->
       <!-- Streaming Animation-->
       <div class="row section first">
-        <h1 style="font-size: 48px">Spotify Streaming Data ♪</h1>
+        <h1 id="main-title">Spotify Streaming Data ♪</h1>
         <div class="col-md-12">
-          <h2> Using Spotify data, we were able to delve into the characteristics that make up
-            today's chart-topping hits. Questions like, "How danceable are the most streamed
-            songs?" and "What key do they predominantly use?" were at the forefront of our analysis.
-            But in this rapidly evolving music landscape, we've observed how <i> swiftly </i> trends can shift,
-            especially if a certain blonde superstar has anything to say about it. 
+          <h2>
+            Using Spotify data, we were able to delve into the characteristics
+            that make up today's chart-topping hits. Questions like, "How
+            danceable are the most streamed songs?" and "What key do they
+            predominantly use?" were at the forefront of our analysis. But in
+            this rapidly evolving music landscape, we've observed how
+            <i> swiftly </i> trends can shift, especially if a certain blonde
+            superstar has anything to say about it.
           </h2>
-          <h2> So, if you're wondering, <i> "How quickly can musical trends really change?" </i>
-            let's just say that tastes shift -- even from week to week.
-            Let's take a look. 
+          <h2>
+            So, if you're wondering,
+            <i> "How quickly can musical trends really change?" </i>
+            let's just say that tastes shift -- even from week to week. Let's
+            take a look.
           </h2>
-          <h2> Here are the top streamed songs from Oct 19th - Oct 26th, 2023. </h2>
+          <h2>
+            Here are the top streamed songs from Oct 19th - Oct 26th, 2023.
+          </h2>
           <div id="stream-vis"></div>
         </div>
       </div>
@@ -50,13 +57,16 @@
       <div class="section fp-noscroll">
         <div class="row">
           <div class="col-md-12">
-            <h1>Top 25 Tracks, Oct 19th - Oct 26th, 2023 </h1>
+            <h1>Top 25 Tracks, Oct 19th - Oct 26th, 2023</h1>
             <h2>
-             The top 25 songs from Oct 19th - Oct 26th, pictured below,
-              include a wide variety of artists and albums. Among these, Bad Bunny
-              emerges as a standout with three of his tracks securing spots in the rankings,
-              while Taylor Swift has two tracks in the top 25. <br> <i>Hover and click on each album cover to see more
-                information.</i>
+              The top 25 songs from Oct 19th - Oct 26th, pictured below, include
+              a wide variety of artists and albums. Among these, Bad Bunny
+              emerges as a standout with three of his tracks securing spots in
+              the rankings, while Taylor Swift has two tracks in the top 25.
+              <br />
+              <i
+                >Hover and click on each album cover to see more information.</i
+              >
             </h2>
             <div class="big-title" id="albumPage"></div>
           </div>
@@ -66,8 +76,13 @@
         <div class="row">
           <div class="col-md-9">
             <h1>Top Songs by Category, Oct 19th - Oct 26th, 2023</h1>
-            <h2> In the barchart below, we've included the top 25 songs filterable by three categories - danceability, duration, and energy (via dropdown bar below).
-            Generally, these songs have a 2 to 4 minute duration, and they consistetly have a ranking of over 0.5 for both energy and danceability.</h2>
+            <h2>
+              In the barchart below, we've included the top 25 songs filterable
+              by three categories - danceability, duration, and energy (via
+              dropdown bar below). Generally, these songs have a 2 to 4 minute
+              duration, and they consistetly have a ranking of over 0.5 for both
+              energy and danceability.
+            </h2>
             <div class="row metric-select">
               <select class="form-control" id="category" onchange="onChange()">
                 <option value="danceability">Danceability</option>
@@ -75,62 +90,75 @@
                 <option value="energy">Energy</option>
               </select>
               <!-- label -->
-              <p class="subtitle"> Choose a metric above ... ↑ <br> ... and click a bar below ↓ </p>
+              <p class="subtitle">
+                Choose a metric above ... ↑ <br />
+                ... and click a bar below ↓
+              </p>
             </div>
             <div id="barChart"></div>
           </div>
           <div class="col-md-3">
-            <div class = "vertical-align">
-            <!-- Song Dropdown Column -->
-            <div id="imagesection" class = "right-title" >
-              <div id="songInfo"></div>
-              <!-- Song Danceability-->
-              <div id="danceabilitySection">
-                <div id="danceabilityLabel" class="danceability-label"></div>
-                <div id="danceabilityVis"></div>
-                <div
-                  id="dancingStickFigure"
-                  class="d-flex flex-column align-items-center"
-                ></div>
-                <div>
-                  <p class="metric-note">*Danceability is a metric from Spotify that denotes how “danceable” a song is, with 1.0 being most danceable and 0.0 being least.</p>
+            <div class="vertical-align">
+              <!-- Song Dropdown Column -->
+              <div id="imagesection" class="right-title">
+                <div id="songInfo"></div>
+                <!-- Song Danceability-->
+                <div id="danceabilitySection">
+                  <div id="danceabilityLabel" class="danceability-label"></div>
+                  <div id="danceabilityVis"></div>
+                  <div
+                    id="dancingStickFigure"
+                    class="d-flex flex-column align-items-center"
+                  ></div>
+                  <div>
+                    <p class="metric-note">
+                      *Danceability is a metric from Spotify that denotes how
+                      “danceable” a song is, with 1.0 being most danceable and
+                      0.0 being least.
+                    </p>
+                  </div>
+                </div>
+                <!-- Song Energy -->
+                <div id="energySection">
+                  <div id="energy-label" class="energy-label"></div>
+                  <div id="energyStickFigure"></div>
+                  <div>
+                    <p class="metric-note">
+                      *Energy is a metric from Spotify that denotes how
+                      “energetic” a song is, with 1.0 being most energetic and
+                      0.0 being least.
+                    </p>
+                  </div>
+                </div>
+                <!-- Song Clock Column -->
+                <div id="clockSection">
+                  <div id="songClockLabel" class="songClockLabel"></div>
+                  <div id="songClock"></div>
                 </div>
               </div>
-              <!-- Song Energy -->
-              <div id="energySection">
-                <div id="energy-label" class="energy-label" style="align-items: flex-start;"></div>
-                <div
-                  id="energyStickFigure"
-                ></div>
-                <div>
-                  <p class="metric-note">*Energy is a metric from Spotify that denotes how “energetic” a song is, with 1.0 being most energetic and 0.0 being least.</p>
-                </div>
-              </div>
-              <!-- Song Clock Column -->
-              <div id="clockSection">
-                <div id="songClockLabel" class="songClockLabel"></div>
-                <div
-                  id="songClock">
-                </div>
-              </div>
+            </div>
           </div>
-        </div>
-      </div>
         </div>
       </div>
 
       <!--Piano Visualization-->
       <!--SOURCE: https://codepen.io/gabrielcarol/pen/rGeEbY -->
       <div class="section fp-noscroll">
-        <h1 style="margin-top: 20px;">Number of Top Songs in Each Key, Oct 19th - Oct 26th, 2023</h1>
-        <h2 style="margin-bottom: -60px;"> A song's key tells us a lot about its mood and tone. 
-          During the week of October 19th, the most popular key was C#. <br>
-          <i>Hover your mouse over the piano and use your keyboard and discover the top 5 songs in each key!
-          <br>
-          Make sure your sound is ON if you want to hear the piano play in real time.</i></h2>
-        <div class = "row">
-        <div class="col-md-9">
-          <div id="pianoVis">
+        <h1>Number of Top Songs in Each Key, Oct 19th - Oct 26th, 2023</h1>
+        <h2 id="key-notes">
+          A song's key tells us a lot about its mood and tone. During the week
+          of October 19th, the most popular key was C#. <br />
+          <i
+            >Hover your mouse over the piano and use your keyboard and discover
+            the top 5 songs in each key!
+            <br />
+            Make sure your sound is ON if you want to hear the piano play in
+            real time.</i
+          >
+        </h2>
+        <div class="row">
+          <div class="col-md-9">
+            <div id="pianoVis">
               <section id="main">
                 <div class="nowplaying"></div>
                 <div class="keys">
@@ -255,21 +283,16 @@
                   src="http://carolinegabriel.com/demo/js-keyboard/sounds/056.wav"
                 ></audio>
               </section>
-              <source
-                src="http://carolinegabriel.com/demo/js-keyboard/video/bg.mp4"
-                type="video/mp4"
-              />
-            </video>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="vertical-align">
+              <div class="right-title key-info">
+                Press a key to get the top songs for that key.
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-md-3">
-          <div class = 'vertical-align'>
-          <div class="right-title key-info">
-            Press a key to get the top songs for that key.
-          </div>
-        </div>
-        </div>
-      </div>
       </div>
       <!--SECTION 1 NOV 2-->
       <div class="section fp-noscroll">
@@ -286,11 +309,12 @@
           <span class="music-note">♪</span>
           <span class="music-note">♪</span>
           <span class="music-note">♪</span>
-          <br>
-          <h5 style="color: white;">
-            But things move quickly in the music industry. Let's take a look at the top songs the following week, Oct 27th to Nov 2nd, 2023:
+          <br />
+          <h5 id="transition-slide">
+            But things move quickly in the music industry. Let's take a look at
+            the top songs the following week, Oct 27th to Nov 2nd, 2023:
           </h5>
-          <br>
+          <br />
           <span class="music-note">♪</span>
           <span class="music-note">♪</span>
           <span class="music-note">♪</span>
@@ -308,21 +332,27 @@
 
       <div class="section fp-noscroll">
         <!-- Word Cloud Column -->
-        <h1> On Oct 27th, Taylor Swift released a re-recording of her hit album, <i>1989</i>. </h1>
+        <h1>
+          On Oct 27th, Taylor Swift released a re-recording of her hit album,
+          <i>1989</i>.
+        </h1>
         <div class="row">
           <div class="col-md-9">
-            <h2 style=" margin-bottom: -100px;"> She then began to dominate the charts - even more than usual.
-            Here's a look into how Taylor Swift's music charted in comparison to other artists
-            from Oct 27th - Nov 2nd. According to Spotify, Taylor is a purely 'pop' artist, in contrast to many other artists being classified under multiple genres.
-          However, Taylor Swift is the biggest name across all genres.
-        </h2>
+            <h2 id="wordcloud-notes">
+              She then began to dominate the charts - even more than usual.
+              Here's a look into how Taylor Swift's music charted in comparison
+              to other artists from Oct 27th - Nov 2nd. According to Spotify,
+              Taylor is a purely 'pop' artist, in contrast to many other artists
+              being classified under multiple genres. However, Taylor Swift is
+              the biggest name across all genres.
+            </h2>
             <div id="wordCloud"></div>
           </div>
           <div class="col-md-3">
-            <div class = 'vertical-align'>
-            <div class="right-title">
-              <div class="genre-select select-area" ></div>
-            </div>
+            <div class="vertical-align">
+              <div class="right-title">
+                <div class="genre-select select-area"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -331,12 +361,17 @@
       <div class="section fp-noscroll">
         <div class="col-md-12">
           <div>
-            <h1> Top 25 Tracks, Oct 27th - Nov 2nd, 2023 </h1>
-            <h2> Let's check out the same album cover visualization as before, this time after Taylor's album drop.
-              Between Oct 27th and Nov 2nd, 2023, twenty out of twenty-five of the top songs were by Taylor Swift.
-              Nineteen of these songs were from Taylor's re-released  <i>1989</i>, though <i>Cruel Summer</i> (a previously-released Swift song)
-              is also chart-topping. While the previous album cover visualization had 11 artists occupying the top 12 spots on the chart, now there's only one:
-            (you guessed it) Taylor Swift. </h2>
+            <h1>Top 25 Tracks, Oct 27th - Nov 2nd, 2023</h1>
+            <h2>
+              Let's check out the same album cover visualization as before, this
+              time after Taylor's album drop. Between Oct 27th and Nov 2nd,
+              2023, twenty out of twenty-five of the top songs were by Taylor
+              Swift. Nineteen of these songs were from Taylor's re-released
+              <i>1989</i>, though <i>Cruel Summer</i> (a previously-released
+              Swift song) is also chart-topping. While the previous album cover
+              visualization had 11 artists occupying the top 12 spots on the
+              chart, now there's only one: (you guessed it) Taylor Swift.
+            </h2>
           </div>
           <div id="albumPage2" class="big-title"></div>
         </div>
@@ -345,90 +380,110 @@
       <div class="section fp-noscroll">
         <div class="row">
           <div class="col-md-9">
-            <h2 style="font-size: 34px">Top Songs by Category (Taylor's Version)</h2>
-            <h2 style="margin-right: 40px"> We've included the same barchart, only now with data from a week later. Many of Taylor's songs (outlined in black) are over 4 minutes, though some fall well under 3 minutes. 
-              Her songs' energies are on average lower,
-              while their danceabilities are normally over 0.5 (like last week's data).</h2>
-              <div class="row metric-select">
-                <select class="form-control" id="category2" onchange="onChange2()">
-                  <option value="danceability">Danceability</option>
-                  <option value="duration_ms">Duration</option>
-                  <option value="energy">Energy</option>
-                </select>
-                <!-- label -->
-                <p class="subtitle"> Choose a metric above ... ↑ <br> ... and click a bar below ↓ </p>
-              </div>
+            <h2 id="bar-title-tv">Top Songs by Category (Taylor's Version)</h2>
+            <h2 id="bar-notes-tv">
+              We've included the same barchart, only now with data from a week
+              later. Many of Taylor's songs (outlined in black) are over 4
+              minutes, though some fall well under 3 minutes. Her songs'
+              energies are on average lower, while their danceabilities are
+              normally over 0.5 (like last week's data).
+            </h2>
+            <div class="row metric-select">
+              <select
+                class="form-control"
+                id="category2"
+                onchange="onChange2()"
+              >
+                <option value="danceability">Danceability</option>
+                <option value="duration_ms">Duration</option>
+                <option value="energy">Energy</option>
+              </select>
+              <!-- label -->
+              <p class="subtitle">
+                Choose a metric above ... ↑ <br />
+                ... and click a bar below ↓
+              </p>
+            </div>
             <div id="barChart2"></div>
           </div>
           <div class="col-md-3">
-            <div class = "vertical-align">
-
-            <!-- animations #2 -->
-            <div id="imagesection2" class="right-title">
-              <div id="songInfo2"></div>
-              <!-- Song Danceability-->
-              <div id="danceabilitySection2" style="margin-bottom:-20px;">
-                <div id="danceabilityLabel2" class="danceability-label"></div>
-                <div id="danceabilityVis2"></div>
-                <div
-                        style="margin-left:-60px; margin-bottom: 10px; margin-top: 30px"
-                        id="dancingStickFigure2"
-                        class="d-flex flex-column align-items-center"
-                ></div>
-                <div>
-                  <p class="metric-note">*Danceability is a metric from Spotify that denotes how “danceable” a song is, with 1.0 being most danceable and 0.0 being least.</p>
+            <div class="vertical-align">
+              <!-- animations #2 -->
+              <div id="imagesection2" class="right-title">
+                <div id="songInfo2"></div>
+                <!-- Song Danceability-->
+                <div id="danceabilitySection2">
+                  <div id="danceabilityLabel2" class="danceability-label"></div>
+                  <div id="danceabilityVis2"></div>
+                  <div
+                    id="dancingStickFigure2"
+                    class="d-flex flex-column align-items-center"
+                  ></div>
+                  <div>
+                    <p class="metric-note">
+                      *Danceability is a metric from Spotify that denotes how
+                      “danceable” a song is, with 1.0 being most danceable and
+                      0.0 being least.
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <!-- Song Energy -->
-              <div id="energySection2">
-                <div id="energy-label2" class="energy-label"></div>
-                <div
-                        id="energyStickFigure2"
-                ></div>
-                <div>
-                  <p class="metric-note">*Energy is a metric from Spotify that denotes how “energetic” a song is, with 1.0 being most energetic and 0.0 being least.</p>
+                <!-- Song Energy -->
+                <div id="energySection2">
+                  <div id="energy-label2" class="energy-label"></div>
+                  <div id="energyStickFigure2"></div>
+                  <div>
+                    <p class="metric-note">
+                      *Energy is a metric from Spotify that denotes how
+                      “energetic” a song is, with 1.0 being most energetic and
+                      0.0 being least.
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <!-- Song Clock Column -->
-              <div id="clockSection2">
-                <div id="songClockLabel2" class="songClockLabel"></div>
-                <div id="songClock2"></div>
+                <!-- Song Clock Column -->
+                <div id="clockSection2">
+                  <div id="songClockLabel2" class="songClockLabel"></div>
+                  <div id="songClock2"></div>
+                </div>
               </div>
             </div>
           </div>
-          </div>
         </div>
       </div>
-
 
       <!--Final screen-->
       <div class="section fp-noscroll">
-        <h6 style="transform: translateY(-5px);">  ♪ Karma is my boyfriend ♪ </h6>
-        <h6 style="transform: translateX(35px) translateY(75px);"> ♪ Cause if I was a man, then I’d be the man ♪ </h6>
-        <h6 style="transform: translateX(335px) translateY(-20px);">  ♪ Shake it off ♪ </h6>
-        <h6 style="transform: translateX(535px);"> ♪ I knew you were trouble when you walked in ♪ </h6>
-        <h6 style="transform: translateX(635px) translateY(-150px);"> ♪ Darling, I'm a nightmare dressed like a daydream ♪ </h6>
+        <h6 id="quote7">♪ Karma is my boyfriend ♪</h6>
+        <h6 id="quote8">♪ Cause if I was a man, then I’d be the man ♪</h6>
+        <h6 id="quote9">♪ Shake it off ♪</h6>
+        <h6 id="quote10">♪ I knew you were trouble when you walked in ♪</h6>
+        <h6 id="quote11">
+          ♪ Darling, I'm a nightmare dressed like a daydream ♪
+        </h6>
         <div class="big-title" id="title">
-            <h5 style="font-size: 40px;"> Music changes fast! Especially when an artist like Taylor Swift is at the wheel </h5>
-            <h2 style="color: white;">
-             Luckily, she's not going anywhere anytime soon.
-            </h2>
-            <h2 style="font-size: 20px;">
-            So what have we learned? It turns out one artist can make all the difference. A single album drop can transform
-              the music scene, changing what (basically everyone) listens to. And when it comes to your own listening, challenge yourself to
-              listen to the artists and genres whom you discovered through our project. Regardless, hats off to Taylor - she impresses us all to no end.
+          <h1>
+            Music changes fast! Especially when an artist like Taylor Swift is
+            at the wheel.
+          </h1>
+          <h2 id="final-subtitle">
+            Luckily, she's not going anywhere anytime soon.
+          </h2>
+          <h2 id="lesson">
+            So what have we learned? It turns out one artist can make all the
+            difference. A single album drop can transform the music scene,
+            changing what (basically everyone) listens to. And when it comes to
+            your own listening, challenge yourself to listen to the artists and
+            genres whom you discovered through our project. Regardless, hats off
+            to Taylor - she impresses us all to no end.
           </h2>
         </div>
-        <h6 style="transform: translateY(5px) translateX(40px);">  ♪ I don't know about you, but I'm feeling 22 ♪ </h6>
-        <h6 style="transform: translateX(235px) translateY(40px);">  ♪ It's me, hi, I'm the problem, it's me ♪ </h6>
-        <h6 style="transform: translateY(80px) translateX(535px);"> ♪ We were both young when I first saw you ♪ </h6>
-        <h6 style="transform: translateY(-105px) translateX(735px);">  ♪ You belong with me ♪ </h6>
-        <h6 style="transform: translateY(-90px) translateX(900px);"> ♪ We never go out of style ♪ </h6>
-        <h6 style="transform: translateY(5px) translateX(40px);">  ♪ She’s never gonna love you like I want to ♪ </h6>
-
+        <h6 id="quote1">♪ I don't know about you, but I'm feeling 22 ♪</h6>
+        <h6 id="quote2">♪ It's me, hi, I'm the problem, it's me ♪</h6>
+        <h6 id="quote3">♪ We were both young when I first saw you ♪</h6>
+        <h6 id="quote4">♪ You belong with me ♪</h6>
+        <h6 id="quote5">♪ We never go out of style ♪</h6>
+        <h6 id="quote6">♪ She’s never gonna love you like I want to ♪</h6>
       </div>
     </div>
-
 
     <!-- Load JS libraries -->
     <script
@@ -444,11 +499,9 @@
     <script src="js/stickFigure.js"></script>
     <script src="js/energyStickFigure.js"></script>
     <script src="js/musicSheetScatter.js"></script>
-    <!--<script src="js/pianoVis.js"></script>-->
     <script src="js/topTrackVis.js"></script>
     <script src="js/barChartVis.js"></script>
     <script src="js/piano.js"></script>
-    <!--<script src="js/quoteVis.js"></script>-->
     <!-- Word Cloud -->
     <script src="js/wordCloud/d3.layout.cloud.js"></script>
     <script src="js/wordCloud/wordCloud.js"></script>

@@ -176,6 +176,14 @@ button {
   margin-left: 8px;
 }
 
+#danceabilitySection2 {
+  margin-bottom:-20px;
+}
+
+.energy-label {
+  align-items: flex-start;
+}
+
 #energyStickFigure, #dancingStickFigure, #songClock {
 
   margin-bottom: 20px;
@@ -189,6 +197,12 @@ button {
 #dancingStickFigure {
   margin-left:-20px; 
   margin-bottom: -23px;
+}
+
+#dancingStickFigure2 {
+  margin-left:-60px; 
+  margin-bottom: 10px; 
+  margin-top: 30px
 }
 
 #songClock, #songClock2 {
@@ -392,3 +406,76 @@ h6 {
   color:white;
 }
 
+#quote1 {
+  transform: translateY(5px) translateX(40px);
+}
+#quote2 {
+  transform: translateX(235px) translateY(40px);
+}
+#quote3 {
+  transform: translateY(80px) translateX(535px);
+}
+
+#quote4 {
+  transform: translateY(-105px) translateX(735px);
+}
+
+#quote5 {
+  transform: translateY(-90px) translateX(900px);
+}
+
+#quote6 {
+  transform: translateY(5px) translateX(40px);
+}
+
+#quote7 {
+  transform: translateY(-5px);
+}
+
+#quote8 {
+  transform: translateX(35px) translateY(75px);
+}
+
+#quote9 {
+  transform: translateX(335px) translateY(-20px);
+}
+
+#quote10 {
+  transform: translateX(535px);
+}
+
+#quote11 {
+  transform: translateX(635px) translateY(-150px);
+}
+
+#main-title {
+  font-size: 48px
+}
+
+#key-notes {
+  margin-bottom: -60px;
+}
+
+#transition-slide {
+  color: white;
+}
+
+#wordcloud-notes {
+  margin-bottom: -100px;
+}
+
+#bar-title-tv {
+  font-size: 34px
+}
+
+#bar-notes-tv {
+  margin-right: 40px
+}
+
+#final-subtitle {
+  color:white;
+}
+
+#lesson {
+  font-size: 20px;
+}
