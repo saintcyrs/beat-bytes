@@ -10,3 +10,8 @@ Or visit https://saintcyrs.github.io/beat-bytes
 
 Libraries:
 Used FullPage.js for slideshow effect
+Used WordCloud Library and based code on https://github.com/iankelk/iankelk.github.io/blob/main/project/visuals/wordcloud/js/wordcloud.js
+Piano visualization based on https://codepen.io/gabrielcarol/pen/rGeEbY
+
+Data Description:
+https://docs.google.com/spreadsheets/d/1apEAtxi4cjIeJanni4YOqhoqANy728X76MGhdX-7a6o/edit?usp=sharing

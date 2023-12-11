@@ -135,15 +135,11 @@ function onChange2() {
 }
 
 function updateSectionsVisibility(selectedCategory) {
-  console.log("Updating sections visibility...");
   // Hide all sections first
   document.getElementById("danceabilitySection").style.display = "none";
   document.getElementById("energySection").style.display = "none";
   document.getElementById("clockSection").style.display = "none";
 
-  console.log(
-    "energy display: " + document.getElementById("energySection").style.display
-  );
   // Show the relevant section based on selectedCategory
   if (selectedCategory === "danceability") {
     document.getElementById("danceabilitySection").style.display = "block";
