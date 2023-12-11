@@ -12,12 +12,12 @@ class TopTrackVis {
   initVis() {
     let vis = this;
 
-    vis.margin = { top: 20, right: 0, bottom: 10, left: 50 };
+    vis.margin = { top: 10, right: 0, bottom: 0, left: 80 };
     vis.width =
       document.getElementById(vis.parentElement).getBoundingClientRect().width -
       vis.margin.left -
       vis.margin.right;
-    vis.height = 1000 - vis.margin.top - vis.margin.bottom;
+    vis.height = 600 - vis.margin.top - vis.margin.bottom;
 
     // SVG drawing area
     vis.svg = d3

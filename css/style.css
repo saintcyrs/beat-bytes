@@ -1,5 +1,5 @@
 body {
-  background-color: #c0c9ce; /* Spotify's dark background */
+  background-color: #c0c9ce;
   color: #fff; /* White text color for contrast */
   font-family: "Neuton", sans-serif; /* Using Neuton font */
 }
@@ -182,15 +182,24 @@ button {
   align-items: flex-start;
 }
 
-#energySection {
-  margin-left: -90px;
+#energyStickFigure, #energyStickFigure2 {
+  margin-left:-65px;
 }
 
-#category {
+#dancingStickFigure {
+  margin-left:-20px; 
+  margin-bottom: -23px;
+}
+
+#songClock, #songClock2 {
+  margin-right: -50px;
+}
+
+#category, #category2 {
   width: 250px;
   text-align: center;
   color: #314149;
-  margin-left: -10px;
+  margin-left:13px;
 }
 
 #dropdown-label {
@@ -225,8 +234,6 @@ h5 {
 .big-title {
   background-color: #8aa4ad;
   border-radius: 15px; /* Adjust for more or less rounded corners */
-  padding: 20px;
-  margin: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for a "lifted" effect */
 }
 
@@ -234,7 +241,16 @@ h5 {
   background-color: #8aa4ad;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for a "lifted" effect */
-  height: 100%;
+  border-radius: 15px;
+  height: auto;
+}
+
+.big-title {
+  background-color: #8aa4ad;
+  border-radius: 15px; /* Adjust for more or less rounded corners */
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for a "lifted" effect */
 }
 
 h2 {
@@ -293,9 +309,9 @@ h6 {
 
 #imagesection, #imagesection2{
   font-size: 22px;
-  width: 90%;
+  width: 100%;
   color: #314149;
-  height: 120%;
+  height: auto;
 }
 
 /* This styles the scrollbar track */
@@ -320,12 +336,59 @@ h6 {
   width: 10px; /* The width of the entire scrollbar */
 }
 
+.genre-select .genre-checkbox {
+  /* Checkbox appearance */
+  width: 20px; /* width of the checkbox */
+  height: 20px; /* height of the checkbox */
+  margin-right: 10px; /* space between checkbox and label */
+
+  /* Customization for the checkbox appearance */
+  border-radius: 4px; /* rounded corners */
+  border: 2px solid #557a95; /* border color */
+  background-color: white; /* background color of the checkbox */
+
+  /* Adjusting the cursor to pointer to indicate clickable area */
+  cursor: pointer;
+}
+
+/* Style for the genre label */
+.genre-select .genre-label {
+  display: block; /* makes each label + checkbox appear on a new line */
+  font-size: 14px; /* text size */
+  cursor: pointer; /* change cursor to pointer to indicate clickable area */
+}
+
+/* Additional styling when the checkbox is checked */
+.genre-select .genre-checkbox:checked {
+  background-color: #557a95; /* background color when checked */
+}
+
+/* Custom scrollbar styling */
 .genre-select {
   scrollbar-width: thin; /* Can be 'thin' or 'auto' */
   scrollbar-color: #888 #f1f1f1; /* thumb and track color */
-  height: 80%;
-  background-color: #c0c9ce;
-  color:rgb(49, 65, 73);
+  height: 500px;
+  background-color: #8aa4ad;
+  color: rgb(49, 65, 73);
+  font-size: 15px;
+  overflow-y: auto; /* Ensure scrollbar appears if content overflows */
 }
 
+
+.vertical-align {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.metric-select {
+  display: flex;
+  justify-content: left;
+}
+
+.metric-note {
+  font-size: 15px;
+  color:white;
+}
 

@@ -12,9 +12,12 @@ class BarChartVis {
     let vis = this;
 
     // Margins and dimensions
-    vis.margin = { top: 20, right: 0, bottom: 200, left: 60 };
-    vis.width = 800 - vis.margin.left - vis.margin.right;
-    vis.height = 500 - vis.margin.top - vis.margin.bottom;
+    vis.margin = { top: 20, right: 0, bottom: 200, left: 30 };
+    vis.width =
+      document.getElementById(vis.parentElement).getBoundingClientRect().width -
+      vis.margin.left -
+      vis.margin.right;
+    vis.height = 650 - vis.margin.top - vis.margin.bottom;
 
     // SVG drawing area
     vis.svg = d3
@@ -75,7 +78,7 @@ class BarChartVis {
     }
 
     // Update scales
-    vis.x.domain(vis.displayData.map((d) => truncate(d.track_name, 20)));
+    vis.x.domain(vis.displayData.map((d) => truncate(d.track_name, 15)));
     vis.y.domain([0, d3.max(vis.displayData, (d) => d[vis.category])]);
 
     // Update the x-axis
@@ -115,7 +118,7 @@ class BarChartVis {
       })
       .transition()
       .duration(1000)
-      .attr("x", (d) => vis.x(truncate(d.track_name, 20)))
+      .attr("x", (d) => vis.x(truncate(d.track_name, 15)))
       .attr("width", vis.x.bandwidth())
       .attr("y", (d) => vis.y(d[this.category]))
       .attr("height", (d) => vis.height - vis.y(d[this.category]))
@@ -136,7 +139,7 @@ class BarChartVis {
         .selectAll(".bar")
         .filter((d, i) => d.artist_names === "Taylor Swift")
         .style("stroke", (d) => "black")
-        .style("stroke-width", (d) => 1);
+        .style("stroke-width", (d) => 2);
       vis.svg
         .selectAll(".bar")
         .filter((d, i) => i === selectedSong2.rank - 1)
@@ -153,5 +156,19 @@ class BarChartVis {
 }
 
 function truncate(str, n) {
+  // Check if the string contains '('
+  const parenthesisIndex = str.indexOf('(');
+
+  // If '(' is found and before the truncation length
+  if (parenthesisIndex > -1 && parenthesisIndex < n) {
+    // Find the last space before '('
+    const lastSpaceIndex = str.lastIndexOf(' ', parenthesisIndex);
+    // If a space is found, truncate up to the space
+    if (lastSpaceIndex > -1) {
+      return str.substr(0, lastSpaceIndex);
+    }
+  }
+
+  // Original truncation if '(' not found or no space before it within the limit
   return str.length > n ? str.substr(0, n - 1) + "..." : str;
 }

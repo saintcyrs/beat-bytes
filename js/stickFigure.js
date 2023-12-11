@@ -5,7 +5,7 @@ class stickFigure {
     this.id = id.replace("#", ""); // Store the ID without the hash
     this.margin = { top: 0, right: 10, bottom: 30, left: 10 }; // Define margins
     this.width = 400 - this.margin.left - this.margin.right;
-    this.height = 500 - this.margin.top - this.margin.bottom;
+    this.height = 300 - this.margin.top - this.margin.bottom;
 
     this.svg = d3
         .select(id)

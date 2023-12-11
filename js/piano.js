@@ -24,8 +24,7 @@ class Piano {
   // Set up key counts 
   wrangleData() {
     let vis = this;
-      // TODO: Set up top 3 songs for each key
-      // TODO: Search through the data and find the top 3 songs for each key
+
       // Object to hold top 3 songs for each key
       vis.topSongs = {};
 
@@ -50,7 +49,7 @@ class Piano {
 
       // Sort the array by streams (or another attribute) and keep only top 3
       // Assuming 'streams' is a property in your data
-      vis.topSongs[key] = vis.topSongs[key].sort((a, b) => b.streams - a.streams).slice(0, 3);
+      vis.topSongs[key] = vis.topSongs[key].sort((a, b) => b.streams - a.streams).slice(0, 5);
     });
 
       console.log("Top Songs by Key", vis.topSongs);

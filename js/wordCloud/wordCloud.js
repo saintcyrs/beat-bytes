@@ -12,8 +12,12 @@ class wordCloud {
     // Initialize minimum and maximum to be updated later
     this.minMax = [0, 100];
     this.displayData = this.data.filter((d) => d.week === this.date);
-    // TODO: Possibly find another color scheme that looks better with existing theme
-    this.genreColorMap = d3.scaleOrdinal(["#1b9e77","#d95f02","#7570b3","#e7298a","#66a61e","#e6ab02","#a6761d","#666666"]);
+    this.genreColorMap = d3.scaleOrdinal( [
+      "#645c9b", "#8e398d", "#698a8c", "#5e9178", "#915272", "#8a5274",
+      "#833cc6", "#5599be", "#4787b5", "#5860aa", "#9855a4", "#918072",
+      "#799965", "#8934a2", "#863e80", "#3869b8", "#789176", "#447dc4",
+      "#7a7a8f", "#5540a7"
+      ]);
     this.initVis();
   }
 
@@ -41,24 +45,21 @@ class wordCloud {
     vis.cloud = d3.layout.cloud().size([vis.width, vis.height]);
     vis.generateGenreOptions(vis.displayData);
     vis.updateWordCloud();
-    vis.wrangleData();
   }
 
-  wrangleData(selectedGenres = []) {
+  wrangleData(selectedGenres) {
+    console.log(selectedGenres)
     let vis = this;
     // Redefine displayData to contain the filtered list of just Nov2 data
-    console.log("DISPLAY DATA", vis.displayData);
 
     vis.filteredData = vis.displayData.filter(d => {
       // If no genres are selected, or the artist's genre is in the selected genres, include the data point
-      return selectedGenres.length === 0 || d.artist_genre.split(',').some(genre => selectedGenres.includes(genre));
+      return d.artist_genre.split(',').some(genre => selectedGenres.includes(genre));
     });
 
-    console.log("FIlTERED DATA", vis.filteredData);
     // Count the number of occurrences for each artist
     const counts = {};
     vis.filteredData.forEach((d) => {
-      // TODO: Change artist to only be defined by the first artist in artist_names
       const artist = vis.getPrimaryArtist(d);
       counts[artist] = (counts[artist] || 0) + 1;
     });
@@ -76,8 +77,6 @@ class wordCloud {
         originalColor: vis.genreColorMap(primaryGenre) // Set the original color here
       };
     });
-    
-    console.log("PROCESSED DATA", vis.processedData);
     // Calculate the min and max counts
     let min = Infinity,
         max = -Infinity;
@@ -89,7 +88,7 @@ class wordCloud {
     vis.wordScale = d3.scaleLinear().domain(vis.minMax).range([20, 80]);
     vis.showNewWords();
   }
-
+  
   // Encapsulate the word cloud functionality
   showNewWords() {
     let vis = this;
@@ -170,34 +169,63 @@ class wordCloud {
     return data.artist_names.split(",")[0];
   }
 
-  // TODO: Get select box to appear
   generateGenreOptions(data) {
     let vis = this;
     // Create set of genres from data
-    vis.genres = new Set();
+    vis.genres = new Set(data.map(d => d.artist_genre.split(",")).flat());
 
-    data.forEach(d=> {
-      let artist_genres = d.artist_genre.split(",");
-      artist_genres.forEach(genre => vis.genres.add(genre));
-    });
-    console.log("GENRES:", vis.genres);
+    // Select the container where checkboxes will be appended
+    const container = d3.select('.genre-select')
+        .style('overflow-y', 'scroll') // Add vertical scrollbar
+        .style('max-height', '500px'); // Set a maximum height
 
-    // Add genres to list
-    let select = d3.select('.genre-select');
+    // Add 'All' checkbox first and set it to checked by default
+    let allLabel = container.append('label')
+    .attr('class', 'genre-label');
+
+    allLabel.append('input')
+      .attr('type', 'checkbox')
+      .attr('value', 'all')
+      .attr('checked', true) // Set checked attribute
+      .attr('class', 'genre-checkbox')
+      .on('change', function() {
+          // When 'All' is checked or unchecked, update all checkboxes
+          const isChecked = d3.select(this).property('checked');
+          d3.selectAll('.genre-checkbox').property('checked', isChecked);
+          vis.updateWordCloud();
+      });
+
+    allLabel.append('span').text(' all');
+    container.append('br'); // Line break after 'All'
+
+
+    // Add checkboxes and labels for other genres
     vis.genres.forEach(genre => {
-      select.append('option')
-        .text(genre)
-        .attr('value', genre);
-  });
+        if (genre !== "All") {
+            let label = container.append('label')
+                .attr('class', 'genre-label');
 
-  }
+            label.append('input')
+                .attr('type', 'checkbox')
+                .attr('value', genre)
+                .attr('checked', true)
+                .attr('class', 'genre-checkbox')
+                .on('change', function() {
+                    vis.updateWordCloud();
+                });
+
+            label.append('span')
+                .text(` ${genre}`);
+
+            container.append('br'); // Line break after each genre
+        }
+    });
+}
+
   updateWordCloud() {
     let vis = this;
-    d3.select('.genre-select').on('change', function() {
-      const selectedGenres = Array.from(this.selectedOptions, option => option.value);
-      console.log(selectedGenres);
-      // TODO: Figure out how to modify the wrangleData functio to accomodate this
-      vis.wrangleData(selectedGenres);
-    });    
+    const selectedGenres = d3.selectAll('.genre-checkbox:checked').nodes()
+      .map(node => node.value);
+    vis.wrangleData(selectedGenres);
   }
 }
